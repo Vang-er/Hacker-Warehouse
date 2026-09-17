@@ -1,0 +1,32 @@
+body{
+    background-color:#071A12;
+      font-family: "BioRhyme", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+#log_in_box{
+    border:solid #1F6F4A;
+    background-color: #0a3a20;
+    position: absolute;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius:20px ;
+    box-shadow: 0 0 20px 20px  #166534
+    ;
+}
+#wel_ag{
+    text-align: center;
+    font-size: 40px;
+    color: #D1FAE5;
+}
+.labels_log{
+    display: inline;
+    color:#D1FAE5;
+    
+    
+}
