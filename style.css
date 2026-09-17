@@ -109,7 +109,7 @@ a:hover{
     width: 50%;
     opacity: 1;
 }
-#next{
+#next, #back, #submit{
         background-color: #071A12;
     color:#D1FAE5;
     border: 2px black solid;
@@ -127,3 +127,18 @@ a:hover{
 #next:hover{
     transform: scale(1.1);
 }
+#back:hover{
+    transform: scale(1.1);
+}
+#buttoms{
+    display: flex;
+    justify-content: space-around;
+}
+#submit:hover{
+   transform: scale(1.1);
+}
+/*
+#submit{
+  display: none;
+}
+  */

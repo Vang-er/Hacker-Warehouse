@@ -1,63 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haker Warehouse</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@200..800&family=Bubblegum+Sans&family=Chivo+Mono:ital,wght@0,100..900;1,100..900&family=Mogra&family=Passero+One&family=Sigmar&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
-<link rel="icon" href="imgs/m5zon.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@200..800&family=Bubblegum+Sans&family=Chivo+Mono:ital,wght@0,100..900;1,100..900&family=Mogra&family=Passero+One&family=Sigmar&family=ZCOOL+KuaiLe&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="imgs/m5zon.png">
 
 </head>
+
 <body>
-    
+
     <div id="left"></div>
     <div id="log_in_box">
-        
+
         <br>
         <p id="wel_ag">Welcome again</p>
-        <label class="labels_log">Email</label>
-        <br>
-        <input type="email" name="email" placeholder="example@gmail.com" class="input_log">
-        <br>
-        <label class="labels_log">Password</label>
-        <br>
-        <input type="password" name="password" placeholder="...." class="input_log">
-        <br>
-        <br>
-        <p id="forgit">Forget your password?<a href="#">click Here</a></p>
-        <input type="submit" id="log_submit">
-        <p id="new">New here? then <span id="sign_up" onclick="newuser()">sign up</span></p>
+        <form onsubmit="main(event)">
+            <label class="labels_log">Email</label>
+            <br>
+            <input type="email" name="email" placeholder="example@gmail.com" class="input_log" required>
+            <br>
+            <label class="labels_log">Password</label>
+            <br>
+            <input type="password" minlength="6" name="password" placeholder="Password" class="input_log" required>
+            <br>
+            <br>
+            <p id="forgit">Forget your password?<a href="#">click Here</a></p>
+            <input type="submit"  id="log_submit">
+            <p id="new">New here? then <span id="sign_up" onclick="newuser()">sign up</span></p>
+        </form>
+
     </div>
 
 
 
-        <div id="sign_up_box">
-        
+    <div id="sign_up_box">
+
         <br>
         <p id="wel_ag">Welcome</p>
-        <label class="labels_log" id="mail">Email</label>
-        <br>
-        <input type="email" name="email" id="input_mail" placeholder="example@gmail.com" class="input_log">
-        <br>
-        <label id="create_pass_lab" class="labels_log">Create Password</label>
-        <br>
-        <input id="pass1" type="password" name="password" placeholder="...." class="input_log">
-        <br>
-        <label id="confirm_pass" class="labels_log">Confirm Password</label>
-        <br>
-        <input id="confirm_pass_input" type="password" name="password" placeholder="...." class="input_log">
-        <br>
-        <br>
-        <button id="next" onclick="thenext()">Next</button>
-    </div>
+        <form id="signupForm">
 
-    
+            <label class="labels_log">Email</label>
+            <br>
+            <input type="email" name="email" placeholder="example@gmail.com" class="input_log" required>
+
+            <br>
+
+            <label class="labels_log">Password</label>
+            <br>
+            <input type="password" id="password" name="password" placeholder="Password" class="input_log" required
+                minlength="6">
+
+            <br>
+
+            <label class="labels_log">Confirm Password</label>
+            <br>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"
+                class="input_log" required minlength="6">
+
+            <p id="passwordError"></p>
+
+            <input type="submit" id="log_submit">
+
+        </form>
 
 
 
-    <script src="index.js"></script>
+
+
+        <script src="index.js"></script>
 </body>
+
 </html>
