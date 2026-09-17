@@ -1,5 +1,10 @@
 body{
-    background-color:#071A12;
+        background-image:
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("imgs/log_in_background.png");
+
+    background-size: cover;
+       
       font-family: "BioRhyme", serif;
   font-optical-sizing: auto;
   font-weight: 700;
@@ -16,8 +21,9 @@ body{
     transform: translate(-50%, -50%);
     padding: 20px;
     border-radius:20px ;
-    box-shadow: 0 0 20px 20px  #166534
-    ;
+    box-shadow: 0 0 20px 20px  #166534;
+    width: 50%;
+    opacity: 0.97;
 }
 #wel_ag{
     text-align: center;
@@ -27,6 +33,39 @@ body{
 .labels_log{
     display: inline;
     color:#D1FAE5;
+    font-size: 20px;
     
+}
+.input_log{
+    border: solid 2px;
+    border-radius: 5px;
+    height: 25px;
+    width: 40%;
+    background-color: #D1FAE5;
+}
+#log_submit{
+    background-color: #071A12;
+    color:#D1FAE5;
+    border: 2px black solid;
+    border-radius: 13px;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-family: "BioRhyme", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+}
+#log_submit:hover{
+    transform: scale(1.1);
+}
+#sign_up{
+    color:#D1FAE5;
+    transition: 0.2s;
     
+}
+#sign_up:hover{
+    color:#69eca9
 }
