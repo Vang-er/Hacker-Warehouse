@@ -8,11 +8,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@200..800&family=Bubblegum+Sans&family=Chivo+Mono:ital,wght@0,100..900;1,100..900&family=Mogra&family=Passero+One&family=Sigmar&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
-
+<link rel="icon" href="imgs/m5zon.png">
 
 </head>
 <body>
+    
+    <div id="left"></div>
     <div id="log_in_box">
+        
+        <br>
         <p id="wel_ag">Welcome again</p>
         <label class="labels_log">Email</label>
         <br>
@@ -23,8 +27,9 @@
         <input type="password" name="password" placeholder="...." class="input_log">
         <br>
         <br>
+        <p id="forgit">Forget your password?<a href="#">click Here</a></p>
         <input type="submit" id="log_submit">
-        <p id="new">New here? then <a id="sign_up" href="#">sign up</a></p>
+        <p id="new">New here? then <span id="sign_up" onclick="newuser()">sign up</span></p>
     </div>
 
 
@@ -35,6 +40,6 @@
 
 
 
-    
+    <script src="index.js"></script>
 </body>
 </html>
