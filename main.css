@@ -14,6 +14,7 @@ body{
     justify-content: space-around;
     align-items: center;
     border-bottom: black solid;
+    margin: 0px;
 }
 .navbut{
     background-color: #9ed39e;
@@ -29,8 +30,26 @@ body{
     font-variation-settings:
     "wdth" 100;
     transition: 0.2s;
+    margin: 0px;
 }
 .navbut:hover{
     
     background-color:#78cc78 ;
+}
+.sidebut{
+    border:solid;
+    padding:10px;
+transition: 0.3s;
+}
+.sidebut:hover{
+    background-color: #78cc78;
+    border-radius: 20px;
+}
+.side{
+    border-right: solid;
+    width:200px;
+    margin :0px;
+    display: flex;
+    flex-direction: column;
+    height: 91.8vh;
 }
