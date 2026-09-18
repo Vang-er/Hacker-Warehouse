@@ -31,6 +31,7 @@ body{
     "wdth" 100;
     transition: 0.2s;
     margin: 0px;
+    
 }
 .navbut:hover{
     
@@ -57,4 +58,27 @@ cursor: pointer;
 #your{
     background-color: #78cc78;
     border-radius: 20px;
+}
+.maindiv{
+    position: absolute;
+    border: solid;
+    top:50px;
+    left: 200px;
+    width: calc(100vw - 200px);
+    height: calc(100vh - 50px);
+    box-sizing: border-box;
+    border-bottom: none;
+    margin:0;
+}
+.pofdiv{
+    text-align: center;
+}
+#stockdiv{
+    display: block;
+}
+#dashdiv{
+    display:none;
+}
+#adddiv{
+    display:none;    
 }
