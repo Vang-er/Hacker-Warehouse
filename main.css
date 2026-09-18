@@ -40,6 +40,7 @@ body{
     border:solid;
     padding:10px;
 transition: 0.3s;
+cursor: pointer;
 }
 .sidebut:hover{
     background-color: #78cc78;
@@ -52,4 +53,8 @@ transition: 0.3s;
     display: flex;
     flex-direction: column;
     height: 91.8vh;
+}
+#your{
+    background-color: #78cc78;
+    border-radius: 20px;
 }
