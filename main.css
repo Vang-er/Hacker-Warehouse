@@ -68,7 +68,7 @@ cursor: pointer;
     height: calc(100vh - 50px);
     box-sizing: border-box;
     border-bottom: none;
-    margin:0;
+    margin:0px;
 }
 .pofdiv{
     text-align: center;
@@ -81,4 +81,48 @@ cursor: pointer;
 }
 #adddiv{
     display:none;    
+}
+.addbut{
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    top: 250px;
+}
+.catadd{
+    padding: 10px;
+    border: solid;
+border-radius: 10px;
+cursor:pointer;
+transition:0.2s ;
+}
+.catadd:hover{
+    background-color: #9ed39e;
+}
+#theadd{
+    display: none;
+    margin-left: 20px;
+}
+#submit{
+    border: solid;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #9ed39e;
+    cursor: pointer;
+    text-align: center;
+    
+
+}
+#submit:hover{
+    background-color: #78cc78;
+}
+#back{
+    border: solid;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #9ed39e;
+    
+    cursor: pointer;
+}
+#back:hover{
+    background-color: #78cc78;
 }

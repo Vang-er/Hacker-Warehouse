@@ -4,6 +4,11 @@ const dashboard = document.getElementById("dash")
 const stockdiv = document.getElementById("stockdiv")
 const adddiv = document.getElementById("adddiv")
 const dashdiv = document.getElementById("dashdiv")
+const catadd = document.getElementById("catadd")
+const catname = document.getElementById("catname")
+const catdes = document.getElementById("catdes")
+const theadd = document.getElementById("theadd")
+const backbut = document.getElementById("back")
 let butnum = 0;
 
 
@@ -12,10 +17,16 @@ let butnum = 0;
 
 
 
+function back(){
+    theadd.style.display = "none"
+    catadd.style.display = "block"
+}
 
 
-
-
+function newcategory(){
+    catadd.style.display = "none"
+    theadd.style.display = "block"
+}
 
 function chosestock(){
 stock.style.backgroundColor = "#78cc78"
