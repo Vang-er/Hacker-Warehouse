@@ -19,18 +19,32 @@ let parentcatname = []
 let parentnum = 0;
 let parentcatdes = []
 let parentdesnum = 0;
+let isthereproduct = false;
 
+let 
 
 
 function enter(event){
     event.preventDefault();
     parentcatname[parentnum] = catname.value
     parentcatdes[parentdesnum] = catdes.value
-    parentnum ++
-    parentdesnum ++
+    
+    
+    back()
+    isthereproduct = true
+    stockdiv.innerHTML = `
+    <div class="boxes" id="box1">
+    <p class="catigoryname">${parentcatname[parentnum]}</p>
+    <div class="prodectbuttonsdiv" id="prodectbuttons">
+    <button class="prodectbuttons" id="addprodect">Add prodect</button>
+    <button class="prodectbuttons" id="delprodect">Remove prodect</button>
+</div>
+</div>
+    `
     catname.value = ""
     catdes.value = ""
-    back()
+    parentnum ++
+    parentdesnum ++
 }
 
 function back(){

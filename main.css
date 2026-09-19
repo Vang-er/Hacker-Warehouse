@@ -69,6 +69,7 @@ cursor: pointer;
     box-sizing: border-box;
     border-bottom: none;
     margin:0px;
+    overflow: auto;
 }
 .pofdiv{
     text-align: center;
@@ -125,4 +126,36 @@ transition:0.2s ;
 }
 #back:hover{
     background-color: #78cc78;
+}
+.boxes{
+    display: flex;
+    position: relative;
+    top:0px;
+    border: solid;
+    padding:20px;
+    border-radius: 20px;
+    justify-content: space-around;
+    align-items: center;
+    margin:10px;
+    height: 200px;
+    overflow-x: auto;
+}
+.prodectbuttons{
+    border:solid;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #D1FAE5;
+    cursor:pointer;
+    
+}
+.prodectbuttons:hover{
+    background-color: #78cc78;
+}
+.nameanddes{
+    display: flex;
+    flex-direction: column;
+}
+.prodectbuttonsdiv{
+    display: flex;
+    gap: 20px;
 }
