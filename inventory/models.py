@@ -30,7 +30,7 @@ class StockMovement(models.Model):
         DAMAGE = "DAMAGE", "Damage or loss"
         MANUAL = "MANUAL", "Manual correction"
 
-    variant = models.ForeignKey(ProductVariant, on_delete=models.PROTECT, related_name="movments")
+    variant = models.ForeignKey(ProductVariant, on_delete=models.PROTECT, related_name="movements")
     movement_type = models.CharField(max_length=10, choices=Type.choices)
     reason = models.CharField(max_length=20, choices=Reason.choices, default=Reason.MANUAL)
     quantity = models.IntegerField(help_text="Positive to add, Negative to remove.")

@@ -11,9 +11,9 @@ class StockSerializer(serializers.ModelSerializer):
 
 class StockMovementSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Stock
+        model = StockMovement
         fields = ["id", "variant", "movement_type", "reason", "quantity",
-                "balance_after", "referemce", "note",
+                "balance_after", "reference", "note",
                 "created_by", "created_at"]
         read_only_fields = fields
 

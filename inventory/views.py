@@ -14,6 +14,11 @@ class StockViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Stock.objects.select_related("variant")
     serializer_class = StockSerializer
 
+    def get_serializer_class(self):
+        if self.action == "receive":
+            return ReceiveStockSerializer
+        return StockSerializer
+
     @action(detail=True, methods=["post"])
     def receive(self,request, pk=None):
         stock = self.get_object()
