@@ -35,7 +35,6 @@ class ProductVariant(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="variants")
     sku = models.CharField(max_length=64, unique=True)
     name = models.CharField(max_length=200, blank=True, help_text="Leave Blank to use the product name")
-    barcode = models.CharField(max_length=64, blank=True)
     price = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     cost_price = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     is_active = models.BooleanField(default=True)
