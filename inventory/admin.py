@@ -83,3 +83,14 @@ class StockAdmin(admin.ModelAdmin):
             cancel_url=cancel_url,
         )
         return HttpResponse(html)
+
+@admin.register(StockMovement)
+class StockMovementAdmin(admin.ModelAdmin):
+    list_display = ("created_at", "variant", "movement_type", "reason", "quantity", "balance_after","reference")
+
+    def has_add_permission(self, request):
+        return False
+    def has_change_permission(self, request, obj = None):
+        return False
+    def has_delete_permission(self, request, obj = None):
+        return False
