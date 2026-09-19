@@ -7,8 +7,11 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from .models import Stock,StockMovement
-from .serializers import ReceiveStockSerializer, StockMovementSerializer, StockSerializer
-from .services import InsufficientStockError, apply_movement
+from .serializers import (
+    CountStockSerializer, IssueStockSerializer, ReceiveStockSerializer,
+    StockMovementSerializer, StockSerializer,
+)
+from .services import InsufficientStockError, apply_movement, set_quantity
 
 class StockViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Stock.objects.select_related("variant")
@@ -17,6 +20,10 @@ class StockViewSet(viewsets.ReadOnlyModelViewSet):
     def get_serializer_class(self):
         if self.action == "receive":
             return ReceiveStockSerializer
+        if self.action == "issue":
+            return IssueStockSerializer
+        if self.action == "count":
+            return CountStockSerializer
         return StockSerializer
 
     @action(detail=True, methods=["post"])
@@ -33,6 +40,20 @@ class StockViewSet(viewsets.ReadOnlyModelViewSet):
             user=request.user,
             note=body.validated_data["note"],
         )
+        return Response(StockMovementSerializer(movement).data, status=status.HTTP_201_CREATED)
+
+
+    @action(detail=True, methods=["post"])
+    def count(self, request, pk=None):
+        stock = self.get_object()
+        body = CountStockSerializer(data=request.data)
+        body.is_valid(raise_exception=True)
+        movement = set_quantity(
+            variant=stock.variant, counted_quantity=body.validated_data["counted_quantity"],
+            user=request.user, note=body.validated_data["note"],
+        )
+        if movement is None:
+            return Response({"detail": "Counted quantity matches the system. Nothing changedounted"})
         return Response(StockMovementSerializer(movement).data, status=status.HTTP_201_CREATED)
 
 class StockMovementViewSet(viewsets.ReadOnlyModelViewSet):

@@ -26,3 +26,17 @@ def apply_movement(*, variant, delta, movement_type, reason, note="", user=None,
         note=note,
         created_by=user,
     )
+
+def set_quantity(*, variant,counted_quantity, user=None, note=""):
+    current = variant.stock.quantity
+    delta = counted_quantity - current
+    if delta ==0:
+        return None
+    return apply_movement(
+        variant=variant,
+        delta=delta,
+        movement_type=StockMovement.Type.ADJUST,
+        reason=StockMovement.Reason.COUNT,
+        user=user,
+        note=note,
+    )

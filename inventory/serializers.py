@@ -20,3 +20,11 @@ class StockMovementSerializer(serializers.ModelSerializer):
 class ReceiveStockSerializer(serializers.Serializer):
     quantity = serializers.IntegerField(min_value=1)
     note = serializers.CharField(required=False,allow_blank=True,default="")
+
+class IssueStockSerializer(serializers.Serializer):
+    quantity = serializers.IntegerField(min_value=1)
+    note = serializers.CharField(required=False, allow_blank=True, default="")
+
+class CountStockSerializer(serializers.Serializer):
+    counted_quantity = serializers.IntegerField(min_value=0)
+    note = serializers.CharField(required=False, allow_blank=True, default="")
