@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hacker warehouse</title>
+    <link rel="stylesheet" href="main.css">
+
+
+</head>
+<body>
+<nav class="navbar">
+    <P id="name">Hacker Warehouse</P>
+    <div id="buttons">
+        <button class="navbut">Home</button>
+    </div>
+</nav>    
+<section class="side">
+    <p class="sidebut" id="your" onclick="chosestock()">Your Stock</p>
+    <p class="sidebut" id="add" onclick="choseadd()">Add</p>
+    <p class="sidebut" id="dash" onclick="chosedash()">Your Dashboard</p>
+
+
+</section>
+<div id="stockdiv" class="maindiv">
+<p class="pofdiv">The stock</p>
+
+
+
+
+
+<div class="boxes" id="box1">
+    <div class="nameanddes">
+    <p class="catigoryname">wertyuio</p>
+    <p class="catdesindiv"></p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque laborum eius ut maxime? Rerum nisi rem enim temporibus aperiam voluptate pariatur adipisci sint? Hic reprehenderit, harum optio provident totam maxime!
+    </div>
+    <div class="prodectbuttonsdiv" id="prodectbuttons">
+    <button class="prodectbuttons" id="addprodect">Add prodect</button>
+    <button class="prodectbuttons" id="delprodect">Remove prodect</button>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="adddiv" class="maindiv">
+<p class="pofdiv">Add</p>
+<div class="addbut">
+<button class="catadd" id="catadd" onclick="newcategory()">Add new category</button>
+
+</div>
+<div id="theadd">
+    <button id="back" onclick="back()">Back</button>
+<form class="addnewcat">
+    
+    <br>
+    <br>
+    <label>Enter the category name:</label>
+    <input type="text" name="catname" id="catname" required>
+    <br>
+    <br>
+    <br>
+    <label  >Enter the category description:</label>
+    <input type="text" name="catdes" id="catdes" required>    
+    <br>
+    <br>
+    <div align="center">
+    <input type="submit" id="submit" onclick="enter(event)">
+</div>
+</form>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div id="dashdiv" class="maindiv">
+<p class="pofdiv">The Dashboard</p>
+
+</div>
+
+
+<script src="main.js"></script>
+</body>
+</html>

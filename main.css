@@ -1,0 +1,161 @@
+body{
+    margin:0;
+    background-color: rgb(230, 255, 230);
+    font-family: "BioRhyme", serif;
+    font-optical-sizing: auto;
+    margin: 0%;
+    font-weight: 700;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+}
+.navbar{
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: black solid;
+    margin: 0px;
+}
+.navbut{
+    background-color: #9ed39e;
+    padding: 10px;
+    border-radius: 10px;
+    border: solid;
+    cursor: pointer;
+    font-family: "BioRhyme", serif;
+    font-optical-sizing: auto;
+    margin: 0%;
+    font-weight: 700;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+    transition: 0.2s;
+    margin: 0px;
+    
+}
+.navbut:hover{
+    
+    background-color:#78cc78 ;
+}
+.sidebut{
+    border:solid;
+    padding:10px;
+transition: 0.3s;
+cursor: pointer;
+}
+.sidebut:hover{
+    background-color: #78cc78;
+    border-radius: 20px;
+}
+.side{
+    border-right: solid;
+    width:200px;
+    margin :0px;
+    display: flex;
+    flex-direction: column;
+    height: 91.8vh;
+}
+#your{
+    background-color: #78cc78;
+    border-radius: 20px;
+}
+.maindiv{
+    position: absolute;
+    border: solid;
+    top:50px;
+    left: 200px;
+    width: calc(100vw - 200px);
+    height: calc(100vh - 50px);
+    box-sizing: border-box;
+    border-bottom: none;
+    margin:0px;
+    overflow: auto;
+}
+.pofdiv{
+    text-align: center;
+}
+#stockdiv{
+    display: block;
+}
+#dashdiv{
+    display:none;
+}
+#adddiv{
+    display:none;    
+}
+.addbut{
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    top: 250px;
+}
+.catadd{
+    padding: 10px;
+    border: solid;
+border-radius: 10px;
+cursor:pointer;
+transition:0.2s ;
+}
+.catadd:hover{
+    background-color: #9ed39e;
+}
+#theadd{
+    display: none;
+    margin-left: 20px;
+}
+#submit{
+    border: solid;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #9ed39e;
+    cursor: pointer;
+    text-align: center;
+    
+
+}
+#submit:hover{
+    background-color: #78cc78;
+}
+#back{
+    border: solid;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #9ed39e;
+    
+    cursor: pointer;
+}
+#back:hover{
+    background-color: #78cc78;
+}
+.boxes{
+    display: flex;
+    position: relative;
+    top:0px;
+    border: solid;
+    padding:20px;
+    border-radius: 20px;
+    justify-content: space-around;
+    align-items: center;
+    margin:10px;
+    height: 200px;
+    overflow-x: auto;
+}
+.prodectbuttons{
+    border:solid;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #D1FAE5;
+    cursor:pointer;
+    
+}
+.prodectbuttons:hover{
+    background-color: #78cc78;
+}
+.nameanddes{
+    display: flex;
+    flex-direction: column;
+}
+.prodectbuttonsdiv{
+    display: flex;
+    gap: 20px;
+}
