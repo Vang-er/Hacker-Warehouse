@@ -5,7 +5,7 @@ class InsufficientStockError(Exception):
     "Raised when a movment would push stock below zero"
 
 @transaction.atomic
-def apply_movment(*, variant, delta, movement_type, reason, note="", user=None, reference=""):
+def apply_movement(*, variant, delta, movement_type, reason, note="", user=None, reference=""):
     stock = Stock.objects.select_for_update().get(variant=variant)
     new_quantity = stock.quantity + delta
 
