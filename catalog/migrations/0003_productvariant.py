@@ -17,7 +17,6 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('sku', models.CharField(max_length=64, unique=True)),
                 ('name', models.CharField(blank=True, help_text='Leave Blank to use the product name', max_length=200)),
-                ('barcode', models.CharField(blank=True, max_length=64)),
                 ('price', models.DecimalField(decimal_places=2, default=0, max_digits=12)),
                 ('cost_price', models.DecimalField(decimal_places=2, default=0, max_digits=12)),
                 ('is_active', models.BooleanField(default=True)),
