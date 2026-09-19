@@ -9,19 +9,34 @@ const catname = document.getElementById("catname")
 const catdes = document.getElementById("catdes")
 const theadd = document.getElementById("theadd")
 const backbut = document.getElementById("back")
-let butnum = 0;
+const submit = document.getElementById("submit")
 
 
 
 
 
+let parentcatname = []
+let parentnum = 0;
+let parentcatdes = []
+let parentdesnum = 0;
 
+
+
+function enter(event){
+    event.preventDefault();
+    parentcatname[parentnum] = catname.value
+    parentcatdes[parentdesnum] = catdes.value
+    parentnum ++
+    parentdesnum ++
+    catname.value = ""
+    catdes.value = ""
+    back()
+}
 
 function back(){
     theadd.style.display = "none"
     catadd.style.display = "block"
 }
-
 
 function newcategory(){
     catadd.style.display = "none"
