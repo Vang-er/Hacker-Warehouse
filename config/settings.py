@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'catalog',
     'inventory',
 ]
-
+LOGIN_URL = "/"
+LOGIN_REDIRECT_URL = "dashboard/"
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -87,7 +88,6 @@ DATABASES = {
         "PORT": os.getenv("DB_PORT"),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/6.1/ref/settings/#auth-password-validators

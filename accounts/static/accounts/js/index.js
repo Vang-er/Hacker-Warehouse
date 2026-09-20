@@ -26,7 +26,7 @@ function thenext() {
 function main(event) {
   event.preventDefault();
 
-  window.location.href = "main.html";
+  window.location.href = "Dashboard/";
 }
 
 function theback() {
@@ -54,5 +54,5 @@ signupForm.addEventListener("submit", function (event) {
 
   event.preventDefault();
 
-  window.location.href = "main.html";
+  window.location.href = "Dashboard/";
 });

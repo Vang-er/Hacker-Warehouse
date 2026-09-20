@@ -23,10 +23,11 @@
 
         <br>
         <p id="wel_ag">Welcome again</p>
-        <form onsubmit="main(event)">
-            <label class="labels_log">Email</label>
+        <form  method="post">
+            {% csrf_token %}
+            <label class="labels_log">Username</label>
             <br>
-            <input type="email" name="email" placeholder="example@gmail.com" class="input_log" required>
+            <input type="text" name="username" placeholder="Orphous" class="input_log" required>
             <br>
             <label class="labels_log">Password</label>
             <br>
@@ -46,11 +47,11 @@
 
         <br>
         <p id="wel_ag">Welcome</p>
-        <form id="signupForm">
+        <form id="signupForm" method="post">
 
-            <label class="labels_log">Email</label>
+            <label class="labels_log">Username</label>
             <br>
-            <input type="email" name="email" placeholder="example@gmail.com" class="input_log" required>
+            <input type="text" name="username" placeholder="Orphous" class="input_log" required>
 
             <br>
 
