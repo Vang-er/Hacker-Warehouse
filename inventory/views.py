@@ -57,5 +57,19 @@ class StockViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(StockMovementSerializer(movement).data, status=status.HTTP_201_CREATED)
 
 class StockMovementViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = StockMovement.objects.select_related("variant")
     serializer_class = StockMovementSerializer
+    def get_queryset(self):
+        queryset = StockMovement.objects.select_related("variant")
+        variant_id = self.request.query_params.get("variant")
+
+        if variant_id:
+            queryset = queryset.filter(variant_id=variant_id)
+        movement_type = self.request.query_params.get("movement_type")
+        if movement_type:
+            queryset = queryset.filter(movement_type=movement_type)
+
+        reason = self.request.query_params.get("reason")
+        if reason:
+            queryset = queryset.filter(reason=reason)
+
+        return queryset
