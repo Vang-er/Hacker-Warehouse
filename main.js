@@ -10,8 +10,8 @@ const catdes = document.getElementById("catdes")
 const theadd = document.getElementById("theadd")
 const backbut = document.getElementById("back")
 const submit = document.getElementById("submit")
-
-
+const newproduct = document.getElementById("newproduct")
+const inputproname = document.getElementById("inputproname")
 
 
 
@@ -20,10 +20,19 @@ let parentnum = 0;
 let parentcatdes = []
 let parentdesnum = 0;
 let isthereproduct = false;
+let productlist = []
+let saveprolist = 0
 
-let 
 
-
+function done(){
+productlist[saveprolist] = inputproname.value 
+}
+function x(){
+    newproduct.style.display = "none"
+}
+function addpro(){
+    newproduct.style.display = "flex"
+}
 function enter(event){
     event.preventDefault();
     parentcatname[parentnum] = catname.value

@@ -19,7 +19,7 @@
     <p class="sidebut" id="your" onclick="chosestock()">Your Stock</p>
     <p class="sidebut" id="add" onclick="choseadd()">Add</p>
     <p class="sidebut" id="dash" onclick="chosedash()">Your Dashboard</p>
-
+    <p class="sidebut" id="dash" onclick="chosedash()">Add stock</p>
 
 </section>
 <div id="stockdiv" class="maindiv">
@@ -35,7 +35,7 @@
     <p class="catdesindiv"></p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque laborum eius ut maxime? Rerum nisi rem enim temporibus aperiam voluptate pariatur adipisci sint? Hic reprehenderit, harum optio provident totam maxime!
     </div>
     <div class="prodectbuttonsdiv" id="prodectbuttons">
-    <button class="prodectbuttons" id="addprodect">Add prodect</button>
+    <button class="prodectbuttons" id="addprodect" onclick="addpro()">Add prodect</button>
     <button class="prodectbuttons" id="delprodect">Remove prodect</button>
 </div>
 </div>
@@ -45,7 +45,19 @@
 
 
 
-
+<div id="newproduct"  >
+    <button id="xbut" onclick="x()">X</button>
+     <p id="mainnamenewprodect">Add new prodect</p>
+     <form id="newproductform">
+        <label class="labelsnew">Prodect name:</label>
+        <input type="text" name="newproname" id="inputproname" required>
+        <br>
+        <br>
+        <input id="done" type="submit">
+     </form>
+     
+     <p id="newtip">tip: open "Add stock" to add the ammount of this produck or put information about it etc..</p>
+</div>
 
 
 
