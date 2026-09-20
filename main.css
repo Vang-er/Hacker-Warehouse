@@ -240,3 +240,13 @@ transition:0.2s ;
 #done:hover{
 background-color: #D1FAE5;
 }
+#cancelenter{
+    display: flex;
+    justify-content: space-around;
+}
+.cancelenterclass{
+    border: solid;
+    padding:5px;
+    border-radius:15px ;
+    cursor: pointer;
+}
