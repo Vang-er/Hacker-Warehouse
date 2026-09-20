@@ -13,6 +13,9 @@ const submit = document.getElementById("submit")
 const newproduct = document.getElementById("newproduct")
 const inputproname = document.getElementById("inputproname")
 const nothing = document.getElementById("empyty")
+const addstockdiv = document.getElementById("addstockdiv")
+const addstock = document.getElementById("addstock")
+
 
 
 let parentcatname = []
@@ -34,10 +37,8 @@ if (isthereproduct == false){
 }
 
 
-function done(event){
-    event.preventDefault();
-productlist[saveprolist] = inputproname.value 
-newproduct.style.display = "none"
+function done(){
+console.log("kkkkkkk")
 }
 function x(){
     newproduct.style.display = "none"
@@ -84,6 +85,7 @@ function back(){
 function newcategory(){
     catadd.style.display = "none"
     theadd.style.display = "block"
+    
 }
 
 function chosestock(){
@@ -96,8 +98,12 @@ dashboard.style.borderRadius = "0px"
 stockdiv.style.display = "block"
 adddiv.style.display = "none"
 dashdiv.style.display = "none"
+addstockdiv.style.display = "none"
+addstock.style.backgroundColor = "#fff"
+
 }
 function choseadd(){
+    x()
 add.style.backgroundColor = "#78cc78"
 add.style.borderRadius = "20px"
 stock.style.backgroundColor = "#fff"
@@ -107,8 +113,11 @@ dashboard.style.borderRadius = "0px"
 stockdiv.style.display = "none"
 adddiv.style.display = "block"
 dashdiv.style.display = "none"
+addstockdiv.style.display = "none"
+addstock.style.backgroundColor = "#fff"
 }
 function chosedash(){
+    x()
 dashboard.style.backgroundColor = "#78cc78"
 dashboard.style.borderRadius = "20px"
 add.style.backgroundColor = "#fff"
@@ -118,4 +127,22 @@ stock.style.borderRadius = "0px"
 stockdiv.style.display = "none"
 adddiv.style.display = "none"
 dashdiv.style.display = "block"
+addstockdiv.style.display = "none"
+addstock.style.backgroundColor = "#fff"
+}
+
+function choseaddstock(){
+    x()
+dashboard.style.backgroundColor = "#fff"
+dashboard.style.borderRadius = "0px"
+add.style.backgroundColor = "#fff"
+add.style.borderRadius = "0px"
+stock.style.backgroundColor = "#fff"
+stock.style.borderRadius = "0px"
+stockdiv.style.display = "none"
+adddiv.style.display = "none"
+dashdiv.style.display = "none"
+addstockdiv.style.display = "block"
+addstock.style.backgroundColor = "#78cc78"
+
 }

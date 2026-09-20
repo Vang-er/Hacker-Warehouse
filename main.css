@@ -77,11 +77,15 @@ cursor: pointer;
 #stockdiv{
     display: block;
 }
+
 #dashdiv{
     display:none;
 }
 #adddiv{
     display:none;    
+}
+#addstockdiv{
+    display: none;
 }
 .addbut{
     display: flex;
