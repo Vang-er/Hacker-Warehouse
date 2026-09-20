@@ -12,7 +12,7 @@ const backbut = document.getElementById("back")
 const submit = document.getElementById("submit")
 const newproduct = document.getElementById("newproduct")
 const inputproname = document.getElementById("inputproname")
-
+const nothing = document.getElementById("empyty")
 
 
 let parentcatname = []
@@ -24,8 +24,20 @@ let productlist = []
 let saveprolist = 0
 
 
-function done(){
+
+
+
+if (isthereproduct == false){
+    nothing.style.display = "block"
+}else{
+    nothing.style.display = "none"
+}
+
+
+function done(event){
+    event.preventDefault();
 productlist[saveprolist] = inputproname.value 
+newproduct.style.display = "none"
 }
 function x(){
     newproduct.style.display = "none"
@@ -37,15 +49,17 @@ function enter(event){
     event.preventDefault();
     parentcatname[parentnum] = catname.value
     parentcatdes[parentdesnum] = catdes.value
-    
-    
     back()
     isthereproduct = true
     stockdiv.innerHTML = `
     <div class="boxes" id="box1">
-    <p class="catigoryname">${parentcatname[parentnum]}</p>
+    <div id="desname">
+    <p class="catigoryname" >${parentcatname[parentnum]}</p>
+    
+    <p class="catdesindiv">${parentcatdes[parentdesnum]}</p>
+    </div>
     <div class="prodectbuttonsdiv" id="prodectbuttons">
-    <button class="prodectbuttons" id="addprodect">Add prodect</button>
+    <button class="prodectbuttons" id="addprodect" onclick="addpro()">Add prodect</button>
     <button class="prodectbuttons" id="delprodect">Remove prodect</button>
 </div>
 </div>
@@ -54,6 +68,12 @@ function enter(event){
     catdes.value = ""
     parentnum ++
     parentdesnum ++
+    if (isthereproduct == false){
+    nothing.style.display = "block"
+}else{
+    nothing.style.display = "none"
+}
+
 }
 
 function back(){

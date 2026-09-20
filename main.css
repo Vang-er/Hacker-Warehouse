@@ -130,6 +130,7 @@ transition:0.2s ;
 .boxes{
     display: flex;
     position: relative;
+    
     top:0px;
     border: solid;
     padding:20px;
@@ -139,6 +140,18 @@ transition:0.2s ;
     margin:10px;
     height: 200px;
     overflow-x: auto;
+}
+#empyty{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) ;
+    display: none;
+}
+
+#desname{
+    display: flex;
+    flex-direction: column;
 }
 .prodectbuttons{
     border:solid;
@@ -170,8 +183,9 @@ transition:0.2s ;
     background-color: #91f791;
     border-radius: 20px;
     padding: 20px;
-    display: flex;
+    display: none;
     flex-direction: column;
+
 }
 #mainnamenewprodect{
     text-align: center;
