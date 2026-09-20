@@ -116,7 +116,10 @@ function localHistory() {
         historylist.innerHTML = "<p style='text-align:center'>Nothing has happened yet</p>";
         return;
       }
-      historylist.innerHTML = data.results.map(historyWidget).join("");
+      const sorted = data.results.slice().sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
+      historylist.innerHTML = sorted.map(historyWidget).join("");
     })
     .catch(() => {
       historylist.innerHTML = "<p style='text-align:center'>Could not load History</p>";
@@ -129,9 +132,9 @@ function historyWidget(movement) {
   const when = new Date(movement.created_at).toLocaleString();
   return `
     <div class="historywidget ${isIn ? "widget-in" : "widget-out"}">
-      <div class="widget-type">${isIn ? "Added" : "Removed"}</div>
+      <div class="widget-type">${isIn ? "Added" : "Removed"} - ${movement.product_name}</div>
       <div class="widget-qty">${sign}${movement.quantity} units</div>
-      <div class="widget-meta">now ${movement.balance_after} on hand · ${movement.reason.toLowerCase()}</div>
+      <div class="widget-meta">balance now: ${movement.balance_after} · ${movement.reason.toLowerCase()}</div>
       <div class="widget-when">${when}</div>
-    </div>`; 
+    </div>`;
 }

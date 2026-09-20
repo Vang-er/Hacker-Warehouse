@@ -10,11 +10,12 @@ class StockSerializer(serializers.ModelSerializer):
         read_only_fields = ["quantity", "variant"]
 
 class StockMovementSerializer(serializers.ModelSerializer):
+    product_name = serializers.CharField(source="variant.product.name", read_only=True)
+    sku = serializers.CharField(source="variant.sku", read_only=True)
     class Meta:
         model = StockMovement
-        fields = ["id", "variant", "movement_type", "reason", "quantity",
-                "balance_after", "reference", "note",
-                "created_by", "created_at"]
+        fields = ["id", "variant", "sku", "product_name", "movement_type", "reason", "quantity",
+                  "balance_after", "reference", "note", "created_by", "created_at"]
         read_only_fields = fields
 
 class ReceiveStockSerializer(serializers.Serializer):
