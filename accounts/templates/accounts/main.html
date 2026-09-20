@@ -18,24 +18,30 @@
       <p class="sidebut" id="your" onclick="chosestock()">Your Stock</p>
       <p class="sidebut" id="add" onclick="choseadd()">Add</p>
       <p class="sidebut" id="dash" onclick="chosedash()">Your Dashboard</p>
+      <p class="sidebut" id="add_stock" onclick="choseadds()">Add stock</p>
+      <p class="sidebut" id="history" onclick="chosehistory()">History</p>
     </section>
     <div id="stockdiv" class="maindiv">
       <p class="pofdiv">The stock</p>
 
-      <div class="boxes" id="box1">
-        <div class="nameanddes">
-          <p class="catigoryname">wertyuio</p>
-          <p class="catdesindiv"></p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque laborum
-          eius ut maxime? Rerum nisi rem enim temporibus aperiam voluptate
-          pariatur adipisci sint? Hic reprehenderit, harum optio provident totam
-          maxime!
-        </div>
-        <div class="prodectbuttonsdiv" id="prodectbuttons">
-          <button class="prodectbuttons" id="addprodect">Add prodect</button>
-          <button class="prodectbuttons" id="delprodect">Remove prodect</button>
-        </div>
-      </div>
+      <p id="empyty">go to "Add" to add something</p>
+    </div>
+
+    <div id="newproduct">
+      <button id="xbut" onclick="x()">X</button>
+      <p id="mainnamenewprodect">Add new prodect</p>
+      <form id="newproductform">
+        <label class="labelsnew">Prodect name:</label>
+        <input type="text" name="newproname" id="inputproname" required />
+        <br />
+        <br />
+        <input id="done" type="submit" onclick="done(event)" />
+      </form>
+
+      <p id="newtip">
+        tip: open "Add stock" to add the ammount of this produck or put
+        information about it etc..
+      </p>
     </div>
 
     <div id="adddiv" class="maindiv">
@@ -69,7 +75,54 @@
     <div id="dashdiv" class="maindiv">
       <p class="pofdiv">The Dashboard</p>
     </div>
+    <div id="histroydiv" class="maindiv" style="display: none">
+      <div
+        style="
+          font-family: fantasy;
+          font-weight: 800;
+          display: flex;
+          width: 100%;
+          justify-content: center;
+          margin-top: 10px;
+          margin-left: auto;
+          margin-right: auto;
+        "
+      >
+        History
+      </div>
+      <div
+        class="count"
+        style="
+          top: 30px;
+          right: 30px;
+          position: relative;
+          display: flex;
+          padding: 5px;
+          background-color: black;
+          color: white;
+          border-radius: 10px;
+          font-family: fantasy;
+          width: fit-content;
+          height: fit-content;
+        "
+      >
+        Count:
+      </div>
+    </div>
 
     <script src="{% static 'accounts/js/main.js' %}"></script>
   </body>
 </html>
+
+<!--
+<div class="boxes" id="box1">
+    <div class="nameanddes">
+    <p class="catigoryname">wertyuio</p>
+    <p class="catdesindiv"></p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque laborum eius ut maxime? Rerum nisi rem enim temporibus aperiam voluptate pariatur adipisci sint? Hic reprehenderit, harum optio provident totam maxime!
+    </div>
+    <div class="prodectbuttonsdiv" id="prodectbuttons">
+    <button class="prodectbuttons" id="addprodect" onclick="addpro()">Add prodect</button>
+    <button class="prodectbuttons" id="delprodect">Remove prodect</button>
+</div>
+</div>
+-->
