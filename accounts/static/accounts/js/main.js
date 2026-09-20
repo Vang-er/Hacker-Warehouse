@@ -132,7 +132,7 @@ function historyWidget(movement) {
   const when = new Date(movement.created_at).toLocaleString();
   return `
     <div class="historywidget ${isIn ? "widget-in" : "widget-out"}">
-      <div class="widget-type">${isIn ? "Added" : "Removed"} - ${movement.product_name}</div>
+      <div class="widget-type">${isIn ? "Added" : "Removed"} — ${movement.variant_name}</div>
       <div class="widget-qty">${sign}${movement.quantity} units</div>
       <div class="widget-meta">balance now: ${movement.balance_after} · ${movement.reason.toLowerCase()}</div>
       <div class="widget-when">${when}</div>
