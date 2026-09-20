@@ -92,22 +92,22 @@
       </div>
       <div
         class="count"
+        id="historycount"
         style="
-          top: 30px;
-          right: 30px;
-          position: relative;
           display: flex;
-          padding: 5px;
+          justify-content: center;
+          margin: 8px auto;
+          padding: 5px 12px;
           background-color: black;
           color: white;
           border-radius: 10px;
           font-family: fantasy;
           width: fit-content;
-          height: fit-content;
         "
       >
-        Count:
+        Count: 0
       </div>
+      <div id="historylist"></div>
     </div>
 
     <script src="{% static 'accounts/js/main.js' %}"></script>

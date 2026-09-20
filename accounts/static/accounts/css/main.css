@@ -159,3 +159,44 @@ transition:0.2s ;
     display: flex;
     gap: 20px;
 }
+
+#historylist {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px;
+}
+
+.historywidget {
+  border: solid;
+  border-left: 8px solid;
+  border-radius: 10px;
+  padding: 12px 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.widget-in {
+  background-color: #D1FAE5;
+  border-left-color: #2e8b57;
+}
+.widget-out {
+  background-color: #fbdede;
+  border-left-color: #b23b3b;
+}
+
+.widget-type {
+  font-weight: 800;
+  font-size: 18px;
+}
+.widget-qty {
+  font-size: 16px;
+}
+.widget-meta {
+  font-size: 13px;
+  color: #333;
+}
+.widget-when {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
