@@ -8,6 +8,7 @@ body{
     font-style: normal;
     font-variation-settings:
     "wdth" 100;
+    overflow: hidden;
 }
 .navbar{
     display:flex;
@@ -164,6 +165,9 @@ transition:0.2s ;
     background-color: #D1FAE5;
     cursor:pointer;
     
+}
+#stockdiv{
+    overflow-x: auto;
 }
 #addstocktxt{
     text-align: center;

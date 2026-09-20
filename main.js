@@ -38,7 +38,7 @@ if (isthereproduct == false){
 
 
 function done(){
-console.log("kkkkkkk")
+event.preventDefault();
 }
 function x(){
     newproduct.style.display = "none"
@@ -47,33 +47,37 @@ function addpro(){
     newproduct.style.display = "flex"
 }
 function enter(event){
-    event.preventDefault();
-    parentcatname[parentnum] = catname.value
-    parentcatdes[parentdesnum] = catdes.value
-    back()
-    isthereproduct = true
-    stockdiv.innerHTML = `
-    <div class="boxes" id="box1">
-    <div id="desname">
-    <p class="catigoryname" >${parentcatname[parentnum]}</p>
+    event.preventDefault(); 
     
-    <p class="catdesindiv">${parentcatdes[parentdesnum]}</p>
+    parentcatname[parentnum] = catname.value;
+    parentcatdes[parentdesnum] = catdes.value;
+    
+    back();
+    isthereproduct = true;
+        if (!isthereproduct){
+        nothing.style.display = "block";
+    } else {
+        nothing.style.display = "none";
+    }
+
+    stockdiv.innerHTML += `
+    <div class="boxes" id="box${parentnum}">
+        <div id="desname">
+            <p class="catigoryname">${parentcatname[parentnum]}</p>
+            <p class="catdesindiv">${parentcatdes[parentdesnum]}</p>
+        </div>
+        <div class="prodectbuttonsdiv" id="prodectbuttons">
+            <button class="prodectbuttons" class="addprodect" onclick="addpro()">Add product</button>
+            <button class="prodectbuttons" class="delprodect">Remove product</button>
+        </div>
     </div>
-    <div class="prodectbuttonsdiv" id="prodectbuttons">
-    <button class="prodectbuttons" id="addprodect" onclick="addpro()">Add prodect</button>
-    <button class="prodectbuttons" id="delprodect">Remove prodect</button>
-</div>
-</div>
-    `
-    catname.value = ""
-    catdes.value = ""
-    parentnum ++
-    parentdesnum ++
-    if (isthereproduct == false){
-    nothing.style.display = "block"
-}else{
-    nothing.style.display = "none"
-}
+    `;
+    
+    catname.value = "";
+    catdes.value = "";
+    parentnum++;
+    parentdesnum++;
+    
 
 }
 
