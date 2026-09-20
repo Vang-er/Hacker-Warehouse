@@ -36,8 +36,7 @@ if (isthereproduct == false){
     nothing.style.display = "none"
 }
 
-
-function done(){
+function done(event){
 event.preventDefault();
 }
 function x(){
