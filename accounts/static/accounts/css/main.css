@@ -159,3 +159,40 @@ transition:0.2s ;
     display: flex;
     gap: 20px;
 }
+
+.historywidget {
+    border: solid;
+    border-radius: 15px;
+    padding: 12px 16px;
+    margin: 10px;
+    max-width: 320px;
+}
+
+.widget-in {
+    background-color: #D1FAE5;
+}
+.widget-out {
+    background-color: #f2f2f2;
+}
+.widget-type {
+    font-weight: 800;
+    font-size: 18px;
+}
+.widget-qty {
+    font-size: 16px;
+}
+.widget-meta {
+    font-size: 13px;
+    color: #333;
+}
+
+.widget-when {
+    font-size: 12px;
+    color: #666;
+    margin-top:4px;
+}
+
+#historylist {
+  display: flex;
+  flex-wrap: wrap;
+}
