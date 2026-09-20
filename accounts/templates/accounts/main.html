@@ -51,9 +51,14 @@
           Add new category
         </button>
       </div>
+      <div class="addbut">
+        <button class="catadd" id="proadd" onclick="newproduct()">
+          Add new Product
+        </button>
+      </div>
       <div id="theadd">
         <button id="back" onclick="back()">Back</button>
-        <form class="addnewcat">
+        <form class="addnewcat" method="post">
           <br />
           <br />
           <label>Enter the category name:</label>
@@ -64,6 +69,10 @@
           <label>Enter the category description:</label>
           <input type="text" name="catdes" id="catdes" required />
           <br />
+          <br />
+          <label>category Parent</label>
+          <select class="Parent" id="Parent" name="Parent"></select>
+
           <br />
           <div align="center">
             <input type="submit" id="submit" onclick="enter(event)" />

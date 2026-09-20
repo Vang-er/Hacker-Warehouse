@@ -12,8 +12,10 @@ const backbut = document.getElementById("back");
 const submit = document.getElementById("submit");
 const history = document.getElementById("history");
 const historydiv = document.getElementById("histroydiv");
-const historylist = document.getElementById("historylist")
+const historylist = document.getElementById("historylist");
 const historycount = document.getElementById("historycount");
+const proadd = document.getElementById("proadd");
+const pardrop = document.getElementById("Parent");
 
 let parentcatname = [];
 let parentnum = 0;
@@ -46,11 +48,37 @@ function enter(event) {
 function back() {
   theadd.style.display = "none";
   catadd.style.display = "block";
+  proadd.style.display = "block";
+}
+async function loadcat() {
+  try {
+    const response = await fetch("/api/categories/");
+    if (!response.ok) {
+      throw new Error("Failed");
+    }
+    const data = await response.json();
+    pardrop.innerHTML = "";
+    const defaultele = document.createElement("option");
+    defaultele.value = "";
+    defaultele.textContent = "------";
+    pardrop.appendChild(defaultele);
+    data.results.forEach((category) => {
+      const option = document.createElement("option");
+      option.value = category.id;
+      option.textContent = category.name;
+      pardrop.appendChild(option);
+    });
+  } catch (error) {
+    console.log("an error occured", error);
+  }
 }
 
+document.addEventListener("DOMContentLoaded", loadcat);
 function newcategory() {
   catadd.style.display = "none";
   theadd.style.display = "block";
+  proadd.style.display = "none";
+  loadcat();
 }
 
 function chosestock() {
@@ -61,7 +89,7 @@ function chosestock() {
   dashboard.style.backgroundColor = "#fff";
   dashboard.style.borderRadius = "0px";
   history.style.backgroundColor = "#fff";
-  history.style.borderRadius= "0px";
+  history.style.borderRadius = "0px";
   stockdiv.style.display = "block";
   adddiv.style.display = "none";
   dashdiv.style.display = "none";
@@ -71,6 +99,8 @@ function choseadd() {
   add.style.backgroundColor = "#78cc78";
   add.style.borderRadius = "20px";
   stock.style.backgroundColor = "#fff";
+  history.style.backgroundColor = "#fff";
+  history.style.borderRadius = "0px";
   stock.style.borderRadius = "0px";
   dashboard.style.backgroundColor = "#fff";
   dashboard.style.borderRadius = "0px";
@@ -88,21 +118,23 @@ function chosedash() {
   stockdiv.style.display = "none";
   adddiv.style.display = "none";
   dashdiv.style.display = "block";
+  history.style.backgroundColor = "#fff";
+  history.style.borderRadius = "0px";
 }
 
 function chosehistory() {
   history.style.backgroundColor = "#79d679";
   history.style.borderRadius = "20px";
-  stock.style.backgroundColor= "#fff";
+  stock.style.backgroundColor = "#fff";
   stock.style.borderRadius = "0px";
   add.style.backgroundColor = "#fff";
   add.style.borderRadius = "0px";
-  dashboard.style.backgroundColor= "#fff";
+  dashboard.style.backgroundColor = "#fff";
   dashboard.style.borderRadius = "0px";
-  stockdiv.style.display= "none";
-  adddiv.style.display= "none";
-  dashdiv.style.display= "none";
-  historydiv.style.display= "block";
+  stockdiv.style.display = "none";
+  adddiv.style.display = "none";
+  dashdiv.style.display = "none";
+  historydiv.style.display = "block";
   localHistory();
 }
 
@@ -113,16 +145,18 @@ function localHistory() {
     .then((data) => {
       historycount.textContent = "Count: " + data.count;
       if (data.results.length === 0) {
-        historylist.innerHTML = "<p style='text-align:center'>Nothing has happened yet</p>";
+        historylist.innerHTML =
+          "<p style='text-align:center'>Nothing has happened yet</p>";
         return;
       }
-      const sorted = data.results.slice().sort(
-        (a, b) => new Date(b.created_at) - new Date(a.created_at)
-      );
+      const sorted = data.results
+        .slice()
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       historylist.innerHTML = sorted.map(historyWidget).join("");
     })
     .catch(() => {
-      historylist.innerHTML = "<p style='text-align:center'>Could not load History</p>";
+      historylist.innerHTML =
+        "<p style='text-align:center'>Could not load History</p>";
     });
 }
 
