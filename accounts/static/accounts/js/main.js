@@ -103,46 +103,55 @@ function back() {
 async function loadcat() {
   try {
     const response = await fetch("/api/categories/");
+
     if (!response.ok) {
-      throw new Error("Failed");
+      throw new Error("Failed to load categories");
     }
+
     const data = await response.json();
+
+    // Category form's parent dropdown
     pardrop.innerHTML = "";
-    const defaultele = document.createElement("option");
-    defaultele.value = "";
-    defaultele.textContent = "------";
-    pardrop.appendChild(defaultele);
+
+    // Product form's category dropdown
+    dropparnet.innerHTML = "";
+
+    // Default options
+    const parentDefault = document.createElement("option");
+    parentDefault.value = "";
+    parentDefault.textContent = "------";
+    pardrop.appendChild(parentDefault);
+
+    const productDefault = document.createElement("option");
+    productDefault.value = "";
+    productDefault.textContent = "------";
+    dropparnet.appendChild(productDefault);
+
+    // Add categories to both dropdowns
     data.results.forEach((category) => {
-      const option = document.createElement("option");
-      option.value = category.id;
-      option.textContent = category.name;
-      pardrop.appendChild(option);
+      // Parent-category dropdown
+      const parentOption = document.createElement("option");
+      parentOption.value = category.id;
+      parentOption.textContent = category.name;
+      pardrop.appendChild(parentOption);
+
+      // Product-category dropdown
+      const productOption = document.createElement("option");
+      productOption.value = category.id;
+      productOption.textContent = category.name;
+      dropparnet.appendChild(productOption);
     });
   } catch (error) {
-    console.log("an error occured", error);
+    console.error("Error loading categories:", error);
   }
 }
-async function loadpro() {
-  try {
-    const response = await fetch("/api/products/");
-    if (!response.ok) {
-      throw new Error("Failed");
-    }
-    const data = await response.json();
-    pardrop.innerHTML = "";
-    const defaultele = document.createElement("option");
-    defaultele.value = "";
-    defaultele.textContent = "------";
-    pardrop.appendChild(defaultele);
-    data.results.forEach((category) => {
-      const option = document.createElement("option");
-      option.value = category.id;
-      option.textContent = category.name;
-      pardrop.appendChild(option);
-    });
-  } catch (error) {
-    console.log("an error occured", error);
-  }
+function newproduct() {
+  catadd.style.display = "none";
+  theadd.style.display = "none";
+  proadd.style.display = "none";
+  productaddform.style.display = "block";
+
+  loadpro();
 }
 document.addEventListener("DOMContentLoaded", loadcat);
 function newcategory() {
@@ -250,3 +259,5 @@ function historyWidget(movement) {
       <div class="widget-when">${when}</div>
     </div>`;
 }
+
+// heree
