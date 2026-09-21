@@ -40,18 +40,17 @@
 ## The team
 
 - Timo
-- made the backend logic
-- made the DB shcemia
+- - made the backend logic
+- - made the DB shcemia
 - Baraa
-- log in page frontend
-- all pages in main page exept history
-
+- - log in page frontend
+- - all pages in main page exept history
 - Mohammed
-- Asisted in Backend
-- Asisted in Frontend
+- - Asisted in Backend
+- - Asisted in Frontend
 
 ## our server 🙂
 
-### You can test the latest version on our UNIQUE domain hackerwarehouse.shop !!!
+### You can test the latest version on our UNIQUE domain hackerwarehouse.shop(which we bougth with our pocket money at 2AM,LOL!!) !!!
 
 #### login credentials is vanger , vanger.....
