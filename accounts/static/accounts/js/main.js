@@ -9,7 +9,6 @@ const catname = document.getElementById("catname");
 const catdes = document.getElementById("catdes");
 const theadd = document.getElementById("theadd");
 const backbut = document.getElementById("back");
-const submit = document.getElementById("submit");
 const history = document.getElementById("history");
 const historydiv = document.getElementById("histroydiv");
 const historylist = document.getElementById("historylist");
@@ -17,6 +16,11 @@ const historycount = document.getElementById("historycount");
 const proadd = document.getElementById("proadd");
 const pardrop = document.getElementById("Parent");
 const newcatform = document.getElementById("newcatform");
+const productaddform = document.getElementById("newproform");
+const proname = document.getElementById("proname");
+const prodes = document.getElementById("prodes");
+const probrand = document.getElementById("probrand");
+const dropparnet = document.getElementById("dropparnet");
 async function enter(event) {
   event.preventDefault();
 
@@ -91,6 +95,7 @@ function getCookie(name) {
 }
 
 function back() {
+  productaddform.style.display = "none;";
   theadd.style.display = "none";
   catadd.style.display = "block";
   proadd.style.display = "block";
@@ -117,13 +122,40 @@ async function loadcat() {
     console.log("an error occured", error);
   }
 }
-
+async function loadpro() {
+  try {
+    const response = await fetch("/api/products/");
+    if (!response.ok) {
+      throw new Error("Failed");
+    }
+    const data = await response.json();
+    pardrop.innerHTML = "";
+    const defaultele = document.createElement("option");
+    defaultele.value = "";
+    defaultele.textContent = "------";
+    pardrop.appendChild(defaultele);
+    data.results.forEach((category) => {
+      const option = document.createElement("option");
+      option.value = category.id;
+      option.textContent = category.name;
+      pardrop.appendChild(option);
+    });
+  } catch (error) {
+    console.log("an error occured", error);
+  }
+}
 document.addEventListener("DOMContentLoaded", loadcat);
 function newcategory() {
   catadd.style.display = "none";
   theadd.style.display = "block";
   proadd.style.display = "none";
   loadcat();
+}
+function newproduct() {
+  catadd.style.display = "none";
+  theadd.style.display = "none";
+  proadd.style.display = "none";
+  productaddform.style.display = "block";
 }
 newcatform.addEventListener("submit", enter);
 function chosestock() {

@@ -80,6 +80,47 @@
           </div>
         </form>
       </div>
+      <form
+        class="addnewcat"
+        method="post"
+        id="newproform"
+        style="display: none"
+      >
+        {% csrf_token %}
+        <br />
+        <br />
+        <label>Product name:</label>
+        <input type="text" name="Name" id="proname" required />
+        <br />
+        <br />
+        <br />
+        <label>Product description:</label>
+        <input type="text" name="Description" id="prodes" required />
+        <br />
+        <br />
+        <label>Brand:</label>
+        <input type="text" name="Brand" id="probrand" />
+        <br />
+        <br />
+        <label>product category</label>
+        <select class="Parent" id="dropparnet" name="Parent"></select>
+
+        <br />
+        <div align="center">
+          <input
+            type="submit"
+            style="
+              border: solid;
+              padding: 10px;
+              border-radius: 10px;
+              background-color: #9ed39e;
+              cursor: pointer;
+              text-align: center;
+            "
+            value="Create Category"
+          />
+        </div>
+      </form>
     </div>
 
     <div id="dashdiv" class="maindiv">
@@ -100,6 +141,7 @@
       >
         History
       </div>
+
       <div
         class="count"
         id="historycount"
