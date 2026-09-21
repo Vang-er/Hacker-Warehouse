@@ -16,33 +16,78 @@ const historylist = document.getElementById("historylist");
 const historycount = document.getElementById("historycount");
 const proadd = document.getElementById("proadd");
 const pardrop = document.getElementById("Parent");
-
-let parentcatname = [];
-let parentnum = 0;
-let parentcatdes = [];
-let parentdesnum = 0;
-let isthereproduct = false;
-
-function enter(event) {
+const newcatform = document.getElementById("newcatform");
+async function enter(event) {
   event.preventDefault();
-  parentcatname[parentnum] = catname.value;
-  parentcatdes[parentdesnum] = catdes.value;
 
-  back();
-  isthereproduct = true;
-  stockdiv.innerHTML = `
-    <div class="boxes" id="box1">
-    <p class="catigoryname">${parentcatname[parentnum]}</p>
-    <div class="prodectbuttonsdiv" id="prodectbuttons">
-    <button class="prodectbuttons" id="addprodect">Add prodect</button>
-    <button class="prodectbuttons" id="delprodect">Remove prodect</button>
-</div>
-</div>
-    `;
-  catname.value = "";
-  catdes.value = "";
-  parentnum++;
-  parentdesnum++;
+  const name = catname.value.trim();
+  const description = catdes.value.trim();
+  const parent = pardrop.value;
+
+  const data = {
+    name: name,
+    description: description,
+    parent: parent || null,
+  };
+
+  console.log("Sending:", data);
+
+  try {
+    const response = await fetch("/api/categories/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCookie("csrftoken"),
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+
+    console.log("API response:", result);
+
+    if (!response.ok) {
+      console.error("API error:", result);
+      alert("Failed to create category");
+      return;
+    }
+
+    console.log("Category created:", result);
+
+    // Clear form
+    catname.value = "";
+    catdes.value = "";
+    pardrop.value = "";
+
+    // Close form
+    back();
+
+    // Refresh category dropdown
+    await loadcat();
+
+    alert("Category created successfully!");
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Something went wrong");
+  }
+}
+function getCookie(name) {
+  let cookieValue = null;
+
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+
+    for (let cookie of cookies) {
+      cookie = cookie.trim();
+
+      if (cookie.startsWith(name + "=")) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+
+  return cookieValue;
 }
 
 function back() {
@@ -80,7 +125,7 @@ function newcategory() {
   proadd.style.display = "none";
   loadcat();
 }
-
+newcatform.addEventListener("submit", enter);
 function chosestock() {
   stock.style.backgroundColor = "#78cc78";
   stock.style.borderRadius = "20px";

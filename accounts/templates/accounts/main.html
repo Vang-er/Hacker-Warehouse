@@ -58,7 +58,8 @@
       </div>
       <div id="theadd">
         <button id="back" onclick="back()">Back</button>
-        <form class="addnewcat" method="post">
+        <form class="addnewcat" method="post" id="newcatform">
+          {% csrf_token %}
           <br />
           <br />
           <label>Enter the category name:</label>
@@ -75,7 +76,7 @@
 
           <br />
           <div align="center">
-            <input type="submit" id="submit" onclick="enter(event)" />
+            <input type="submit" id="submit" value="Create Category" />
           </div>
         </form>
       </div>
