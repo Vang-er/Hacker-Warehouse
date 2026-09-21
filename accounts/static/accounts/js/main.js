@@ -107,6 +107,7 @@ function choseadd() {
   stockdiv.style.display = "none";
   adddiv.style.display = "block";
   dashdiv.style.display = "none";
+  historydiv.style.display = "none";
 }
 function chosedash() {
   dashboard.style.backgroundColor = "#78cc78";
