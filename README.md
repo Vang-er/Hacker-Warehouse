@@ -58,3 +58,9 @@
 <img src="README assets/1.png">
 <img src="README assets/2.png">
 <img src="README assets/3.png">
+
+# The code and the web page is still under construction
+
+## To test the back end please visit hackerwarehouse.shop/admin/ with the same login crednitials to test the back end
+
+## We hosted our site on a 32 bit potato pc,LOL
