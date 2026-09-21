@@ -53,4 +53,4 @@
 
 ### You can test the latest version on our UNIQUE domain hackerwarehouse.shop(which we bougth with our pocket money at 2AM,LOL!!) !!!
 
-#### login credentials is vanger , vanger.....
+#### login credentials is vanger , vanger .....truly secert and hard to find
