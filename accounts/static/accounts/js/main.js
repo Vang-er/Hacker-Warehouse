@@ -178,7 +178,10 @@ newcatform.addEventListener("submit", enter);
 function chosestock() {
   hideAllMainViews();
   setActiveTab(stock);
-  if (stockdiv) stockdiv.style.display = "block";
+  if (stockdiv) {
+    stockdiv.style.display = "block";
+    loadStockData();
+  }
 }
 
 function choseadd() {
@@ -292,4 +295,31 @@ function done(event) {
   event.preventDefault();
   alert("Product modal submitted!");
   x();
+}
+
+async function loadStockData() {
+  const stockContent = document.getElementById("stockcontent");
+  const emptyMsg = document.getElementById("empyty");
+
+  if (!stockContent) return;
+
+  stockContent.innerHTML = "<p style='text-align:center;'>Loading Inventory...</p>";
+  try {
+    const response = await fetch("/api/categories/");
+    if (!response.ok) throw new Error("Failed to fetch stock data!");
+    const data = await response.json();
+    const categories = data.results || data;
+
+    if (categories.length === 0) {
+      if (emptyMsg) emptyMsg.style.display = "block";
+      stockContent.innerHTML = "";
+      return;
+    }
+    if (emptyMsg) emptyMsg.style.display = "none";
+
+    // The Stock cards here !!! <<<<<<<<<<<<<<<<----- 
+  } catch (error) {
+    console.error("Error loading stock:", error);
+    stockContent.innerHTML = "<p style='text-align:center; color: red;'>Could not load stock inventory...</p>"
+  }
 }
