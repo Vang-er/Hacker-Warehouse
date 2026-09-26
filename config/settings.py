@@ -26,8 +26,11 @@ SECRET_KEY = 'django-insecure-f3a-t16@crvr#bk2*b*hxa&t&2-cl#71-o7@*t$4b=kd-@5l+p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["hackerwarehouse.shop","https://hackerwarehouse.shop","http://127.0.0.1","127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = [
+    "https://hackerwarehouse.shop",
+    "https://www.hackerwarehouse.shop",
+]
 
 # Application definition
 
