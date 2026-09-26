@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import views as auth_views
 def login(request):
     if request.user.is_authenticated:
-        return redirect("dashboard/")
+        return redirect("/dashboard/")
     return auth_views.LoginView.as_view(
         template_name="accounts/login.html"
     )(request)

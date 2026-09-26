@@ -8,8 +8,9 @@ class StockSerializer(serializers.ModelSerializer):
         model = Stock
         fields = ["id", "variant", "sku", "quantity", "reorder_level", "location"]
         read_only_fields = ["quantity", "variant"]
-        def get_variant_name(self, obj):
-            return obj.variant.name or obj.variant.product.name
+        
+    def get_variant_name(self, obj):
+        return obj.variant.name or obj.variant.product.name
 
 class StockMovementSerializer(serializers.ModelSerializer):
     variant_name = serializers.SerializerMethodField()
