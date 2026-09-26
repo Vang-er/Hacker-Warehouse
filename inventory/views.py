@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import F
 
 # Create your views here.
 
@@ -16,6 +17,12 @@ from .services import InsufficientStockError, apply_movement, set_quantity
 class StockViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Stock.objects.select_related("variant")
     serializer_class = StockSerializer
+
+    def get_queryset(self):
+        qs = Stock.objects.select_related("variant__product")
+        if self.request.query_params.get("low_stock") == "true":
+            qs = qs.filter(quantity__lte=F("reorder_level"))
+        return qs
 
     def get_serializer_class(self):
         if self.action == "receive":
