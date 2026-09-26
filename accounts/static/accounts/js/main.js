@@ -79,7 +79,7 @@ async function enter(event) {
     pardrop.value = "";
 
     // Close form
-    closeSubForms();
+    back();
 
     // Refresh category dropdown
     await loadcat();
@@ -316,8 +316,42 @@ async function loadStockData() {
       return;
     }
     if (emptyMsg) emptyMsg.style.display = "none";
+    stockContent.innerHTML = "";
 
-    // The Stock cards here !!! <<<<<<<<<<<<<<<<----- 
+    categories.forEach(category => {
+      const catBox = document.createElement("div");
+      catBox.className = "boxes";
+      catBox.style.flexDirection = "column";
+      catBox.style.alignItems= "flex-start";
+      catBox.style.height = "fit-content";
+
+      let productsHtml = "";
+      if (category.products && category.products.length > 0) {
+        productsHtml = `<div style="display: flex; gap: 15px; flex-wrap: wrap; width: 100%; margin-top: 10px;">`;
+        category.products.forEach(product => {
+          productsHtml += `<div class="prodectbuttons" style="min-width: 150px;">
+           <div class="nameanddes">
+              <span style="font-weight: bold;">${product.name}</span>
+              <span style="font-size: 12px; color: #555;">${product.description || ''}</span>
+              <span style="font-size: 12px; margin-top: 5px;">Brand: ${product.brand || 'N/A'}</span>
+            </div>
+          </div>`;
+        });
+        productsHtml += `</div>`; // ✅ Properly close the wrapper div
+      } else {
+        productsHtml = `<p style="font-size: 14px; color: #666; font-style: italic; margin-top: 5px;">No products in this category.</p>`;
+      }
+
+      catBox.innerHTML = `
+      <h3 style="margin: 0 0 5px 0; border-bottom: 2px solid #000; width: 100%">
+        ${category.name}
+      </h3>
+      <p style="margin: 0 0 10px 0; font-size: 14px; color: #333;">${category.description || ''}</p>
+      ${productsHtml}
+      `;
+      stockContent.appendChild(catBox);
+    });
+
   } catch (error) {
     console.error("Error loading stock:", error);
     stockContent.innerHTML = "<p style='text-align:center; color: red;'>Could not load stock inventory...</p>"
