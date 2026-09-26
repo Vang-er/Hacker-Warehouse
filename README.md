@@ -36,7 +36,9 @@
 - 2-click add to category
 - 3-open "your stock" to se your category and add or remove product
 - 4-open add stock to edit all things and products
+
 ## the username and the password is : vanger
+
 ## The team
 
 - Timo
@@ -64,3 +66,15 @@
 ## To test the back end please visit hackerwarehouse.shop/admin/ with the same login crednitials to test the back end
 
 ## We hosted our site on a 32 bit potato pc,LOL
+
+# Team instruction to themselfes!
+
+## to run the server run "python manage.py runserver"
+
+## to run the tailwind css while devlopment run
+
+````npx @tailwindcss/cli \
+  -i ./static/css/input.css \
+  -o ./static/css/output.css \
+  --watch ```
+````
