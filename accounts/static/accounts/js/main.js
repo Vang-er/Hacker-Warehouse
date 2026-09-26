@@ -1,16 +1,17 @@
 const stock = document.getElementById("your");
 const add = document.getElementById("add");
 const dashboard = document.getElementById("dash");
+const addStockBtn = document.getElementById("add-stock")
+const historyBtn = document.getElementById("history");
 const stockdiv = document.getElementById("stockdiv");
 const adddiv = document.getElementById("adddiv");
 const dashdiv = document.getElementById("dashdiv");
-const catadd = document.getElementById("catadd");
+const historydiv = document.getElementById("historydiv");
+const catadd = document.getElementById("catadd"); const hDiv = getHistoryDiv()
 const catname = document.getElementById("catname");
 const catdes = document.getElementById("catdes");
 const theadd = document.getElementById("theadd");
 const backbut = document.getElementById("back");
-const history = document.getElementById("history");
-const historydiv = document.getElementById("histroydiv");
 const historylist = document.getElementById("historylist");
 const historycount = document.getElementById("historycount");
 const proadd = document.getElementById("proadd");
@@ -21,6 +22,20 @@ const proname = document.getElementById("proname");
 const prodes = document.getElementById("prodes");
 const probrand = document.getElementById("probrand");
 const dropparnet = document.getElementById("dropparnet");
+
+const newproductModal = document.getElementById("newproduct");
+
+function getHistoryDiv() {
+  let div = document.getElementById("historydiv");
+  if (!div) {
+    console.warn("historydiv was missing from DOM, creation fallback applied..");
+  }
+  return div;
+}
+function getStockDiv() {return document.getElementById("stockdiv"); }
+function getAddDiv() {return document.getElementById("adddiv"); }
+function getDashDiv() {return document.getElementById("dashdiv"); }
+
 async function enter(event) {
   event.preventDefault();
 
@@ -95,7 +110,7 @@ function getCookie(name) {
 }
 
 function back() {
-  productaddform.style.display = "none;";
+  productaddform.style.display = "none";
   theadd.style.display = "none";
   catadd.style.display = "block";
   proadd.style.display = "block";
@@ -145,14 +160,6 @@ async function loadcat() {
     console.error("Error loading categories:", error);
   }
 }
-function newproduct() {
-  catadd.style.display = "none";
-  theadd.style.display = "none";
-  proadd.style.display = "none";
-  productaddform.style.display = "block";
-
-  loadpro();
-}
 document.addEventListener("DOMContentLoaded", loadcat);
 function newcategory() {
   catadd.style.display = "none";
@@ -160,69 +167,82 @@ function newcategory() {
   proadd.style.display = "none";
   loadcat();
 }
-function newproduct() {
+function openNewProductForm() {
   catadd.style.display = "none";
   theadd.style.display = "none";
   proadd.style.display = "none";
   productaddform.style.display = "block";
+  loadcat();
 }
 newcatform.addEventListener("submit", enter);
 function chosestock() {
-  stock.style.backgroundColor = "#78cc78";
-  stock.style.borderRadius = "20px";
-  add.style.backgroundColor = "#fff";
-  add.style.borderRadius = "0px";
-  dashboard.style.backgroundColor = "#fff";
-  dashboard.style.borderRadius = "0px";
-  history.style.backgroundColor = "#fff";
-  history.style.borderRadius = "0px";
-  stockdiv.style.display = "block";
-  adddiv.style.display = "none";
-  dashdiv.style.display = "none";
-  historydiv.style.display = "none";
+  hideAllMainViews();
+  setActiveTab(stock);
+  if (stockdiv) {
+    stockdiv.style.display = "block";
+    loadStockData();
+  }
 }
+
 function choseadd() {
-  add.style.backgroundColor = "#78cc78";
-  add.style.borderRadius = "20px";
-  stock.style.backgroundColor = "#fff";
-  history.style.backgroundColor = "#fff";
-  history.style.borderRadius = "0px";
-  stock.style.borderRadius = "0px";
-  dashboard.style.backgroundColor = "#fff";
-  dashboard.style.borderRadius = "0px";
-  stockdiv.style.display = "none";
-  adddiv.style.display = "block";
-  dashdiv.style.display = "none";
-  historydiv.style.display = "none";
+  hideAllMainViews();
+  setActiveTab(add);
+  if (adddiv) adddiv.style.display = "block";
+  if (theadd) theadd.style.display = "none";
+  if (productaddform) productaddform.style.display = "none";
+  if (catadd) catadd.style.display = "block";
+  if (proadd) proadd.style.display = "block";
 }
 function chosedash() {
-  dashboard.style.backgroundColor = "#78cc78";
-  dashboard.style.borderRadius = "20px";
-  add.style.backgroundColor = "#fff";
-  add.style.borderRadius = "0px";
-  stock.style.backgroundColor = "#fff";
-  stock.style.borderRadius = "0px";
-  stockdiv.style.display = "none";
-  adddiv.style.display = "none";
-  dashdiv.style.display = "block";
-  history.style.backgroundColor = "#fff";
-  history.style.borderRadius = "0px";
+  hideAllMainViews();
+  setActiveTab(dashboard);
+  if (dashdiv) dashdiv.style.display = "block";
+}
+
+function hideAllMainViews() {
+  const divs = [
+    document.getElementById("stockdiv"),
+    document.getElementById("adddiv"),
+    document.getElementById("dashdiv"),
+    document.getElementById("historydiv")
+  ];
+  
+  divs.forEach(div => {
+    if (div) div.style.display = "none";
+  });
+}
+
+
+function resetTabStyles() {
+  const tabs = [stock, add, dashboard, addStockBtn, historyBtn];
+  tabs.forEach(tab =>{
+    if (tab) {
+      tab.style.backgroundColor="#fff";
+      tab.style.borderRadius = "0px";
+    }
+  });
+}
+
+function setActiveTab(tabElement) {
+  resetTabStyles();
+  if (tabElement) {
+    tabElement.style.backgroundColor = "#78cc78";
+    tabElement.style.borderRadius = "20px";
+  }
 }
 
 function chosehistory() {
-  history.style.backgroundColor = "#79d679";
-  history.style.borderRadius = "20px";
-  stock.style.backgroundColor = "#fff";
-  stock.style.borderRadius = "0px";
-  add.style.backgroundColor = "#fff";
-  add.style.borderRadius = "0px";
-  dashboard.style.backgroundColor = "#fff";
-  dashboard.style.borderRadius = "0px";
-  stockdiv.style.display = "none";
-  adddiv.style.display = "none";
-  dashdiv.style.display = "none";
-  historydiv.style.display = "block";
-  localHistory();
+  hideAllMainViews();
+  const historyBtn = document.getElementById("history");
+  if (historyBtn) setActiveTab(historyBtn);
+
+  const hDiv = getHistoryDiv();
+  if (hDiv) {
+    hDiv.style.display = "block";
+    localHistory();
+  } else {
+    alert("Error: History section could not be found on this page layout.");
+  }
 }
 
 function localHistory() {
@@ -253,11 +273,87 @@ function historyWidget(movement) {
   const when = new Date(movement.created_at).toLocaleString();
   return `
     <div class="historywidget ${isIn ? "widget-in" : "widget-out"}">
-      <div class="widget-type">${isIn ? "Added" : "Removed"} - ${movement.product_name}</div>
+      <div class="widget-type">${isIn ? "Added" : "Removed"} — ${movement.variant_name}</div>
       <div class="widget-qty">${sign}${movement.quantity} units</div>
       <div class="widget-meta">balance now: ${movement.balance_after} · ${movement.reason.toLowerCase()}</div>
       <div class="widget-when">${when}</div>
     </div>`;
 }
 
-// heree
+function choseadds() {
+  hideAllMainViews();
+  setActiveTab(addStockBtn);
+  if (adddiv) adddiv.style.display = "block";
+  openNewProductForm();
+}
+
+function x() {
+  if (newproductModal) newproductModal.style.display = "none";
+}
+
+function done(event) {
+  event.preventDefault();
+  alert("Product modal submitted!");
+  x();
+}
+
+async function loadStockData() {
+  const stockContent = document.getElementById("stockcontent");
+  const emptyMsg = document.getElementById("empyty");
+
+  if (!stockContent) return;
+
+  stockContent.innerHTML = "<p style='text-align:center;'>Loading Inventory...</p>";
+  try {
+    const response = await fetch("/api/categories/");
+    if (!response.ok) throw new Error("Failed to fetch stock data!");
+    const data = await response.json();
+    const categories = data.results || data;
+
+    if (categories.length === 0) {
+      if (emptyMsg) emptyMsg.style.display = "block";
+      stockContent.innerHTML = "";
+      return;
+    }
+    if (emptyMsg) emptyMsg.style.display = "none";
+    stockContent.innerHTML = "";
+
+    categories.forEach(category => {
+      const catBox = document.createElement("div");
+      catBox.className = "boxes";
+      catBox.style.flexDirection = "column";
+      catBox.style.alignItems= "flex-start";
+      catBox.style.height = "fit-content";
+
+      let productsHtml = "";
+      if (category.products && category.products.length > 0) {
+        productsHtml = `<div style="display: flex; gap: 15px; flex-wrap: wrap; width: 100%; margin-top: 10px;">`;
+        category.products.forEach(product => {
+          productsHtml += `<div class="prodectbuttons" style="min-width: 150px;">
+           <div class="nameanddes">
+              <span style="font-weight: bold;">${product.name}</span>
+              <span style="font-size: 12px; color: #555;">${product.description || ''}</span>
+              <span style="font-size: 12px; margin-top: 5px;">Brand: ${product.brand || 'N/A'}</span>
+            </div>
+          </div>`;
+        });
+        productsHtml += `</div>`; // ✅ Properly close the wrapper div
+      } else {
+        productsHtml = `<p style="font-size: 14px; color: #666; font-style: italic; margin-top: 5px;">No products in this category.</p>`;
+      }
+
+      catBox.innerHTML = `
+      <h3 style="margin: 0 0 5px 0; border-bottom: 2px solid #000; width: 100%">
+        ${category.name}
+      </h3>
+      <p style="margin: 0 0 10px 0; font-size: 14px; color: #333;">${category.description || ''}</p>
+      ${productsHtml}
+      `;
+      stockContent.appendChild(catBox);
+    });
+
+  } catch (error) {
+    console.error("Error loading stock:", error);
+    stockContent.innerHTML = "<p style='text-align:center; color: red;'>Could not load stock inventory...</p>"
+  }
+}

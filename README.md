@@ -36,7 +36,7 @@
 - 2-click add to category
 - 3-open "your stock" to se your category and add or remove product
 - 4-open add stock to edit all things and products
-
+## the username and the password is : vanger
 ## The team
 
 - Timo

@@ -26,7 +26,7 @@ function thenext() {
 function main(event) {
   event.preventDefault();
 
-  window.location.href = "Dashboard/";
+  window.location.href = "dashboard/";
 }
 
 function theback() {
