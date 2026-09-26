@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@source "../../templates";
+@source "../../accounts";
+@source "../../catalog";
+@source "../../inventory";
+@source "../../front-end";
