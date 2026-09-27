@@ -48,7 +48,7 @@
     </div>
     <div
       id="window"
-      class="z-50 hidden mx-auto my-auto w-75 h-75 rounded-2xl bg-gray-500 fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+      class="z-50 hidden mx-auto my-auto w-95 h-95 rounded-2xl bg-gray-500 fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
     >
       <div class="w-full relative">
         <button
@@ -62,10 +62,51 @@
       <div id="chooseadd" class=" rounded-2xl border absolute top-[20%] flex justify-center">
         <button id="addcat" class=" cursor-pointer p-3 rounded-l-2xl">Add category / product</button>
         <hr>
+        <button id="addvariants" class="cursor-pointer border-l p-3">Add variants</button>
+        <hr>
         <button id="addstock" class="cursor-pointer border-l p-3 rounded-r-2xl">Add stock</button>
+
       </div>
      </div>
     
+<!--
+     
+name
+description
+parent
+img
+/
+ drop down "product"
+ name
+ price num
+ cost price from factroy
+ chec pox hiddin yes "is active"
+ leave blank to use product name
+/
+
+-->
+
+
+    <div id="cat">
+      <label for="catname">Category name</label>
+      <input name="catname" type="text">
+      <label for="catdes">Category description</label>
+      <input name="catdes" type="text">
+    </div>
+
+    <div id="var">
+
+    </div>
+    
+    <div id="stock">
+      
+    </div>
+
+
+
+
+
+
     </div>
     <button
       onclick="showwindow()"
@@ -89,56 +130,41 @@
     const backdrop = document.getElementById("backdrop");
     const addstock = document.getElementById("addstock");
     const addcat = document.getElementById("addcat");
+    const addvariants = document.getElementById("addvariants")
     let stockpressed = false;
     let catpresser = false;
-    let windowopen = true;
-
-   
+    let varpressed = false;
     
-/*
-       addcat.addEventListener("click", () => {
-           checkcat()
-       })
+   
+   
+addvariants.addEventListener("click", () => {
+    catpresser = false;
+    stockpressed = false;
+    varpressed = true;
+    addvariants.style.backgroundColor = "#4B5563";
+    addstock.style.backgroundColor = "#6B7280";
+    addcat.style.backgroundColor = "#6B7280";
 
-       function checkcat(){
-        catpresser = true
-       
-       if(catpresser == true){
-         addcat.style.backgroundColor = "#4B5563"
-       }else{
-         addcat.style.backgroundColor = "#6B7280"
-       }
-       checkstock()
-        stockpressed = false
-       }
-
-       function checkstock(){
-       catpresser = false
-       stockpressed = true
-       if(stockpressed == true){
-         addstock.style.backgroundColor = "#4B5563"
-       }else{
-        addstock.style.backgroundColor = "#6B7280"
-       }
-       checkcat()
-       
-       }
-       */
+});
 
 addcat.addEventListener("click", () => {
     catpresser = true;
     stockpressed = false;
-
+    varpressed = false;
     addcat.style.backgroundColor = "#4B5563";
     addstock.style.backgroundColor = "#6B7280";
+   addvariants.style.backgroundColor = "#6B7280";
+
 });
 
 addstock.addEventListener("click", () => {
     stockpressed = true;
     catpresser = false;
-
+    varpressed = false;
     addstock.style.backgroundColor = "#4B5563";
     addcat.style.backgroundColor = "#6B7280";
+   addvariants.style.backgroundColor = "#6B7280";
+
 });
 
 
