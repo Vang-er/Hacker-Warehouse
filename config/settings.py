@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'accounts',
     'catalog',
     'inventory',
+    'media_manager',
 ]
 LOGIN_URL = "/"
 LOGIN_REDIRECT_URL = "dashboard/"
@@ -128,6 +129,9 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # Static files (CSS, JavaScript, Images)
