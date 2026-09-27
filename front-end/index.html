@@ -60,9 +60,9 @@
       </div>
       <div class="flex justify-around">
       <div id="chooseadd" class=" rounded-2xl border absolute top-[20%] flex justify-center">
-        <button id="addcat" class=" cursor-pointer p-3">Add category / product</button>
+        <button id="addcat" class=" cursor-pointer p-3 rounded-l-2xl">Add category / product</button>
         <hr>
-        <button id="addstock" class="cursor-pointer border-l p-3">Add stock</button>
+        <button id="addstock" class="cursor-pointer border-l p-3 rounded-r-2xl">Add stock</button>
       </div>
      </div>
     
@@ -88,16 +88,39 @@
     const swindow = document.getElementById("window");
     const backdrop = document.getElementById("backdrop");
     const addstock = document.getElementById("addstock");
-    const addcat = document.getElementByid("addcat");
+    const addcat = document.getElementById("addcat");
+    let stockpressed = false;
+    let catpresser = false;
+    let windowopen = true;
 
+   
+    
 
+       addcat.addEventListener("click", () => {
 
-     
+       })
 
+       function checkcat(){
+        catpresser = true
+       stockpressed = false
+       if(catpresser == true){
+         addcat.style.backgroundColor = "#4B5563"
+       }else{
+         addcat.style.backgroundColor = "#6B7280"
+       }
 
+       }
 
+       function checkstock(){
+       catpresser = false
+       stockpressed = true
+       if(stockpressed == true){
+         addstock.style.backgroundColor = "#4B5563"
+       }else{
+        addstock.style.backgroundColor = "#6B7280"
+       }
 
-
+       }
 
 
 
@@ -119,5 +142,4 @@
     lucide.createIcons();
   </script>
   
-
 </html>
