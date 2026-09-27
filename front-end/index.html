@@ -1,10 +1,10 @@
-{% load static %}
-
+<!--{% load static %}
+-->
 <!doctype html>
 <html>
   <head>
-    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
-    <!--<link rel="stylesheet" href="../static/css/output.css" />-->
+   <!-- <link rel="stylesheet" href="{% static 'css/output.css' %}" />-->
+    <link rel="stylesheet" href="../static/css/output.css" />
   </head>
   <body class="bg-green-300 text-black">
     <nav
@@ -48,7 +48,7 @@
     </div>
     <div
       id="window"
-      class="z-50 hidden mx-auto my-auto w-65 h-65 rounded-2xl bg-gray-500 fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+      class="z-50 hidden mx-auto my-auto w-75 h-75 rounded-2xl bg-gray-500 fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
     >
       <div class="w-full relative">
         <button
@@ -58,6 +58,14 @@
           X
         </button>
       </div>
+      <div class="flex justify-around">
+      <div id="chooseadd" class=" rounded-2xl border absolute top-[20%] flex justify-center">
+        <button id="addcat" class=" cursor-pointer p-3">Add category / product</button>
+        <hr>
+        <button id="addstock" class="cursor-pointer border-l p-3">Add stock</button>
+      </div>
+     </div>
+    
     </div>
     <button
       onclick="showwindow()"
@@ -66,10 +74,36 @@
       +
     </button>
     <div id="backdrop" class="hidden fixed inset-0 bg-black/40 z-40"></div>
+  
+  
+  
+  
+  
+  
+  
+  
+
   </body>
   <script>
     const swindow = document.getElementById("window");
     const backdrop = document.getElementById("backdrop");
+    const addstock = document.getElementById("addstock");
+    const addcat = document.getElementByid("addcat");
+
+
+
+     
+
+
+
+
+
+
+
+
+
+
+
     function showwindow() {
       swindow.classList.remove("hidden");
       backdrop.classList.remove("hidden");
@@ -80,7 +114,10 @@
     }
   </script>
   <script src="https://unpkg.com/lucide@latest"></script>
+
   <script>
     lucide.createIcons();
   </script>
+  
+
 </html>
