@@ -57,22 +57,7 @@
       </div>
     </div>
 
-    <!--
-     
-name
-description
-parent
-img
-/
- drop down "product"
- name
- price num
- cost price from factroy
- chec pox hiddin yes "is active"
- leave blank to use product name
-/
 
--->
 
 
     <form id="cat" class="
@@ -93,15 +78,28 @@ img
     </form>
 
     <div id="var">
-
+    
     </div>
+         <!--
+ drop down "product"
+ name
+ price num
+ cost price from factroy
+ chec pox hiddin yes "is active"
+ leave blank to use product name
+-->
+    <form id="stock" class="
+    absolute top-2/5 hidden flex-col">
+      <label for="stcname ">Stock name</label>
+      <input name="stcname" type="text" class="border">
+      <label for="stcprice">Stock price</label>
+      <input type="number" min="0" name="stcprice" class="border">
+      <label for="stcfacprc">Co</label>
+</form>
 
-    <div id="stock">
-
-    </div>
-
-
-
+    <div id="pro">
+</div>
+    
 
 
 
@@ -129,6 +127,8 @@ img
   const addvariants = document.getElementById("addvariants")
   const cat = document.getElementById("cat");
   const addpro = document.getElementById("addpro");
+  const stock = document.getElementById("stock")
+
   let stockpressed = false;
   let catpresser = false;
   let varpressed = false;
@@ -145,6 +145,7 @@ img
     addcat.style.backgroundColor = "#6B7280";
     addpro.style.backgroundColor = "#6B7280"
     cat.style.display = "none"
+    stock.style.display = "none"
   });
   addpro.addEventListener("click", () => {
     stockpressed = false;
@@ -156,7 +157,7 @@ img
     addstock.style.backgroundColor = "#6B7280";
     addvariants.style.backgroundColor = "#6B7280";
     cat.style.display = "none"
-
+    stock.style.display = "none"
   });
   addcat.addEventListener("click", () => {
     catpresser = true;
@@ -168,7 +169,7 @@ img
     addpro.style.backgroundColor = "#6B7280"
     addvariants.style.backgroundColor = "#6B7280";
     cat.style.display = "flex"
-
+    stock.style.display = "none"
   });
 
   addstock.addEventListener("click", () => {
@@ -181,7 +182,7 @@ img
     addpro.style.backgroundColor = "#6B7280"
     addvariants.style.backgroundColor = "#6B7280";
     cat.style.display = "none"
-
+    stock.style.display = "flex"
   });
 
 
