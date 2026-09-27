@@ -48,7 +48,7 @@
     </div>
     <div
       id="window"
-      class="z-50 hidden mx-auto my-auto w-95 h-95 rounded-2xl bg-gray-500 fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+      class="p-6 z-50 hidden mx-auto my-auto w-95 h-115 rounded-2xl bg-gray-500 fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
     >
       <div class="w-full relative">
         <button
@@ -59,7 +59,7 @@
         </button>
       </div>
       <div class="flex justify-around">
-      <div id="chooseadd" class=" rounded-2xl border absolute top-[20%] flex justify-center">
+      <div id="chooseadd" class=" gap-4 rounded-2xl border absolute top-[20%] flex justify-center ml-5 mr-5">
         <button id="addcat" class=" cursor-pointer p-3 rounded-l-2xl">Add category / product</button>
         <hr>
         <button id="addvariants" class="cursor-pointer border-l p-3">Add variants</button>
@@ -87,12 +87,22 @@ img
 -->
 
 
-    <div id="cat">
+    <form id="cat" class="
+    absolute top-2/5 flex flex-col
+    ">
       <label for="catname">Category name</label>
-      <input name="catname" type="text">
+      <input name="catname" type="text" class="border">
       <label for="catdes">Category description</label>
-      <input name="catdes" type="text">
-    </div>
+      <input name="catdes" type="text" class="border">
+      
+      <label for="catdrop">Choose parents</label>
+      <select id="catslect" class="border">
+        
+      </select>
+      <label for="catimg">Uplode img for category</label>
+      <input class="border" type="file" id="catimg"  accept=".jpg, .jpeg, .png, .webp">
+      <input type="submit" class="border cursor-pointer w-fit mt-2 p-2 rounded-2xl">
+    </form>
 
     <div id="var">
 
@@ -131,6 +141,7 @@ img
     const addstock = document.getElementById("addstock");
     const addcat = document.getElementById("addcat");
     const addvariants = document.getElementById("addvariants")
+    const cat = document.getElementById("cat")
     let stockpressed = false;
     let catpresser = false;
     let varpressed = false;
@@ -144,7 +155,7 @@ addvariants.addEventListener("click", () => {
     addvariants.style.backgroundColor = "#4B5563";
     addstock.style.backgroundColor = "#6B7280";
     addcat.style.backgroundColor = "#6B7280";
-
+    cat.style.display = "none"
 });
 
 addcat.addEventListener("click", () => {
@@ -154,6 +165,7 @@ addcat.addEventListener("click", () => {
     addcat.style.backgroundColor = "#4B5563";
     addstock.style.backgroundColor = "#6B7280";
    addvariants.style.backgroundColor = "#6B7280";
+      cat.style.display = "flex"
 
 });
 
@@ -164,6 +176,7 @@ addstock.addEventListener("click", () => {
     addstock.style.backgroundColor = "#4B5563";
     addcat.style.backgroundColor = "#6B7280";
    addvariants.style.backgroundColor = "#6B7280";
+     cat.style.display = "none"
 
 });
 
