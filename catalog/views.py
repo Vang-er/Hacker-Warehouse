@@ -7,12 +7,14 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import Category, Product, ProductVariant
 from .serializers import CategorySerializer , VariantSerializer, ProductSerializer
-
-class IsNotViewr(permissions.BasePermission):
+from accounts.models import User
+class IsNotViewer(permissions.BasePermission):
     def has_permission(self, request, view):
+        if not request.user or not request.user.is_authenticated:
+            return False
         if request.method in permissions.SAFE_METHODS:
             return True
-        return request.user and request.user.is_authenticated and request.user.role != "VIEWER"
+        return request.user.role != User.Role.VIEWER
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
@@ -35,7 +37,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.select_related("category")
     serializer_class = ProductSerializer
-    permission_classes = [IsNotViewr]
+    permission_classes = [IsNotViewer]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ["name", "brand"]
 

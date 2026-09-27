@@ -14,13 +14,15 @@ class CategoryTreeTests(APITestCase):
         admin = User.objects.create_user(username="a", password="x", role=User.Role.ADMIN)
         self.client.force_authenticate(admin)
         response = self.client.get("/api/categories/tree/")
-        self.assertEqual(response.data[0]["name"],"Electronics")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data[0]["name"], "Electronics")
         self.assertEqual(response.data[0]["children"][0]["name"], "Arduino")
 
 class RolePermisionTests(APITestCase):
     def setUp(self):
         self.viewer = User.objects.create_user(username="v", password="x", role=User.Role.VIEWER)
         self.inventory = User.objects.create_user(username="i", password="x", role=User.Role.INVENTORY)
+        self.category = Category.objects.create(name="Tools")
 
     def test_if_viewr_can_read_prodx(self):
         self.client.force_authenticate(self.viewer)
@@ -33,8 +35,15 @@ class RolePermisionTests(APITestCase):
 
     def test_inventory_role_can_create_prodx(self):
         self.client.force_authenticate(self.inventory)
-        response = self.client.post("/api/products/", {"name": "New"})
+        response = self.client.post("/api/products/", {"name": "New", "category": self.category.id})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_product_filtering_by_category(self):
+        self.client.force_authenticate(self.inventory)
+        Product.objects.create(name="Hammer", category=self.category)
+        response = self.client.get(f"/api/products/?category={self.category.id}")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data["results"]), 1)
 
 class VariantSerializerTests(APITestCase):
     def test_variant_show_stock_quantity(self):
@@ -43,7 +52,11 @@ class VariantSerializerTests(APITestCase):
         product = Product.objects.create(name="Widget")
         variant = ProductVariant.objects.create(product=product, price=10)
 
+        self.assertTrue(variant.sku.startswith("SKU-"))
+
         response = self.client.get(f"/api/variants/{variant.id}/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn("quantity", response.data)
         self.assertEqual(response.data["quantity"],0)
+        self.assertEqual(response.data["reorder_level"],0)
 
