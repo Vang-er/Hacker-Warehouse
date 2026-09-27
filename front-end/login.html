@@ -2,9 +2,9 @@
 <!doctype html>
 <html>
   <head>
-    <!--<link rel="stylesheet" href="../static/css/output.css" />
--->
-    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+    <link rel="stylesheet" href="../static/css/output.css" />
+
+   <!--<link rel="stylesheet" href="{% static 'css/output.css' %}" />--> 
     <title>log in</title>
   </head>
   <body class="bg-green-300">
@@ -18,16 +18,38 @@
       welcome back</p>
       <div>
       <label>Username : </label>
-      <input type="text" name="username" requierd placeholder="Enter your username" class="border rounded-lg text-sm ml-2 bg-amber-200">
+      <input id="username" type="text" name="username" required placeholder="Enter your username" class="border rounded-lg text-sm ml-2 bg-amber-200">
       </div>
       <div class="flex flex-row mt-2">
       <label>password : </label>
-      <input type="password" name="password" required placeholder="password" class="border rounded-lg text-sm ml-2 bg-amber-200">
+      <input id="password" type="password" name="password" required placeholder="password" class="border rounded-lg text-sm ml-2 bg-amber-200">
       </div>
-      <button type="submit" class="
+      <button type="submit" id="enter" class="
      m-4 p-2 rounded-lg border w-fit  cursor-pointer ml-0 bg-gray-400" >Enter</button>
+     <p id="output1"></p>
     </form>
 
+<script>
+  const inputusername = document.getElementById("username");
+  const inputpassword = document.getElementById("password");
+  const enter = document.getElementById("enter");
+  const output1 = document.getElementById("output1")
+  
+  let accept = false;
 
+  
+  enter.onclick = function sub(){
+   
+    if(inputpassword.value == "" && inputusername.value == ""){
+        output1.textContent = "please enter the Password and the Username"
+    }else if(inputpassword.value == "" && inputusername.value != ""){
+        output1.textContent = "please enter the password"
+    }else if(inputpassword.value != "" && inputusername.value == ""){
+        output1.textContent = "please enter the username"
+    }
+     
+  }
+
+</script>
   </body>
 </html>
