@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('object_id', models.PositiveBigIntegerField()),
                 ('image', models.ImageField(upload_to=media_manager.models.product_photo_path)),
                 ('index', models.PositiveBigIntegerField(default=0, help_text='order index for the photo')),
-                ('alt_index', models.CharField(blank=True, max_length=255)),
+                ('alt_text', models.CharField(blank=True, max_length=255)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('content_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='contenttypes.contenttype')),
             ],

@@ -18,7 +18,7 @@ class Photo(models.Model):
 
     image = models.ImageField(upload_to=product_photo_path)
     index = models.PositiveBigIntegerField(default=0, help_text="order index for the photo")
-    alt_index = models.CharField(max_length=255, blank=True)
+    alt_text = models.CharField(max_length=255, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
