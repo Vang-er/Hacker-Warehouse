@@ -6,7 +6,7 @@ class StockSerializer(serializers.ModelSerializer):
     variant_name = serializers.SerializerMethodField()
     class Meta:
         model = Stock
-        fields = ["id", "variant", "sku", "quantity", "reorder_level", "location"]
+        fields = ["id", "variant", "sku", "quantity", "reorder_level","variant_name", "location"]
         read_only_fields = ["quantity", "variant"]
         
     def get_variant_name(self, obj):

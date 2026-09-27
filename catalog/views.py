@@ -2,11 +2,17 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from rest_framework import viewsets , filters
+from rest_framework import viewsets , filters , permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import Category, Product, ProductVariant
 from .serializers import CategorySerializer , VariantSerializer, ProductSerializer
+
+class IsNotViewr(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return request.user and request.user.is_authenticated and request.user.role != "VIEWER"
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
@@ -29,6 +35,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.select_related("category")
     serializer_class = ProductSerializer
+    permission_classes = [IsNotViewr]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ["name", "brand"]
 
