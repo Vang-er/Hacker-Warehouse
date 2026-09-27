@@ -17,11 +17,13 @@
         class="flex items-center justify-center align-middle gap-3 translate-x-5"
       >
         <button
+          onclick="showhome2()"
           class="mx-2 cursor-pointer my-auto relative hover:after:w-full after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-black after:transition-all after:duration-300 hover:bg-gray-600 px-1 py-1 rounded-md hover:scale-105 transition-colors duration-300 transition-transform hover:-translate-y-1"
         >
           Home
         </button>
         <button
+          onclick="showhistory()"
           class="mx-2 cursor-pointer my-auto relative hover:after:w-full after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-black after:transition-all after:duration-300 hover:bg-gray-600 px-1 py-1 rounded-md hover:scale-105 transition-colors duration-300 transition-transform hover:-translate-y-1"
         >
           History
@@ -52,45 +54,60 @@
         Log out
       </button>
     </nav>
-    <div
-      id="window"
-      class="z-50 hidden mx-auto my-auto w-75 h-75 rounded-2xl bg-gray-500 fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-    >
-      <div class="w-full relative">
-        <button
-          onclick="hidewindow()"
-          class="font-black absolute right-2 top-2 py-2 px-4 bg-gray-600 rounded-4xl cursor-pointer justify-center items-center shadow-[0_4px_0_#999] transition-all duration-100 active:translate-y-1 active:shadow-[0_1px_0_#999] active:bg-gray-400"
-        >
-          X
-        </button>
-      </div>
-      <div class="flex justify-around">
-        <div
-          id="chooseadd"
-          class="rounded-2xl border absolute top-[20%] flex justify-center"
-        >
-          <button id="addcat" class="cursor-pointer p-3 rounded-l-2xl">
-            Add category / product
-          </button>
-          <hr />
+    <div class="" id="homepage">
+      <div
+        id="window"
+        class="z-50 hidden mx-auto my-auto w-75 h-75 rounded-2xl bg-gray-500 fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+      >
+        <div class="w-full relative">
           <button
-            id="addstock"
-            class="cursor-pointer border-l p-3 rounded-r-2xl"
+            onclick="hidewindow()"
+            class="font-black absolute right-2 top-2 py-2 px-4 bg-gray-600 rounded-4xl cursor-pointer justify-center items-center shadow-[0_4px_0_#999] transition-all duration-100 active:translate-y-1 active:shadow-[0_1px_0_#999] active:bg-gray-400"
           >
-            Add stock
+            X
           </button>
         </div>
+        <div class="flex justify-around">
+          <div
+            id="chooseadd"
+            class="rounded-2xl border absolute top-[20%] flex justify-center"
+          >
+            <button id="addcat" class="cursor-pointer p-3 rounded-l-2xl">
+              Add category / product
+            </button>
+            <hr />
+            <button
+              id="addstock"
+              class="cursor-pointer border-l p-5 rounded-r-2xl"
+            >
+              Add stock
+            </button>
+          </div>
+        </div>
       </div>
+      <button
+        onclick="showwindow()"
+        class="rounded-4xl bg-gray-400 w-10 h-10 absolute bottom-4 right-3 cursor-pointer justify-center items-center text-2xl font-bold shadow-[0_4px_0_#666] transition-all duration-100 active:translate-y-1 active:shadow-[0_1px_0_#666] active:bg-gray-400"
+      >
+        +
+      </button>
+      <div id="backdrop" class="hidden fixed inset-0 bg-black/40 z-40"></div>
     </div>
-    <button
-      onclick="showwindow()"
-      class="rounded-4xl bg-gray-400 w-10 h-10 absolute bottom-4 right-3 cursor-pointer justify-center items-center text-2xl font-bold shadow-[0_4px_0_#666] transition-all duration-100 active:translate-y-1 active:shadow-[0_1px_0_#666] active:bg-gray-400"
-    >
-      +
-    </button>
-    <div id="backdrop" class="hidden fixed inset-0 bg-black/40 z-40"></div>
+    <div id="historypage" class="hidden justify-center">
+      <h1 class="w-fit text-center mt-2 p-2 rounded-xl bg-amber-200">
+        Stock history
+      </h1>
+      <span
+        class="absolute bg-amber-400 rounded-2xl mt-3 right-3 p-22"
+        id="numlogs"
+      ></span>
+      <div id="history-list" class="space-y-2"></div>
+    </div>
   </body>
   <script>
+    const numlogs = document.getElementById("numlogs");
+    const homepage = document.getElementById("homepage");
+    const historypage = document.getElementById("historypage");
     const swindow = document.getElementById("window");
     const backdrop = document.getElementById("backdrop");
     const addstock = document.getElementById("addstock");
@@ -106,7 +123,7 @@
 
        function checkcat(){
         catpresser = true
-       
+
        if(catpresser == true){
          addcat.style.backgroundColor = "#4B5563"
        }else{
@@ -125,10 +142,33 @@
         addstock.style.backgroundColor = "#6B7280"
        }
        checkcat()
-       
+
        }
        */
 
+    async function loadhistory() {
+      const response = await fetch("/api/stock-movements/");
+      const history = await response.json();
+      numlogs.innerText = `History logs number:${history.count}`;
+      const historyList = document.getElementById("history-list");
+      historyList.innerText = "";
+      history.results.forEach((item) => {
+        const card = document.createElement("div");
+        card.classList = "";
+      });
+    }
+    function showhistory() {
+      homepage.classList.add("hidden");
+      historypage.classList.remove("hidden");
+      historypage.classList.add("flex");
+      loadhistory();
+    }
+    function showhome2() {
+      historypage.classList.remove("flex");
+      historypage.classList.add("hidden");
+      homepage.classList.remove("hidden");
+    }
+    function showhome() {}
     addcat.addEventListener("click", () => {
       catpresser = true;
       stockpressed = false;
