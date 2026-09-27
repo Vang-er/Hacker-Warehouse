@@ -28,7 +28,8 @@ def apply_movement(*, variant, delta, movement_type, reason, note="", user=None,
     )
 
 def set_quantity(*, variant,counted_quantity, user=None, note=""):
-    current = variant.stock.quantity
+    stock = Stock.objects.get(variant=variant)
+    current = stock.quantity
     delta = counted_quantity - current
     if delta ==0:
         return None

@@ -12,6 +12,9 @@ class Stock(models.Model):
     location = models.CharField(max_length=80, blank=True, help_text="Shelf code.")
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ["id"]
+
     def __str__(self):
         return f"{self.variant.sku}: {self.quantity}"
 
@@ -41,6 +44,9 @@ class StockMovement(models.Model):
         settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL
     )
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at", "id"]
 
     def __str__(self):
         return f"{self.movement_type} {self.quantity:+d} on {self.variant.sku}"
