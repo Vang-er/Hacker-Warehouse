@@ -1,73 +1,78 @@
 {% load static %}
 <!doctype html>
 <html>
+  <head>
+    <link rel="stylesheet" href="../static/css/output.css" />
 
-<head>
-<link rel="stylesheet" href="../static/css/output.css" />
+    <!--  <link rel="stylesheet" href="{% static 'css/output.css' %}" />-->
+    <title>log in</title>
+  </head>
 
-  <!--  <link rel="stylesheet" href="{% static 'css/output.css' %}" />-->
-  <title>log in</title>
-</head>
-
-<body class="bg-green-300">
-  <div class="flex justify-center">
-    <h1 class="relative inline-block group text-3xl bg-gray-400 rounded-3xl p-3">
-      Log in page
-
-      <span class="absolute left-0 bottom-0 h-[2px] w-0 bg-black
-          transition-all duration-300 group-hover:w-full"></span>
-    </h1>
-  </div>
-
-
-  <form
-    class="bg-gray-300 shadow-lg shadow-lime-700 flex-col border-4 rounded-xl flex absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] p-7">
-    <p class="text-2xl text-center mb-6 relative inline-block group ">welcome back
-      <span
-        class="absolute left-0 bottom-0 h-[2px] w-0 bg-black  transition-all duration-300 group-hover:w-full"></span>
-    </p>
-    <div>
-      <label>Username : </label>
-      <input id="username" type="text" name="username" required placeholder="Enter your username"
-        class="border rounded-lg text-sm ml-2 bg-amber-200">
+  <body class="bg-green-300">
+    <div class="flex justify-center mt-5">
+      <h1
+        class="relative inline-block group text-3xl bg-gray-400 rounded-4xl p-3"
+      >
+        Log in
+      </h1>
     </div>
-    <div class="flex flex-row mt-2">
-      <label>password : </label>
-      <input id="password" type="password" name="password" required placeholder="password"
-        class="border rounded-lg text-sm ml-2 bg-amber-200">
-    </div>
-    <button
-  id="enter"
-  type="submit"
-  class="m-4 p-2 rounded-lg border cursor-pointer bg-gray-400
-         transition-transform duration-200 hover:scale-[1.1]" >
-  Enter
-</button>
-    <p id="output1"></p>
-  </form>
 
-  <script>
-    const inputusername = document.getElementById("username");
-    const inputpassword = document.getElementById("password");
-    const enter = document.getElementById("enter");
-    const output1 = document.getElementById("output1")
+    <form
+      class="bg-gray-300 shadow-lg shadow-lime-700 flex-col border-4 rounded-xl flex absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] p-7"
+    >
+      <p class="text-2xl text-center mb-6 relative inline-block group">
+        welcome back
+        <span
+          class="absolute left-0 bottom-0 h-[2px] w-0 bg-black transition-all duration-300 group-hover:w-full"
+        ></span>
+      </p>
+      <div>
+        <label>Username : </label>
+        <input
+          id="username"
+          type="text"
+          name="username"
+          required
+          placeholder="Enter your username"
+          class="border rounded-lg text-sm ml-2 bg-amber-200"
+        />
+      </div>
+      <div class="flex flex-row mt-2">
+        <label>password : </label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          required
+          placeholder="password"
+          class="border rounded-lg text-sm ml-2 bg-amber-200"
+        />
+      </div>
+      <button
+        id="enter"
+        type="submit"
+        class="m-4 p-2 rounded-lg border cursor-pointer bg-gray-400 transition-transform duration-200 hover:scale-[1.1]"
+      >
+        Enter
+      </button>
+      <p id="output1"></p>
+    </form>
 
+    <script>
+      const inputusername = document.getElementById("username");
+      const inputpassword = document.getElementById("password");
+      const enter = document.getElementById("enter");
+      const output1 = document.getElementById("output1");
 
-
-
-    enter.onclick = function sub() {
-
-      if (inputpassword.value == "" && inputusername.value == "") {
-        output1.textContent = "please enter the Password and the Username"
-      } else if (inputpassword.value == "" && inputusername.value != "") {
-        output1.textContent = "please enter the password"
-      } else if (inputpassword.value != "" && inputusername.value == "") {
-        output1.textContent = "please enter the username"
-      }
-
-    }
-
-  </script>
-</body>
-
+      enter.onclick = function sub() {
+        if (inputpassword.value == "" && inputusername.value == "") {
+          output1.textContent = "please enter the Password and the Username";
+        } else if (inputpassword.value == "" && inputusername.value != "") {
+          output1.textContent = "please enter the password";
+        } else if (inputpassword.value != "" && inputusername.value == "") {
+          output1.textContent = "please enter the username";
+        }
+      };
+    </script>
+  </body>
 </html>
