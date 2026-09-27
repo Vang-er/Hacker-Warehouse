@@ -210,6 +210,9 @@
   .top-2 {
     top: calc(var(--spacing) * 2);
   }
+  .top-\[20\%\] {
+    top: 20%;
+  }
   .top-\[50\%\] {
     top: 50%;
   }
@@ -273,6 +276,18 @@
   .mt-5 {
     margin-top: calc(var(--spacing) * 5);
   }
+  .mr-0 {
+    margin-right: 0px;
+  }
+  .mr-1 {
+    margin-right: var(--spacing);
+  }
+  .mr-2 {
+    margin-right: calc(var(--spacing) * 2);
+  }
+  .mr-3 {
+    margin-right: calc(var(--spacing) * 3);
+  }
   .mb-6 {
     margin-bottom: calc(var(--spacing) * 6);
   }
@@ -309,6 +324,9 @@
   .h-65 {
     height: calc(var(--spacing) * 65);
   }
+  .h-75 {
+    height: calc(var(--spacing) * 75);
+  }
   .h-\[2px\] {
     height: 2px;
   }
@@ -338,6 +356,9 @@
   }
   .w-65 {
     width: calc(var(--spacing) * 65);
+  }
+  .w-75 {
+    width: calc(var(--spacing) * 75);
   }
   .w-fit {
     width: fit-content;
@@ -376,6 +397,9 @@
     --tw-translate-y: -50%;
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
+  .rotate-2 {
+    rotate: 2deg;
+  }
   .cursor-pointer {
     cursor: pointer;
   }
@@ -394,11 +418,17 @@
   .items-center {
     align-items: center;
   }
+  .justify-around {
+    justify-content: space-around;
+  }
   .justify-center {
     justify-content: center;
   }
   .gap-3 {
     gap: calc(var(--spacing) * 3);
+  }
+  .rounded {
+    border-radius: 0.25rem;
   }
   .rounded-2xl {
     border-radius: var(--radius-2xl);
@@ -418,6 +448,22 @@
   .rounded-xl {
     border-radius: var(--radius-xl);
   }
+  .rounded-l {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+  }
+  .rounded-l-2xl {
+    border-top-left-radius: var(--radius-2xl);
+    border-bottom-left-radius: var(--radius-2xl);
+  }
+  .rounded-r {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+  }
+  .rounded-r-2xl {
+    border-top-right-radius: var(--radius-2xl);
+    border-bottom-right-radius: var(--radius-2xl);
+  }
   .border {
     border-style: var(--tw-border-style);
     border-width: 1px;
@@ -425,6 +471,14 @@
   .border-4 {
     border-style: var(--tw-border-style);
     border-width: 4px;
+  }
+  .border-r {
+    border-right-style: var(--tw-border-style);
+    border-right-width: 1px;
+  }
+  .border-l {
+    border-left-style: var(--tw-border-style);
+    border-left-width: 1px;
   }
   .bg-amber-200 {
     background-color: var(--color-amber-200);
@@ -479,6 +533,15 @@
   }
   .py-4 {
     padding-block: calc(var(--spacing) * 4);
+  }
+  .pr-0 {
+    padding-right: 0px;
+  }
+  .pl-1 {
+    padding-left: var(--spacing);
+  }
+  .pl-2 {
+    padding-left: calc(var(--spacing) * 2);
   }
   .text-center {
     text-align: center;
