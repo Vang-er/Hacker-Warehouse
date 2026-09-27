@@ -211,6 +211,9 @@
   .top-2 {
     top: calc(var(--spacing) * 2);
   }
+  .top-2\/4 {
+    top: calc(2 / 4 * 100%);
+  }
   .top-2\/5 {
     top: calc(2 / 5 * 100%);
   }
@@ -228,6 +231,9 @@
   }
   .top-\[50\%\] {
     top: 50%;
+  }
+  .top-\[50\] {
+    top: 50;
   }
   .right-1 {
     right: var(--spacing);
@@ -255,6 +261,9 @@
   }
   .left-\[50\%\] {
     left: 50%;
+  }
+  .left-\[50\] {
+    left: 50;
   }
   .z-40 {
     z-index: 40;
@@ -349,6 +358,9 @@
   .h-115 {
     height: calc(var(--spacing) * 115);
   }
+  .h-135 {
+    height: calc(var(--spacing) * 135);
+  }
   .h-\[2px\] {
     height: 2px;
   }
@@ -361,6 +373,9 @@
   .w-1\/2 {
     width: calc(1 / 2 * 100%);
   }
+  .w-5 {
+    width: calc(var(--spacing) * 5);
+  }
   .w-9 {
     width: calc(var(--spacing) * 9);
   }
@@ -369,6 +384,9 @@
   }
   .w-10 {
     width: calc(var(--spacing) * 10);
+  }
+  .w-15 {
+    width: calc(var(--spacing) * 15);
   }
   .w-19 {
     width: calc(var(--spacing) * 19);
@@ -384,6 +402,9 @@
   }
   .w-95 {
     width: calc(var(--spacing) * 95);
+  }
+  .w-115 {
+    width: calc(var(--spacing) * 115);
   }
   .w-fit {
     width: fit-content;
@@ -717,6 +738,9 @@
     }
     .hover\:scale-\[1\.1\]:hover {
       scale: 1.1;
+    }
+    .hover\:scale-\[1\.3\]:hover {
+      scale: 1.3;
     }
     .hover\:bg-gray-600:hover {
       background-color: var(--color-gray-600);
