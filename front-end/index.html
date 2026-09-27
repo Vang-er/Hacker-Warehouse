@@ -5,8 +5,81 @@
   <head>
     <link rel="stylesheet" href="{% static 'css/output.css' %}" />
   </head>
-
-  <body class="bg-gray-500 text-white">
-    TEST
+  <body class="bg-green-300 text-black">
+    <nav
+      class="bg-gray-400 h-13 px-6 py-4 flex justify-center items-center relative"
+    >
+      <div class="white text-sm font-bold absolute left-1">
+        Hacker Warehouse
+      </div>
+      <div
+        class="flex items-center justify-center align-middle gap-3 translate-x-5"
+      >
+        <button
+          class="mx-2 cursor-pointer my-auto relative hover:after:w-full after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-black after:transition-all after:duration-300 hover:bg-gray-600 px-1 py-1 rounded-md hover:scale-105 transition-colors duration-300 transition-transform hover:-translate-y-1"
+        >
+          Home
+        </button>
+        <button
+          class="mx-2 cursor-pointer my-auto relative hover:after:w-full after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-black after:transition-all after:duration-300 hover:bg-gray-600 px-1 py-1 rounded-md hover:scale-105 transition-colors duration-300 transition-transform hover:-translate-y-1"
+        >
+          History
+        </button>
+      </div>
+      <button
+        class="white text-sm font-bold absolute right-1 cursor-pointer hover:after:w-full after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-black after:transition-all after:duration-300 hover:bg-gray-600 px-1 py-1 rounded-md hover:scale-105 transition-colors duration-300 transition-transform hover:-translate-y-1"
+      >
+        Log out
+      </button>
+    </nav>
+    <div
+      class="bg-gray-300 w-1/2 h-15 rounded-2xl mt-3 mx-auto flex items-center justify-center"
+    >
+      <form class="flex items-center justify-center w-9/10">
+        <input type="text" class="w-19/20 bg-amber-200 rounded-2xl h-10 m-10" />
+        <button
+          type="submit"
+          class="cursor-pointer hover:scale-120 transition-all duration-300"
+        >
+          <i data-lucide="search" class="w-10 h-10"></i>
+        </button>
+      </form>
+    </div>
+    <div
+      id="window"
+      class="z-50 hidden mx-auto my-auto w-65 h-65 rounded-2xl bg-gray-500 fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+    >
+      <div class="w-full relative">
+        <button
+          onclick="hidewindow()"
+          class="font-black absolute right-2 top-2 py-2 px-4 bg-gray-600 rounded-4xl cursor-pointer justify-center items-center shadow-[0_4px_0_#999] transition-all duration-100 active:translate-y-1 active:shadow-[0_1px_0_#999] active:bg-gray-400"
+        >
+          X
+        </button>
+      </div>
+    </div>
+    <button
+      onclick="showwindow()"
+      class="rounded-4xl bg-gray-400 w-10 h-10 absolute bottom-4 right-3 cursor-pointer justify-center items-center text-2xl font-bold shadow-[0_4px_0_#666] transition-all duration-100 active:translate-y-1 active:shadow-[0_1px_0_#666] active:bg-gray-400"
+    >
+      +
+    </button>
+    <div id="backdrop" class="hidden fixed inset-0 bg-black/40 z-40"></div>
   </body>
+  <script>
+    const swindow = document.getElementById("window");
+    const backdrop = document.getElementById("backdrop");
+    function showwindow() {
+      swindow.classList.remove("hidden");
+      backdrop.classList.remove("hidden");
+    }
+    function hidewindow() {
+      swindow.classList.add("hidden");
+      backdrop.classList.add("hidden");
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
 </html>
