@@ -7,3 +7,6 @@ db.sqlite3
 notes.md
 core.*
 SETUP.md
+node_modules/
+
+*.pyc
