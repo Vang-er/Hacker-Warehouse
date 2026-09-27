@@ -3,7 +3,7 @@
 <!doctype html>
 <html>
   <head>
-   <!-- <link rel="stylesheet" href="{% static 'css/output.css' %}" />-->
+    <!-- <link rel="stylesheet" href="{% static 'css/output.css' %}" />-->
     <link rel="stylesheet" href="../static/css/output.css" />
   </head>
   <body class="bg-green-300 text-black">
@@ -27,26 +27,31 @@
           History
         </button>
       </div>
+      <form class="absolute right-20 flex items-center gap-2 w-1/3">
+        <label class="text-sm whitespace-nowrap"> Search Store </label>
+
+        <div class="flex flex-1 items-center">
+          <input
+            type="search"
+            name="q"
+            placeholder="Search..."
+            class="min-w-0 flex-1 h-10 rounded-2xl bg-amber-200 px-4 outline-none"
+          />
+
+          <button
+            type="submit"
+            class="ml-2 cursor-pointer transition-transform duration-300 hover:scale-120"
+          >
+            <i data-lucide="search" class="h-6 w-6"></i>
+          </button>
+        </div>
+      </form>
       <button
         class="white text-sm font-bold absolute right-1 cursor-pointer hover:after:w-full after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-black after:transition-all after:duration-300 hover:bg-gray-600 px-1 py-1 rounded-md hover:scale-105 transition-colors duration-300 transition-transform hover:-translate-y-1"
       >
         Log out
       </button>
     </nav>
-    <div
-      class="bg-gray-300 w-1/2 h-15 rounded-2xl mt-3 mx-auto flex items-center justify-center"
-    >
-      <form class="flex items-center justify-center w-9/10">
-        <div class="text-sm w-fit">Search Store</div>
-        <input type="text" class="w-19/20 bg-amber-200 rounded-2xl h-10 m-10" />
-        <button
-          type="submit"
-          class="cursor-pointer hover:scale-120 transition-all duration-300"
-        >
-          <i data-lucide="search" class="w-10 h-10"></i>
-        </button>
-      </form>
-    </div>
     <div
       id="window"
       class="z-50 hidden mx-auto my-auto w-75 h-75 rounded-2xl bg-gray-500 fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -60,13 +65,22 @@
         </button>
       </div>
       <div class="flex justify-around">
-      <div id="chooseadd" class=" rounded-2xl border absolute top-[20%] flex justify-center">
-        <button id="addcat" class=" cursor-pointer p-3 rounded-l-2xl">Add category / product</button>
-        <hr>
-        <button id="addstock" class="cursor-pointer border-l p-3 rounded-r-2xl">Add stock</button>
+        <div
+          id="chooseadd"
+          class="rounded-2xl border absolute top-[20%] flex justify-center"
+        >
+          <button id="addcat" class="cursor-pointer p-3 rounded-l-2xl">
+            Add category / product
+          </button>
+          <hr />
+          <button
+            id="addstock"
+            class="cursor-pointer border-l p-3 rounded-r-2xl"
+          >
+            Add stock
+          </button>
+        </div>
       </div>
-     </div>
-    
     </div>
     <button
       onclick="showwindow()"
@@ -75,15 +89,6 @@
       +
     </button>
     <div id="backdrop" class="hidden fixed inset-0 bg-black/40 z-40"></div>
-  
-  
-  
-  
-  
-  
-  
-  
-
   </body>
   <script>
     const swindow = document.getElementById("window");
@@ -94,9 +99,7 @@
     let catpresser = false;
     let windowopen = true;
 
-   
-    
-/*
+    /*
        addcat.addEventListener("click", () => {
            checkcat()
        })
@@ -126,24 +129,21 @@
        }
        */
 
-addcat.addEventListener("click", () => {
-    catpresser = true;
-    stockpressed = false;
+    addcat.addEventListener("click", () => {
+      catpresser = true;
+      stockpressed = false;
 
-    addcat.style.backgroundColor = "#4B5563";
-    addstock.style.backgroundColor = "#6B7280";
-});
+      addcat.style.backgroundColor = "#4B5563";
+      addstock.style.backgroundColor = "#6B7280";
+    });
 
-addstock.addEventListener("click", () => {
-    stockpressed = true;
-    catpresser = false;
+    addstock.addEventListener("click", () => {
+      stockpressed = true;
+      catpresser = false;
 
-    addstock.style.backgroundColor = "#4B5563";
-    addcat.style.backgroundColor = "#6B7280";
-});
-
-
-
+      addstock.style.backgroundColor = "#4B5563";
+      addcat.style.backgroundColor = "#6B7280";
+    });
 
     function showwindow() {
       swindow.classList.remove("hidden");
@@ -159,5 +159,4 @@ addstock.addEventListener("click", () => {
   <script>
     lucide.createIcons();
   </script>
-  
 </html>
