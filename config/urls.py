@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.conf import settings
-from django.conf.urls.static import static
+from django.conf.urls.static import static    
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,6 +27,7 @@ urlpatterns = [
     path('api/auth/refresh', TokenRefreshView.as_view(), name="token-refresh"),
     path('api/', include("catalog.urls")),
     path('api/', include("inventory.urls")),
+    path('api/', include('media_manager.urls')),
     path("",include("accounts.urls")),
 ]
 

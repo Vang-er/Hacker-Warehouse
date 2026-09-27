@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Category, ProductVariant, Product
+from media_manager.serializers import WithPhotosMixin, PhotoSerializer
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
