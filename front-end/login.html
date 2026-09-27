@@ -8,14 +8,20 @@
     <title>log in</title>
   </head>
   <body class="bg-green-300">
-    <h1 class="text-center text-3xl bg-gray-400 w-fit rounded-3xl p-3 m-auto">
-      Log in page
+<div class="flex justify-center">
+    <h1 class="relative inline-block group text-3xl bg-gray-400 rounded-3xl p-3">
+        Log in page
+
+        <span class="absolute left-0 bottom-0 h-[2px] w-0 bg-black
+          transition-all duration-300 group-hover:w-full"></span>
     </h1>
+</div>
 
 
     <form class="bg-gray-300 shadow-lg shadow-lime-700 flex-col border-4 rounded-xl flex absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] p-7">
-          <p class="text-2xl text-center mb-6">
-      welcome back</p>
+          <p class="text-2xl text-center mb-6 relative inline-block group " >welcome back
+            <span class="absolute left-0 bottom-0 h-[2px] w-0 bg-black  transition-all duration-300 group-hover:w-full"></span>
+          </p>
       <div>
       <label>Username : </label>
       <input id="username" type="text" name="username" required placeholder="Enter your username" class="border rounded-lg text-sm ml-2 bg-amber-200">
@@ -25,7 +31,8 @@
       <input id="password" type="password" name="password" required placeholder="password" class="border rounded-lg text-sm ml-2 bg-amber-200">
       </div>
       <button type="submit" id="enter" class="
-     m-4 p-2 rounded-lg border w-fit  cursor-pointer ml-0 bg-gray-400" >Enter</button>
+      scale-100 hover:scale-150
+     m-4 p-2 rounded-lg border w-fit  cursor-pointer ml-0 bg-gray-400 transition-transform duration-200" >Enter</button>
      <p id="output1"></p>
     </form>
 
@@ -35,7 +42,7 @@
   const enter = document.getElementById("enter");
   const output1 = document.getElementById("output1")
   
-  let accept = false;
+  
 
   
   enter.onclick = function sub(){
