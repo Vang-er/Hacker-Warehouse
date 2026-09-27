@@ -95,20 +95,21 @@
 
    
     
-
+/*
        addcat.addEventListener("click", () => {
-
+           checkcat()
        })
 
        function checkcat(){
         catpresser = true
-       stockpressed = false
+       
        if(catpresser == true){
          addcat.style.backgroundColor = "#4B5563"
        }else{
          addcat.style.backgroundColor = "#6B7280"
        }
-
+       checkstock()
+        stockpressed = false
        }
 
        function checkstock(){
@@ -119,10 +120,26 @@
        }else{
         addstock.style.backgroundColor = "#6B7280"
        }
-
+       checkcat()
+       
        }
+       */
 
+addcat.addEventListener("click", () => {
+    catpresser = true;
+    stockpressed = false;
 
+    addcat.style.backgroundColor = "#4B5563";
+    addstock.style.backgroundColor = "#6B7280";
+});
+
+addstock.addEventListener("click", () => {
+    stockpressed = true;
+    catpresser = false;
+
+    addstock.style.backgroundColor = "#4B5563";
+    addcat.style.backgroundColor = "#6B7280";
+});
 
 
 
