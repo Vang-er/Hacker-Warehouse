@@ -110,7 +110,21 @@
             class="border cursor-pointer w-fit mt-2 p-2 rounded-2xl"
           />
         </form>
-        <div id="var"></div>
+        <form id="var" class="hidden flex-col">
+          <label for="varname">Variant name</label>
+          <input name="varname" type="text" class="border" />
+          <label for="productvar">Product</label>
+          <input name="productvar" type="text" class="border" />
+          <label for="varprice">Product price</label>
+          <input name="varprice" type="number" min="0" class="border" />
+          <label for="facvar">Factory price</label>
+          <input type="number" min="0" name="facvar" class="border" />
+          <input type="checkbox" checked hidden />
+          <input
+            type="submit"
+            class="border cursor-pointer w-fit mt-2 p-2 rounded-2xl"
+          />
+        </form>
         <form id="stock" class="mx-auto mt-5 hidden w-4/5 flex-col gap-2">
           <label for="prostc">Variant</label>
           <select class="border" id="prostc"></select>
@@ -124,7 +138,7 @@
             class="border cursor-pointer w-fit mt-2 p-2 rounded-2xl"
           />
         </form>
-        <form id="pro" class="absolute top-2/5 hidden flex-col">
+        <form id="pro" class="mx-auto hidden flex-col">
           <label for="proanme">Product name</label>
           <input type="text" name="proname" class="border" />
           <label for="prodes">Product description</label>
@@ -162,6 +176,8 @@
     </div>
   </body>
   <script>
+    const variantform = document.getElementById("var");
+    const productform = document.getElementById("pro");
     const numlogs = document.getElementById("numlogs");
     const homepage = document.getElementById("homepage");
     const historypage = document.getElementById("historypage");
@@ -274,6 +290,8 @@
       addpro.style.backgroundColor = "#6B7280";
       cat.style.display = "none";
       stock.style.display = "none";
+      productform.style.display = "none";
+      variantform.style.display = "flex";
     });
     addpro.addEventListener("click", () => {
       stockpressed = false;
@@ -286,6 +304,8 @@
       addvariants.style.backgroundColor = "#6B7280";
       cat.style.display = "none";
       stock.style.display = "none";
+      productform.style.display = "flex";
+      variantform.style.display = "none";
     });
     addcat.addEventListener("click", () => {
       catpresser = true;
@@ -298,6 +318,8 @@
       addvariants.style.backgroundColor = "#6B7280";
       cat.style.display = "flex";
       stock.style.display = "none";
+      productform.style.display = "none";
+      variantform.style.display = "none";
     });
     addstock.addEventListener("click", () => {
       stockpressed = true;
@@ -310,6 +332,8 @@
       addvariants.style.backgroundColor = "#6B7280";
       cat.style.display = "none";
       stock.style.display = "flex";
+      productform.style.display = "none";
+      variantform.style.display = "none";
     });
     addcat.style.backgroundColor = "#4B5563";
     addstock.style.backgroundColor = "#6B7280";
