@@ -57,33 +57,88 @@
     <div class="" id="homepage">
       <div
         id="window"
-        class="z-50 hidden mx-auto my-auto w-75 h-75 rounded-2xl bg-gray-500 fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        class="p-6 z-50 hidden mx-auto my-auto w-115 h-135 rounded-2xl bg-gray-500 fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
       >
-        <div class="w-full relative">
-          <button
-            onclick="hidewindow()"
-            class="font-black absolute right-2 top-2 py-2 px-4 bg-gray-600 rounded-4xl cursor-pointer justify-center items-center shadow-[0_4px_0_#999] transition-all duration-100 active:translate-y-1 active:shadow-[0_1px_0_#999] active:bg-gray-400"
-          >
-            X
-          </button>
-        </div>
-        <div class="flex justify-around">
+        <div class="w-full relative flex flex-row">
           <div
             id="chooseadd"
-            class="rounded-2xl border absolute top-[20%] flex justify-center"
+            class="flex-1 rounded-2xl border flex justify-center ml-5 mr-5"
           >
-            <button id="addcat" class="cursor-pointer p-3 rounded-l-2xl">
-              Add category / product
+            <button
+              id="addcat"
+              class="flex-1 cursor-pointer p-3 rounded-l-2xl border-r bg-gray-600"
+            >
+              Add category
             </button>
-            <hr />
+            <button id="addpro" class="flex-1 cursor-pointer p-3">
+              Add product
+            </button>
+            <button id="addvariants" class="flex-1 cursor-pointer border-l p-3">
+              Add variants
+            </button>
             <button
               id="addstock"
-              class="cursor-pointer border-l p-5 rounded-r-2xl"
+              class="flex-1 cursor-pointer border-l p-3 rounded-r-2xl"
             >
               Add stock
             </button>
           </div>
+          <button
+            onclick="hidewindow()"
+            class="font-black py-2 px-4 bg-gray-600 rounded-4xl cursor-pointer justify-center items-center shadow-[0_4px_0_#999] transition-all duration-100 active:translate-y-1 active:shadow-[0_1px_0_#999] active:bg-gray-400"
+          >
+            X
+          </button>
         </div>
+
+        <form id="cat" class="mx-auto mt-8 flex w-4/5 flex-col gap-2">
+          <label for="catname">Category name</label>
+          <input name="catname" type="text" class="border" />
+          <label for="catdes">Category description</label>
+          <input name="catdes" type="text" class="border" />
+          <label for="catdrop">Choose parents</label>
+          <select id="catslect" class="border"></select>
+          <label for="catimg">Uplode img for category</label>
+          <input
+            class="border"
+            type="file"
+            id="catimg"
+            accept=".jpg, .jpeg, .png, .webp"
+          />
+          <input
+            type="submit"
+            class="border cursor-pointer w-fit mt-2 p-2 rounded-2xl"
+          />
+        </form>
+        <div id="var"></div>
+        <form id="stock" class="mx-auto mt-5 hidden w-4/5 flex-col gap-2">
+          <label for="prostc">Variant</label>
+          <select class="border" id="prostc"></select>
+          <label for="stcprice">Stock price</label>
+          <input type="number" min="0" name="stcprice" class="border" />
+          <label for="stcfacprc">Factory price</label>
+          <input type="number" min="0" name="stcfacprc" class="border" />
+          <input type="checkbox" checked hidden />
+          <input
+            type="submit"
+            class="border cursor-pointer w-fit mt-2 p-2 rounded-2xl"
+          />
+        </form>
+        <form id="pro" class="absolute top-2/5 hidden flex-col">
+          <label for="proanme">Product name</label>
+          <input type="text" name="proname" class="border" />
+          <label for="prodes">Product description</label>
+          <input type="text" name="prodes" class="border" />
+          <label for="procat">product category</label>
+          <select class="border"></select>
+          <label for="brand">Product brand</label>
+          <input type="text" name="brand" class="border" />
+          <input type="checkbox" checked hidden />
+          <input
+            type="submit"
+            class="border cursor-pointer w-fit mt-2 p-2 rounded-2xl"
+          />
+        </form>
       </div>
       <button
         onclick="showwindow()"
@@ -92,16 +147,18 @@
         +
       </button>
       <div id="backdrop" class="hidden fixed inset-0 bg-black/40 z-40"></div>
+      <div id="catdisplay" class="w-full h-full"></div>
     </div>
-    <div id="historypage" class="hidden justify-center">
-      <h1 class="w-fit text-center mt-2 p-2 rounded-xl bg-amber-200">
-        Stock history
-      </h1>
-      <span
-        class="absolute bg-amber-400 rounded-2xl mt-3 right-3 p-22"
-        id="numlogs"
-      ></span>
-      <div id="history-list" class="space-y-2"></div>
+    <div id="historypage" class="hidden flex-col items-center">
+      <div class="flex items-center justify-between w-full px-4 mt-2">
+        <h1 class="text-center p-2 rounded-xl bg-amber-200 h-fit">
+          Stock history
+        </h1>
+
+        <span id="numlogs" class="bg-amber-400 rounded-2xl p-2"></span>
+      </div>
+
+      <div id="history-list" class="w-full max-w-4xl mt-4 space-y-2"></div>
     </div>
   </body>
   <script>
@@ -114,38 +171,12 @@
     const addcat = document.getElementById("addcat");
     let stockpressed = false;
     let catpresser = false;
-    let windowopen = true;
-
-    /*
-       addcat.addEventListener("click", () => {
-           checkcat()
-       })
-
-       function checkcat(){
-        catpresser = true
-
-       if(catpresser == true){
-         addcat.style.backgroundColor = "#4B5563"
-       }else{
-         addcat.style.backgroundColor = "#6B7280"
-       }
-       checkstock()
-        stockpressed = false
-       }
-
-       function checkstock(){
-       catpresser = false
-       stockpressed = true
-       if(stockpressed == true){
-         addstock.style.backgroundColor = "#4B5563"
-       }else{
-        addstock.style.backgroundColor = "#6B7280"
-       }
-       checkcat()
-
-       }
-       */
-
+    const addvariants = document.getElementById("addvariants");
+    const cat = document.getElementById("cat");
+    const addpro = document.getElementById("addpro");
+    const stock = document.getElementById("stock");
+    let varpressed = false;
+    let propressed = false;
     async function loadhistory() {
       const response = await fetch("/api/stock-movements/");
       const history = await response.json();
@@ -154,7 +185,45 @@
       historyList.innerText = "";
       history.results.forEach((item) => {
         const card = document.createElement("div");
-        card.classList = "";
+
+        if (item.quantity < 0) {
+          card.className =
+            "bg-red-300 rounded-xl p-4 shadow flex justify-between items-center border-l-red-500 border-l-3 hover:scale-105 duration:300 transition-all";
+        } else if (item.quantity > 0) {
+          card.className =
+            "bg-green-500 rounded-xl p-4 shadow flex justify-between items-center border-l-green-700 border-l-3 hover:scale-105 duration:300 transition-all";
+        }
+        card.innerHTML = `
+      <div>
+        <h2 class="font-bold text-lg">
+          ${item.variant_name}
+        </h2>
+
+        <p class="text-sm text-gray-600">
+          SKU: ${item.sku}
+        </p>
+
+        <p class="text-sm">
+          Reason: ${item.reason}
+        </p>
+      </div>
+
+      <div class="text-right">
+        <p class="font-bold">
+          ${item.movement_type}
+        </p>
+
+        <p class="text-lg font-bold">
+          ${item.quantity > 0 ? "+" : ""}${item.quantity}
+        </p>
+
+        <p class="text-sm text-gray-600">
+          Balance: ${item.balance_after}
+        </p>
+      </div>
+    `;
+
+        historyList.appendChild(card);
       });
     }
     function showhistory() {
@@ -193,6 +262,63 @@
       swindow.classList.add("hidden");
       backdrop.classList.add("hidden");
     }
+
+    addvariants.addEventListener("click", () => {
+      catpresser = false;
+      stockpressed = false;
+      varpressed = true;
+      propressed = false;
+      addvariants.style.backgroundColor = "#4B5563";
+      addstock.style.backgroundColor = "#6B7280";
+      addcat.style.backgroundColor = "#6B7280";
+      addpro.style.backgroundColor = "#6B7280";
+      cat.style.display = "none";
+      stock.style.display = "none";
+    });
+    addpro.addEventListener("click", () => {
+      stockpressed = false;
+      catpresser = false;
+      varpressed = false;
+      propressed = true;
+      addpro.style.backgroundColor = "#4B5563";
+      addcat.style.backgroundColor = "#6B7280";
+      addstock.style.backgroundColor = "#6B7280";
+      addvariants.style.backgroundColor = "#6B7280";
+      cat.style.display = "none";
+      stock.style.display = "none";
+    });
+    addcat.addEventListener("click", () => {
+      catpresser = true;
+      stockpressed = false;
+      varpressed = false;
+      propressed = false;
+      addcat.style.backgroundColor = "#4B5563";
+      addstock.style.backgroundColor = "#6B7280";
+      addpro.style.backgroundColor = "#6B7280";
+      addvariants.style.backgroundColor = "#6B7280";
+      cat.style.display = "flex";
+      stock.style.display = "none";
+    });
+    addstock.addEventListener("click", () => {
+      stockpressed = true;
+      catpresser = false;
+      varpressed = false;
+      propressed = false;
+      addstock.style.backgroundColor = "#4B5563";
+      addcat.style.backgroundColor = "#6B7280";
+      addpro.style.backgroundColor = "#6B7280";
+      addvariants.style.backgroundColor = "#6B7280";
+      cat.style.display = "none";
+      stock.style.display = "flex";
+    });
+    addcat.style.backgroundColor = "#4B5563";
+    addstock.style.backgroundColor = "#6B7280";
+    addstock.addEventListener("click", () => {
+      stockpressed = true;
+      catpresser = false;
+      addstock.style.backgroundColor = "#4B5563";
+      addcat.style.backgroundColor = "#6B7280";
+    });
   </script>
   <script src="https://unpkg.com/lucide@latest"></script>
 
