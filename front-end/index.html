@@ -78,13 +78,7 @@
       <input class="border" type="file" id="catimg" accept=".jpg, .jpeg, .png, .webp">
       <input type="submit" class="border cursor-pointer w-fit mt-2 p-2 rounded-2xl">
     </form>
-         <!--
-       txt "product"
-       variant name ""
-       price 
-       facrory
-       is active "cheked"
--->
+         
     <form id="var" class="absolute top-2/5 hidden flex-col">
     <label for="varname">Variant name</label>
     <input name="varname" type="text" class="border">
@@ -94,7 +88,7 @@
     <input name="varprice" type="number" min="0" class="border">
     <label for="facvar">Factory price</label>
     <input type="number" min="0" name="facvar" class="border">
-    <input type="checkbox" checked>
+    <input type="checkbox" checked hidden>
     <input type="submit" class="border cursor-pointer w-fit mt-2 p-2 rounded-2xl">
     </form>
 
@@ -112,9 +106,26 @@
       <input type="checkbox" checked hidden >
       <input type="submit" class="border cursor-pointer w-fit mt-2 p-2 rounded-2xl">
 </form>
+<!--
 
-    <div id="pro">
-</div>
+
+
+checkbox
+-->
+    <form id="pro" class="absolute top-2/5 hidden flex-col">
+    <label for="proanme">Product name</label>
+    <input type="text" name="proname" class="border">
+    <label for="prodes">Product description</label>
+    <input type="text" name="prodes" class="border">
+    <label for="procat">product category</label>
+    <select class="border">
+
+    </select>
+    <label for="brand">Product brand</label>
+    <input type="text" name="brand" class="border">
+    <input type="checkbox" checked hidden> 
+    <input type="submit" class="border cursor-pointer w-fit mt-2 p-2 rounded-2xl">
+    </form>
     
 
 
@@ -145,6 +156,7 @@
   const addpro = document.getElementById("addpro");
   const stock = document.getElementById("stock");
   const vari = document.getElementById("var")
+  const pro = document.getElementById("pro");
   let stockpressed = false;
   let catpresser = false;
   let varpressed = false;
@@ -163,6 +175,7 @@
     cat.style.display = "none"
     stock.style.display = "none"
     vari.style.display = "flex"
+    pro.style.display = "none"
   });
   addpro.addEventListener("click", () => {
     stockpressed = false;
@@ -176,6 +189,7 @@
     cat.style.display = "none"
     stock.style.display = "none"
     vari.style.display = "none"
+    pro.style.display = "flex"
   });
   addcat.addEventListener("click", () => {
     catpresser = true;
@@ -189,6 +203,7 @@
     cat.style.display = "flex"
     stock.style.display = "none"
     vari.style.display = "none"
+    pro.style.display = "none"
   });
 
   addstock.addEventListener("click", () => {
@@ -201,6 +216,7 @@
     addpro.style.backgroundColor = "#6B7280"
     addvariants.style.backgroundColor = "#6B7280";
     cat.style.display = "none"
+    pro.style.display = "none"
     stock.style.display = "flex"
     vari.style.display = "none"
   });
