@@ -8,36 +8,37 @@
   </head>
   <body class="bg-green-300 text-black">
     <nav
-      class="bg-gray-400 h-13 px-6 py-4 flex justify-center items-center relative"
+      class="bg-gray-400 h-fit  px-6 py-4 flex justify-around items-center relative"
     >
-      <div class="white text-sm font-bold absolute left-1">
+      <div class="white text-sm font-bold ">
         Hacker Warehouse
       </div>
       <div
-        class="flex items-center justify-center align-middle gap-3 translate-x-5"
+        class="flex items-center justify-between align-middle  translate-x-5"
       >
         <button
           onclick="showhome2()"
-          class="mx-2 cursor-pointer my-auto relative hover:after:w-full after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-black after:transition-all after:duration-300 hover:bg-gray-600 px-1 py-1 rounded-md hover:scale-105 transition-colors duration-300 transition-transform hover:-translate-y-1"
+          class=" cursor-pointer my-auto relative hover:after:w-full after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-black after:transition-all after:duration-300 hover:bg-gray-600 px-1 py-1 rounded-md hover:scale-105 transition-colors duration-300 transition-transform hover:-translate-y-1"
         >
           Home
         </button>
         <button
           onclick="showhistory()"
-          class="mx-2 cursor-pointer my-auto relative hover:after:w-full after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-black after:transition-all after:duration-300 hover:bg-gray-600 px-1 py-1 rounded-md hover:scale-105 transition-colors duration-300 transition-transform hover:-translate-y-1"
+          class=" cursor-pointer my-auto relative hover:after:w-full after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-black after:transition-all after:duration-300 hover:bg-gray-600 px-1 py-1 rounded-md hover:scale-105 transition-colors duration-300 transition-transform hover:-translate-y-1"
         >
           History
         </button>
       </div>
-      <form class="absolute right-20 flex items-center gap-2 w-1/3">
-        <label class="text-sm whitespace-nowrap"> Search Store </label>
+      <form id="searchform" class="flex items-center gap-2 w-1/3">
+        <label class="text-sm whitespace-nowrap" id="searchtxt"> Search Store </label>
 
-        <div class="flex flex-1 items-center">
+        <div class="flex flex-1 items-center min-w-0">
           <input
+          id="searchfeald"
             type="search"
             name="q"
             placeholder="Search..."
-            class="min-w-0 flex-1 h-10 rounded-2xl bg-amber-200 px-4 outline-none"
+            class="min-w-0 flex-1 h-10 ml-4 rounded-2xl bg-amber-200 px-4 outline-none"
           />
 
           <button
@@ -49,7 +50,7 @@
         </div>
       </form>
       <button
-        class="white text-sm font-bold absolute right-1 cursor-pointer hover:after:w-full after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-black after:transition-all after:duration-300 hover:bg-gray-600 px-1 py-1 rounded-md hover:scale-105 transition-colors duration-300 transition-transform hover:-translate-y-1"
+        class="white text-sm font-bold  cursor-pointer hover:after:w-full after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-black after:transition-all after:duration-300 hover:bg-gray-600 px-1 py-1 rounded-md hover:scale-105 transition-colors duration-300 transition-transform hover:-translate-y-1"
       >
         Log out
       </button>
@@ -85,7 +86,7 @@
           </div>
           <button
             onclick="hidewindow()"
-            class="font-black py-2 px-4 bg-gray-600 rounded-4xl cursor-pointer justify-center items-center shadow-[0_4px_0_#999] transition-all duration-100 active:translate-y-1 active:shadow-[0_1px_0_#999] active:bg-gray-400"
+            class="font-black h-fit py-2 px-4 bg-gray-600 rounded-4xl cursor-pointer justify-center items-center shadow-[0_4px_0_#999] transition-all duration-100 active:translate-y-1 active:shadow-[0_1px_0_#999] active:bg-gray-400"
           >
             X
           </button>
@@ -107,7 +108,9 @@
           />
           <input
             type="submit"
-            class="border cursor-pointer w-fit mt-2 p-2 rounded-2xl"
+            class="border cursor-pointer w-fit mt-2 p-2 rounded-2xl
+            shadow-black
+            "
           />
         </form>
         <form id="var" class="hidden flex-col">
@@ -184,15 +187,30 @@
     const swindow = document.getElementById("window");
     const backdrop = document.getElementById("backdrop");
     const addstock = document.getElementById("addstock");
+    const searchtxt = document.getElementById("searchtxt")
     const addcat = document.getElementById("addcat");
     let stockpressed = false;
     let catpresser = false;
     const addvariants = document.getElementById("addvariants");
     const cat = document.getElementById("cat");
     const addpro = document.getElementById("addpro");
+    const searchfeald =document.getElementById("searchfeald");
     const stock = document.getElementById("stock");
     let varpressed = false;
     let propressed = false;
+const searchform = document.getElementById("searchform");
+
+function checkSearch() {
+  if (searchform.offsetWidth <= 250) {
+    searchtxt.style.display = "none";
+  } else {
+    searchtxt.style.display = "block";
+  }
+}
+
+checkSearch();
+
+window.addEventListener("resize", checkSearch);
     async function loadhistory() {
       const response = await fetch("/api/stock-movements/");
       const history = await response.json();
@@ -201,6 +219,8 @@
       historyList.innerText = "";
       history.results.forEach((item) => {
         const card = document.createElement("div");
+
+
 
         if (item.quantity < 0) {
           card.className =
