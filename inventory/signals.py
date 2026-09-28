@@ -4,8 +4,6 @@ from catalog.models import ProductVariant
 
 from .models import Stock
 
-
-
 @receiver(post_save, sender=ProductVariant)
 def create_stock_row(sender, instance, created, **kwrgs):
     if created:

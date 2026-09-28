@@ -24,6 +24,7 @@
       </button>
     </div>
     <button
+
       class="white text-sm font-bold absolute right-1 cursor-pointer hover:after:w-full after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-black after:transition-all after:duration-300 hover:bg-gray-600 px-1 py-1 rounded-md hover:scale-105 transition-colors duration-300 transition-transform hover:-translate-y-1">
       Log out
     </button>
@@ -56,6 +57,7 @@
 
       </div>
     </div>
+ 
 
 
 
@@ -80,11 +82,21 @@
        txt "product"
        variant name ""
        price 
-       facror
+       facrory
+       is active "cheked"
 -->
-    <div id="var">
-    
-    </div>
+    <form id="var" class="absolute top-2/5 hidden flex-col">
+    <label for="varname">Variant name</label>
+    <input name="varname" type="text" class="border">
+    <label for="productvar">Product</label>
+    <input name="productvar" type="text" class="border">
+    <label for="varprice">Product price</label>
+    <input name="varprice" type="number" min="0" class="border">
+    <label for="facvar">Factory price</label>
+    <input type="number" min="0" name="facvar" class="border">
+    <input type="checkbox" checked>
+    <input type="submit" class="border cursor-pointer w-fit mt-2 p-2 rounded-2xl">
+    </form>
 
     <form id="stock" class="
     absolute top-2/5 hidden flex-col">
@@ -97,7 +109,7 @@
       <label for="stcfacprc" >Factory price</label>
       <input type="number" min="0" name="stcfacprc" class="border">
       
-      <input type="checkbox" checked hidden>
+      <input type="checkbox" checked hidden >
       <input type="submit" class="border cursor-pointer w-fit mt-2 p-2 rounded-2xl">
 </form>
 
@@ -131,8 +143,8 @@
   const addvariants = document.getElementById("addvariants")
   const cat = document.getElementById("cat");
   const addpro = document.getElementById("addpro");
-  const stock = document.getElementById("stock")
-
+  const stock = document.getElementById("stock");
+  const vari = document.getElementById("var")
   let stockpressed = false;
   let catpresser = false;
   let varpressed = false;
@@ -150,6 +162,7 @@
     addpro.style.backgroundColor = "#6B7280"
     cat.style.display = "none"
     stock.style.display = "none"
+    vari.style.display = "flex"
   });
   addpro.addEventListener("click", () => {
     stockpressed = false;
@@ -162,6 +175,7 @@
     addvariants.style.backgroundColor = "#6B7280";
     cat.style.display = "none"
     stock.style.display = "none"
+    vari.style.display = "none"
   });
   addcat.addEventListener("click", () => {
     catpresser = true;
@@ -174,6 +188,7 @@
     addvariants.style.backgroundColor = "#6B7280";
     cat.style.display = "flex"
     stock.style.display = "none"
+    vari.style.display = "none"
   });
 
   addstock.addEventListener("click", () => {
@@ -187,10 +202,20 @@
     addvariants.style.backgroundColor = "#6B7280";
     cat.style.display = "none"
     stock.style.display = "flex"
+    vari.style.display = "none"
   });
 
+      addcat.style.backgroundColor = "#4B5563";
+      addstock.style.backgroundColor = "#6B7280";
+    ;
 
+    addstock.addEventListener("click", () => {
+      stockpressed = true;
+      catpresser = false;
 
+      addstock.style.backgroundColor = "#4B5563";
+      addcat.style.backgroundColor = "#6B7280";
+    });
 
   function showwindow() {
     swindow.classList.remove("hidden");

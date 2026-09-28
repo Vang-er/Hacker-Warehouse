@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import F
 
 # Create your views here.
 
@@ -16,6 +17,12 @@ from .services import InsufficientStockError, apply_movement, set_quantity
 class StockViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Stock.objects.select_related("variant")
     serializer_class = StockSerializer
+
+    def get_queryset(self):
+        qs = Stock.objects.select_related("variant__product")
+        if self.request.query_params.get("low_stock") == "true":
+            qs = qs.filter(quantity__lte=F("reorder_level"))
+        return qs
 
     def get_serializer_class(self):
         if self.action == "receive":
@@ -53,8 +60,26 @@ class StockViewSet(viewsets.ReadOnlyModelViewSet):
             user=request.user, note=body.validated_data["note"],
         )
         if movement is None:
-            return Response({"detail": "Counted quantity matches the system. Nothing changedounted"})
+            return Response({"detail": "Counted quantity matches the system. Nothing changed."})
         return Response(StockMovementSerializer(movement).data, status=status.HTTP_201_CREATED)
+
+    @action(detail=True, methods=["post"])
+    def issue(self, request, pk=None):
+        stock = self.get_object()
+        body = IssueStockSerializer(data=request.data)
+        body.is_valid(raise_exception=True)
+        try:
+            movement = apply_movement(
+                variant=stock.variant,
+                delta= -body.validated_data["quantity"],
+                movement_type=StockMovement.Type.OUT,
+                reason=StockMovement.Reason.DAMAGE,
+                user=request.user,
+                note=body.validated_data["note"],
+            )
+            return Response(StockMovementSerializer(movement).data, status=status.HTTP_201_CREATED)
+        except InsufficientStockError as exc:
+            return Response({"detail": str(exc)},status=status.HTTP_400_BAD_REQUEST)
 
 class StockMovementViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = StockMovementSerializer
