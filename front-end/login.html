@@ -22,22 +22,11 @@
     </h1>
   </div>
 
-
-  <form
-    class="bg-gray-300 shadow-lg shadow-lime-700 flex-col border-4 rounded-xl flex absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] p-7">
-    <p class="text-2xl text-center mb-6 relative inline-block group ">welcome back
-      <span
-        class="absolute left-0 bottom-0 h-[2px] w-0 bg-black  transition-all duration-300 group-hover:w-full"></span>
-    </p>
-    <div>
-      <label>Username : </label>
-      <input id="username" type="text" name="username" required placeholder="Enter your username"
-        class="border rounded-lg text-sm ml-2 bg-amber-200">
-    </div>
-
     <form
       class="bg-gray-300 shadow-lg shadow-lime-700 flex-col border-4 rounded-xl flex absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] p-7"
     >
+    {% csrf_token %}
+            {% if form.non_field_errors %} <div class="login-error"> {{ form.non_field_errors }} </div> {% endif %}
       <p class="text-2xl text-center mb-6 relative inline-block group">
         welcome back
         <span

@@ -5,7 +5,7 @@ from media_manager.serializers import WithPhotosMixin
 class CategorySerializer(WithPhotosMixin, serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ["id", "name", "description", "parent", "photos", "created_at", "updated_at"]
+        fields = ["id", "name", "description", "parent", "created_at", "updated_at"]
 
 class VariantSerializer(WithPhotosMixin, serializers.ModelSerializer):
     quantity = serializers.SerializerMethodField()
