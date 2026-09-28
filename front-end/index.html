@@ -14,7 +14,7 @@
       <div class="flex items-center justify-between align-middle translate-x-5">
         <button
           onclick="showhome2()"
-          class="cursor-pointer my-auto relative hover:after:w-full after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-black after:transition-all after:duration-300 hover:bg-gray-600 px-1 py-1 rounded-md hover:scale-105 transition-colors duration-300 transition-transform hover:-translate-y-1"
+          class="mx-4 cursor-pointer my-auto relative hover:after:w-full after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-black after:transition-all after:duration-300 hover:bg-gray-600 px-1 py-1 rounded-md hover:scale-105 transition-colors duration-300 transition-transform hover:-translate-y-1"
         >
           Home
         </button>
@@ -209,6 +209,10 @@
     const addpro = document.getElementById("addpro");
     const searchfeald = document.getElementById("searchfeald");
     const stock = document.getElementById("stock");
+
+    const csrfToken = document.querySelector(
+      "[name=csrfmiddlewaretoken]",
+    ).value;
     function createCard(title, description) {
       const card = document.createElement("div");
 
@@ -560,6 +564,7 @@
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-CSRFToken": csrfToken,
         },
         body: JSON.stringify({
           name: name,

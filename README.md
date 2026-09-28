@@ -8,6 +8,12 @@
 
 ### we made a whole new UI made from tailwind-CSS framework and refactor some of the backend logics with putting the foundations to enable uploading Images in the future realses
 
+## new UI!
+
+<img src="README assets/5.png">
+<img src="README assets/6.png">
+<img src="README assets/7.png">
+<img src="README assets/8.png">
 ## Teach Stack
 
 <bl>
