@@ -14,7 +14,7 @@ class IsNotViewer(permissions.BasePermission):
         return bool(request.user and request.user.is_authenticated)
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all().prefetch_related("products_variants_stock")
+    queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [IsNotViewer]
 
@@ -48,13 +48,12 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         product = serializer.save()
-        if not product.variant.exists():
-            ProductVariant.objects.create(
-                product=product,
-                name=product.name,
-                price=0,
-                cost_price=0
-            )
+        ProductVariant.objects.create(
+            product=product,
+            name=product.name,
+            price=0,
+            cost_price=0
+        )
 
 class VariantViewSet(viewsets.ModelViewSet):
     queryset = ProductVariant.objects.all()
