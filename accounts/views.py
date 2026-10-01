@@ -1,31 +1,51 @@
 # Create your views here.
+from django.shortcuts import render, redirect
+from django.contrib.auth import login as django_login, logout as django_logout, authenticate
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
-from django.contrib.auth import views as auth_views
 
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
-from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework_simplejwt.tokens import RefreshToken
 
-LoginView = TokenObtainPairView
+class ApiLoginView(APIView):
+    permission_classes = [AllowAny]
 
-class MeView(APIView):
-     permission_classes = [IsAuthenticated]
+    def post(self, request):
+        username= request.data.get("username","").strip()
+        password= request.data.get("password","").strip()
 
-     def get(self,request):
-        role_data = [request.user.role] if hasattr(request.user,'role') else []
+        user = authenticate(request, username=username, password=password)
+
+        if user is None:
+            return Response(
+                {"detail": "Invalid username or password"},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+        django_login(request, user)
+        refresh = RefreshToken.for_user(user)
         return Response({
-             "username": request.user.username,
-             "role": role_data,
-        })
+            "access": str(refresh.access_token),
+            "refresh": str(refresh),
+            "username": user.username,
+        }, status=status.HTTP_200_OK)
+
+class ApiLogoutView(APIView):
+    permission_classes= [AllowAny]
+
+    def post(self,request):
+        django_logout(request)
+        return Response({"detail": "Logged out successfully."}, status=status.HTTP_200_OK)
 
 def login(request):
     if request.user.is_authenticated:
         return redirect("/dashboard/")
-    return auth_views.LoginView.as_view(
-        template_name="accounts/login.html"
-    )(request)
-@login_required
+    return render(request, "accounts/login.html")
+def logout(request):
+    django_logout(request)
+    return redirect("/login/")
+
+@login_required(login_url="/login/")
 def dashboard(request):
-        return (render(request,"accounts/main.html"))
+    return render(request, "accounts/main.html")

@@ -11,11 +11,7 @@ from accounts.models import User
 
 class IsNotViewer(permissions.BasePermission):
     def has_permission(self, request, view):
-        if not request.user or not request.user.is_authenticated:
-            return False
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        return request.user.role != User.Role.VIEWER
+        return bool(request.user and request.user.is_authenticated)
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all().prefetch_related("products_variants_stock")
