@@ -59,9 +59,10 @@ INSTALLED_APPS = [
     'catalog',
     'inventory',
     'media_manager',
+    'tests',
 ]
-LOGIN_URL = "/"
-LOGIN_REDIRECT_URL = "dashboard/"
+LOGIN_URL = "/web-login"
+LOGIN_REDIRECT_URL = "/dashboard/"
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -142,8 +143,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
-
-STATIC_URL = 'static/'
 
 
 # Email

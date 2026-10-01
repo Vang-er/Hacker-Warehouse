@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from .models import Category, Product, ProductVariant
 from .serializers import CategorySerializer , VariantSerializer, ProductSerializer
 from accounts.models import User
+
 class IsNotViewer(permissions.BasePermission):
     def has_permission(self, request, view):
         if not request.user or not request.user.is_authenticated:
@@ -17,8 +18,9 @@ class IsNotViewer(permissions.BasePermission):
         return request.user.role != User.Role.VIEWER
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all()
+    queryset = Category.objects.all().prefetch_related("products_variants_stock")
     serializer_class = CategorySerializer
+    permission_classes = [IsNotViewer]
 
     @action(detail=False, methods=["get"])
     def tree(self, request):
@@ -48,6 +50,17 @@ class ProductViewSet(viewsets.ModelViewSet):
             qs = qs.filter(category_id=category_id)
         return qs
 
+    def perform_create(self, serializer):
+        product = serializer.save()
+        if not product.variant.exists():
+            ProductVariant.objects.create(
+                product=product,
+                name=product.name,
+                price=0,
+                cost_price=0
+            )
+
 class VariantViewSet(viewsets.ModelViewSet):
     queryset = ProductVariant.objects.all()
     serializer_class = VariantSerializer
+    permission_classes = [IsNotViewer]
