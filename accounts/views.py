@@ -41,11 +41,18 @@ class ApiLogoutView(APIView):
 def login(request):
     if request.user.is_authenticated:
         return redirect("/dashboard/")
-    return render(request, "accounts/login.html")
+    return render(request, "login.html")
 def logout(request):
     django_logout(request)
     return redirect("/login/")
 
+
+def handleroot(request):
+    if not (request.user.is_authenticated):
+        return redirect("/login/")
+    return redirect("/dashboard/")
+
+    
 @login_required(login_url="/login/")
 def dashboard(request):
     return render(request, "accounts/main.html")

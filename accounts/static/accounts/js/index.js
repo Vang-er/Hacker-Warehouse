@@ -34,7 +34,8 @@ loginForm.addEventListener("submit", async function (event) {
       },
       body: JSON.stringify({ username, password }),
     });
-
+    const text = await response.text();
+    console.log(response.status, response.headers.get("content-type"), text);
     const data = await response.json();
 
     if (!response.ok) {
@@ -49,8 +50,8 @@ loginForm.addEventListener("submit", async function (event) {
 
     // Redirect to the dashboard
     window.location.href = "/dashboard/";
-
   } catch (error) {
+    console.log(error);
     errorMsg.textContent = "Cannot connect to server.";
     errorMsg.style.display = "block";
   }
