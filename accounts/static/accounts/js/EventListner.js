@@ -1,4 +1,3 @@
-import 
 addvariants.addEventListener("click", () => {
   catpresser = false;
   stockpressed = false;
@@ -127,21 +126,27 @@ pro.addEventListener("submit", async (event) => {
     }),
   });
   const data = await response.json();
+
+
+
   if (response.ok) {
-    window.alert(`product ${name} added suffeculy to category ${cat}`);
+    showdivsucks()
   } else {
-    window.alert("an error occered");
+    showdivdecli()
   }
+
+
+
   document.getElementById("proname").value = "";
   document.getElementById("prodes").value = "";
   document.getElementById("probrand").value = "";
   window.location.reload();
-});
-variantform.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const name = document.getElementById("varname").value;
-    const product = document.getElementById("varslect").value;
-    const price = document.getElementById("varprice").value;
-    const cost = document.getElementById("varcost").value;
-    const response = await fetch("/api/")
-})
+ });
+// variantform.addEventListener("submit", async (event) => {
+//     event.preventDefault();
+//     const name = document.getElementById("varname").value;
+//     const product = document.getElementById("varslect").value;
+//     const price = document.getElementById("varprice").value;
+//     const cost = document.getElementById("varcost").value;
+//     const response = await fetch("/api/")
+// })
