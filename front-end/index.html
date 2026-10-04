@@ -182,7 +182,7 @@
         ></div>
       </div>
     </div>
-    <div id="themesdiv" class="flex-col">
+    <div id="themesdiv" class="hidden flex-col">
       <p class="text-center text-3xl ">Themes</p>
       <div id="themediv" class="bg-green-700 flex p-4 m-4 border-green-950 rounded-2xl border-2 justify-around flex-col gap-5">
         <div class="bg-green-300 p-6 rounded-2xl border-2 "><p id="defult" class=" text-black bg-amber-300 p-5 rounded-2xl cursor-pointer">Green theme</p></div>
@@ -197,7 +197,7 @@
       const defult = document.getElementById("defult")
       const dark = document.getElementById("dark")
       const light = document.getElementById("light")
-      const blue = document.getElementById("blue")
+      const blue = document.getElementById("blue") 
       
       defult.onclick = function(){
         document.body.style.backgroundColor = "#86EFAC"
@@ -228,6 +228,7 @@
     <div></div>
   </body>
   <script>
+    const themesdiv = document.getElementById("themesdiv")
     const catslect = document.getElementById("catslect");
     const browserTitle = document.getElementById("browser-title");
     const browserGrid = document.getElementById("browser-grid");
@@ -445,7 +446,7 @@
 
 
 
-    window.addEventListener("resize", checkSearch);
+
     async function loadhistory() {
       const response = await fetch("/api/stock-movements/");
       const history = await response.json();
@@ -495,16 +496,40 @@
         historyList.appendChild(card);
       });
     }
+    
+seitting.addEventListener("change", function () {
+  console.log("selected:", this.value);
+
+  if (this.value === "themes") {
+    showthemes();
+  }
+});
+
+
+function showthemes() {
+  homepage.classList.add("hidden");
+
+  historypage.classList.add("hidden");
+  historypage.classList.remove("flex");
+
+  themesdiv.classList.remove("hidden");
+  themesdiv.classList.add("flex");
+}
+
     function showhistory() {
       homepage.classList.add("hidden");
       historypage.classList.remove("hidden");
       historypage.classList.add("flex");
       loadhistory();
+      themesdiv.classList.remove("flex")
+      themesdiv.classList.add("hidden")
     }
     function showhome2() {
       historypage.classList.remove("flex");
       historypage.classList.add("hidden");
       homepage.classList.remove("hidden");
+      themesdiv.classList.remove("flex")
+      themesdiv.classList.add("hidden")
     }
     function showhome() {}
     addcat.addEventListener("click", () => {
