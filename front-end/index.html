@@ -193,66 +193,77 @@
       </div>
     </div>
     <script>
-        let numofthemecount ;
-/*try{
-  numofthemecount = localStorage.getItem(`theme`)
+        let numofthemecount ;try{
+  numofthemecount = localStorage.getItem(`th`)
     }catch(error)
     {
-    
+    numofthemecount = 0
     }
-*/
+        if(numofthemecount == 0){
+          greenfun()
+        }else if(numofthemecount == 1){
+          darkfun()
+        }else if(numofthemecount == 2){
+          lightfun()
+        }else if(numofthemecount == 3){
+          bluefun()
+        }
 
-     let themenem = [0 ,1 ,2 ,3]
+  
 
      
 
 
       dark.onclick = function(){
         numofthemecount = 1
-        if(themenem[numofthemecount] == 0){
+        localStorage.setItem("th",1)
+        if(numofthemecount == 0){
           greenfun()
-        }else if(themenem[numofthemecount] == 1){
+        }else if(numofthemecount == 1){
           darkfun()
-        }else if(themenem[numofthemecount] == 2){
+        }else if(numofthemecount == 2){
           lightfun()
-        }else if(themenem[numofthemecount] == 3){
+        }else if(numofthemecount == 3){
           bluefun()
         }
       }
       defult.onclick = function(){
         numofthemecount = 0
-                if(themenem[numofthemecount] == 0){
+        localStorage.setItem("th",0)
+                if(numofthemecount == 0){
           greenfun()
-        }else if(themenem[numofthemecount] == 1){
+        }else if(numofthemecount == 1){
           darkfun()
-        }else if(themenem[numofthemecount] == 2){
+        }else if(numofthemecount == 2){
           lightfun()
-        }else if(themenem[numofthemecount] == 3){
+        }else if(numofthemecount == 3){
           bluefun()
         }
       }
 
       light.onclick = function(){
-        numofthemecount = 2
-              if(themenem[numofthemecount] == 0){
+        numofthemecount = 2 
+        localStorage.setItem("th",2)
+              if(numofthemecount == 0){
           greenfun()
-        }else if(themenem[numofthemecount] == 1){
+        }else if(numofthemecount == 1){
           darkfun()
-        }else if(themenem[numofthemecount] == 2){
+        }else if(numofthemecount == 2){
           lightfun()
-        }else if(themenem[numofthemecount] == 3){
+        }else if(numofthemecount == 3){
           bluefun()
         }
       }
       blue.onclick = function(){
         numofthemecount = 3
-                             if(themenem[numofthemecount] == 0){
+        localStorage.setItem("th",3)
+        if(numofthemecount == 0){
           greenfun()
-        }else if(themenem[numofthemecount] == 1){
+        }else if(numofthemecount == 1){
           darkfun()
-        }else if(themenem[numofthemecount] == 2){
+        }else if(numofthemecount == 2){
           lightfun()
-        }else if(themenem[numofthemecount] == 3){
+        }else if(numofthemecount == 3){
           bluefun()
         }   
       }
@@ -325,7 +336,7 @@ let themnum = []
         <p class="text-sm text-gray-500">
             ${description}
         </p>
-    `;
+    `; 
 
       return card;
     }
