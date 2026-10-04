@@ -660,18 +660,30 @@
         </p>
       </div>
 
-      <div class="text-right">
-        <p class="font-bold">
-          ${item.movement_type}
-        </p>
 
-        <p class="text-lg font-bold">
-          ${item.quantity > 0 ? "+" : ""}${item.quantity}
-        </p>
+      <div class="flex items-center gap-3">
+        <div class="text-right">
+          <p class="font-bold text-xs uppercase tracking-wider text-gray-700">
+            ${item.movement_type}
+          </p>
 
-        <p class="text-sm text-gray-600">
-          Balance: ${item.balance_after}
-        </p>
+          <p class="text-lg font-bold">
+            ${item.quantity > 0 ? "+" : ""}${item.quantity}
+          </p>
+
+          <p class="text-sm text-gray-600 font-semibold">
+            Balance: ${item.balance_after}
+          </p>
+        </div>
+
+        <button
+          type="button"
+          onclick="undoMovement(${item.variant}, ${item.quantity}, '${(item.variant_name || '').replace(/'/g, "\\'")}')"
+          class="bg-gray-900 hover:bg-black active:scale-95 text-white"
+          title="Undo"
+        >
+          Undo
+        </button>
       </div>
     `;
 
@@ -719,6 +731,57 @@
         URL.revokeObjectURL(url);
       } catch (err) {
         alert("Faild to export CSV:" + err.message);
+      }
+    }
+
+    async function undoMovement(variantId, quantity, variantName) {
+      const isWithdrawal = quantity <0;
+      const reverseQty = Math.abs(quantity);
+      const confirmMsg = isWithdrawal
+        ? `Undo withdrawal and restore +${reverseQty} units of "${variantName}" back to stock?`
+        : `Undo intake and remove -${reverseQty} units of "${variantName}" from stock?`;
+      if (!confirm(confirmMsg)) return;
+
+      let stockId = stockMap[variantId];
+      if (!stockId) {
+        const res = await fetch("/api/stock/");
+        const data = await res.json();
+        const stocks = data.results || data;
+        stocks.forEach((st) => (stockMap[st.variant] = st.id));
+        stockId = stockMap[variantId] || variantId;
+      }
+
+      const endpoint = isWithdrawal
+      ? `/api/stock/${stockId}/receive/`
+      : `/api/stock/${stockId}/issue/`;
+
+
+      try {
+        const response = await fetch(endpoint, {
+          method:"POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrfToken,
+          },
+
+          body: JSON.stringify({
+            quantity: reverseQty,
+            note: `Undo (${variantName})`
+          }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.detail || "Failed to reverse the transaction");
+        }
+        alert(`Success! Reversed ${reverseQty} units of "${variantName}".`);
+
+        await loadhistory();
+        await loadInventory();
+
+      } catch (err) {
+        alert("Cannot Undo:" + err.message);
       }
     }
 
