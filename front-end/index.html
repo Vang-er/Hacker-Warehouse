@@ -93,7 +93,13 @@
         <form id="cat" class="mx-auto mt-8 flex w-4/5 flex-col gap-2">
           {% csrf_token %}
           <label for="catname">Category name</label>
-          <input name="catname" type="text" class="border" id="catname" />
+          <input
+            name="catname"
+            type="text"
+            class="border"
+            id="catname"
+            required
+          />
           <label for="catdes">Category description</label>
           <input name="catdes" type="text" class="border" id="catdes" />
           <label for="catdrop">Choose parents</label>
@@ -104,6 +110,7 @@
           />
         </form>
         <form id="var" class="hidden flex-col">
+          {% csrf_token %}
           <label for="varname">Variant name</label>
           <input name="varname" type="text" class="border" />
           <label for="productvar">Product</label>
@@ -119,6 +126,7 @@
           />
         </form>
         <form id="stock" class="mx-auto mt-5 hidden w-4/5 flex-col gap-2">
+          {% csrf_token %}
           <label for="prostc">Variant</label>
           <select class="border" id="prostc"></select>
           <label for="stcprice">Stock price</label>
@@ -132,6 +140,7 @@
           />
         </form>
         <form id="pro" class="mx-auto hidden flex-col">
+          {% csrf_token %}
           <label for="proanme">Product name</label>
           <input type="text" name="proname" class="border" />
           <label for="prodes">Product description</label>
@@ -193,8 +202,7 @@
     const browserTitle = document.getElementById("browser-title");
     const browserGrid = document.getElementById("browser-grid");
     const browserBack = document.getElementById("browser-back");
-    const variantform = document.getElementById("var");
-    const productform = document.getElementById("pro");
+
     const numlogs = document.getElementById("numlogs");
     const homepage = document.getElementById("homepage");
     const swindow = document.getElementById("window");
@@ -206,12 +214,29 @@
     let catpresser = false;
     const addvariants = document.getElementById("addvariants");
     const cat = document.getElementById("cat");
+    const stock = document.getElementById("stock");
+    const variantform = document.getElementById("var");
+    const productform = document.getElementById("pro");
     const addpro = document.getElementById("addpro");
     const searchfeald = document.getElementById("searchfeald");
-    const stock = document.getElementById("stock");
+
     const csrfToken = document.querySelector(
       "[name=csrfmiddlewaretoken]",
     ).value;
+    async function addcategory(name, desc, par, csrf) {
+      const response = await fetch("/api/categories/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrf,
+        },
+        body: JSON.stringify({
+          name: name,
+          description: desc,
+          parent: par,
+        }),
+      });
+    }
     function createCard(title, description) {
       const card = document.createElement("div");
 
