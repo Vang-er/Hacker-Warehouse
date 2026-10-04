@@ -455,6 +455,43 @@
     }
     const searchform = document.getElementById("searchform");
 
+    searchfeald.addEventListener("input", (e) => {
+      const query = e.target.value.trim().toLowerCase();
+
+      if (!query) {
+        showRootCategories();
+        return;
+      }
+
+      const matches = products.filter((p) => {
+        const matchName = p.name.toLowerCase().includes(query);
+        const matchBrand = (p.name || "").toLowerCase().includes(query);
+        const matchSku = p.variants?.some((v) =>
+          v.sku.toLowerCase().includes(query)
+      );
+      return matchName || matchBrand || matchSku;
+      });
+
+      browserTitle.textContent = `Search results for "${query}" (${matches.length})`;
+      browserBack.classList.remove("hidden");
+      browserBack.onclick= () => {
+        searchfeald.value ="";
+        showRootCategories();
+      };
+
+      browserGrid.innerHTML = "";
+      if (matches.length ===0 ) {
+        browserGrid.innerHTML = `<p class="p-5 text-gray-700 italic">No Products Found. </p>`;
+        return;
+    }
+
+    matches.forEach((p)=> {
+      browserGrid.appendChild(createProductCard(p));
+    });
+  });
+
+  searchform.addEventListener("submit", (e)=>e.preventDefault());
+
     function updateWithdrawQty(variantId, stockId, delta, maxStock, variantName) {
       if (!withdrawCart[variantId]) {
         const reasonInput = document.getElementById(`reason-${variantId}`);
@@ -755,3 +792,9 @@
     lucide.createIcons();
   </script>
 </html>
+
+
+
+
+<!-- I don't have any idea why that file alone is 800 lines, I feel very lost now -->
+<!-- written by Timo-->
