@@ -78,3 +78,36 @@ addstock.addEventListener("click", () => {
   addstock.style.backgroundColor = "#4B5563";
   addcat.style.backgroundColor = "#6B7280";
 });
+cat.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const name = document.getElementById("catname").value;
+  const description = document.getElementById("catdes").value;
+  const parent = document.getElementById("catslect").value;
+  const response = await fetch("/api/categories/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrfToken,
+    },
+    body: JSON.stringify({
+      name: name,
+      description: description,
+      parent: parent === "" ? null : Number(parent),
+    }),
+  });
+  const data = await response.json();
+  if (response.ok) {
+    window.alert(`added category ${name}`);
+  } else {
+    window.alert("an error occured");
+  }
+  document.getElementById("catname").value = "";
+  document.getElementById("catdes").value = "";
+  window.location.reload();
+});
+pro.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const name = document.getElementById("proname").value;
+  const description = document.getElementById("prodes").value;
+  const brand = document.getElementById("probrand").value;
+});

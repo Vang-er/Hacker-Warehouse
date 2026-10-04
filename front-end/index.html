@@ -135,13 +135,19 @@
         </form>
         <form id="pro" class="mx-auto hidden flex-col">
           <label for="proanme">Product name</label>
-          <input type="text" name="proname" class="border" />
+          <input
+            type="text"
+            name="proname"
+            class="border"
+            id="proname"
+            required
+          />
           <label for="prodes">Product description</label>
-          <input type="text" name="prodes" class="border" />
+          <input type="text" name="prodes" class="border" id="prodes" />
           <label for="procat">product category</label>
-          <select class="border"></select>
+          <select class="border" id="proslect" required></select>
           <label for="brand">Product brand</label>
-          <input type="text" name="brand" class="border" />
+          <input type="text" name="brand" class="border" id="probrand" />
           <input type="checkbox" checked hidden />
           <input
             type="submit"
@@ -158,7 +164,7 @@
       <div id="backdrop" class="hidden fixed inset-0 bg-black/40 z-40"></div>
       <div id="catdisplay" class="w-full h-full"></div>
       <div id="inventory-browser" class="w-full">
-        <div class="flex items-center gap-3 mb-4 mt-3">
+        <div class="flex items-center gap-3 mb-4 mt-3 ml-3">
           <button
             id="browser-back"
             onclick="showRootCategories()"
@@ -172,7 +178,7 @@
 
         <div
           id="browser-grid"
-          class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+          class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 mx-5"
         ></div>
       </div>
     </div>
@@ -269,7 +275,7 @@
       catslect.innerHTML = `
   <option value="">No parent</option>
 `;
-
+      proslect.innerHTML = `<option value="">No`;
       categories.forEach((category) => {
         catslect.innerHTML += `
     <option value="${category.id}">
@@ -747,33 +753,6 @@
       backdrop.classList.add("hidden");
     }
     loadInventory();
-    cat.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const name = document.getElementById("catname").value;
-      const description = document.getElementById("catdes").value;
-      const parent = document.getElementById("catslect").value;
-      const response = await fetch("/api/categories/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": csrfToken,
-        },
-        body: JSON.stringify({
-          name: name,
-          description: description,
-          parent: parent === "" ? null : Number(parent),
-        }),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        window.alert(`added category ${name}`);
-      } else {
-        window.alert("an error occured");
-      }
-      document.getElementById("catname").value = "";
-      document.getElementById("catdes").value = "";
-      window.location.reload();
-    });
   </script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="{% static 'accounts/js/EventListner.js' %}"></script>
