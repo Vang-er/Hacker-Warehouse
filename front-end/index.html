@@ -184,7 +184,7 @@
     </div>
     <div id="themesdiv" class="flex-col">
       <p class="text-center text-3xl ">Themes</p>
-      <div class="bg-green-700 flex p-4 m-4 border-green-950 rounded-2xl border-2 justify-around flex-col gap-5">
+      <div id="themediv" class="bg-green-700 flex p-4 m-4 border-green-950 rounded-2xl border-2 justify-around flex-col gap-5">
         <div class="bg-green-300 p-6 rounded-2xl border-2 "><p id="defult" class=" text-black bg-amber-300 p-5 rounded-2xl cursor-pointer">Green theme</p></div>
         <div class="bg-black p-6 rounded-2xl"><p id="dark" class="  text-white bg-gray-600 p-5 rounded-2xl cursor-pointer">Dark theme</p></div>
         <div class="bg-white p-6 rounded-2xl border-2"><p id="light" class= "  text-white bg-gray-800 p-5 rounded-2xl cursor-pointer">Light theme</p></div>
@@ -193,8 +193,25 @@
       </div>
     </div>
     <script>
+      const themediv = document.getElementById("themediv")
       const defult = document.getElementById("defult")
-      const dark = document.getElementById("dark");
+      const dark = document.getElementById("dark")
+      const light = document.getElementById("light")
+      const blue = document.getElementById("blue")
+      
+      defult.onclick = function(){
+        document.body.style.backgroundColor = "#86EFAC"
+        document.body.style.color = "black"
+        themediv.style.backgroundColor = "#15803D"
+        searchfeald.style.backgroundColor = "#fee685"
+      }
+      dark.onclick = function(){
+        document.body.style.backgroundColor = "#111827"
+        document.body.style.color = "#F9FAFB"
+        themediv.style.backgroundColor = "#1F2937"
+        searchfeald.style.backgroundColor = "#374151"
+      }
+
     </script>
     <div id="historypage" class="hidden flex-col items-center">
       <div class="flex items-center justify-between w-full px-4 mt-2">
