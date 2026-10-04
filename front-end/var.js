@@ -1,0 +1,27 @@
+    const themesdiv = document.getElementById("themesdiv")
+    const catslect = document.getElementById("catslect");
+    const browserTitle = document.getElementById("browser-title");
+    const browserGrid = document.getElementById("browser-grid");
+    const browserBack = document.getElementById("browser-back");
+    const variantform = document.getElementById("var");
+    const productform = document.getElementById("pro");
+    const numlogs = document.getElementById("numlogs");
+    const homepage = document.getElementById("homepage");
+    const swindow = document.getElementById("window");
+    const backdrop = document.getElementById("backdrop");
+    const addstock = document.getElementById("addstock");
+    const seitting = document.getElementById("seitting")
+    const addcat = document.getElementById("addcat");
+    let stockpressed = false;
+    let catpresser = false;
+    const addvariants = document.getElementById("addvariants");
+    const cat = document.getElementById("cat");
+    const addpro = document.getElementById("addpro");
+    const searchfeald = document.getElementById("searchfeald");
+    const stock = document.getElementById("stock");
+      const themediv = document.getElementById("themediv")
+      const defult = document.getElementById("defult")
+      const dark = document.getElementById("dark")
+      const light = document.getElementById("light")
+      const blue = document.getElementById("blue") 
+      
