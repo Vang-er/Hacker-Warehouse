@@ -48,12 +48,6 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         product = serializer.save()
-        ProductVariant.objects.create(
-            product=product,
-            name=product.name,
-            price=0,
-            cost_price=0
-        )
 
 class VariantViewSet(viewsets.ModelViewSet):
     queryset = ProductVariant.objects.all()

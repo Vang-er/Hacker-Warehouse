@@ -1,3 +1,4 @@
+import 
 addvariants.addEventListener("click", () => {
   catpresser = false;
   stockpressed = false;
@@ -110,4 +111,37 @@ pro.addEventListener("submit", async (event) => {
   const name = document.getElementById("proname").value;
   const description = document.getElementById("prodes").value;
   const brand = document.getElementById("probrand").value;
+  const cat = document.getElementById("proslect").value;
+  const response = await fetch("/api/products/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrfToken,
+    },
+    body: JSON.stringify({
+      name: name,
+      description: description,
+      category: cat,
+      brand: brand,
+      is_active: true,
+    }),
+  });
+  const data = await response.json();
+  if (response.ok) {
+    window.alert(`product ${name} added suffeculy to category ${cat}`);
+  } else {
+    window.alert("an error occered");
+  }
+  document.getElementById("proname").value = "";
+  document.getElementById("prodes").value = "";
+  document.getElementById("probrand").value = "";
+  window.location.reload();
 });
+variantform.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const name = document.getElementById("varname").value;
+    const product = document.getElementById("varslect").value;
+    const price = document.getElementById("varprice").value;
+    const cost = document.getElementById("varcost").value;
+    const response = await fetch("/api/")
+})
