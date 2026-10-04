@@ -615,12 +615,6 @@
     --tw-font-weight: var(--font-weight-bold);
     font-weight: var(--font-weight-bold);
   }
-  .whitespace-nowrap {
-    white-space: nowrap;
-  }
-  .text-amber-400 {
-    color: var(--color-amber-400);
-  }
   .text-black {
     color: var(--color-black);
   }
