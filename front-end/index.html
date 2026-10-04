@@ -184,10 +184,18 @@
     </div>
     <div id="themesdiv" class="flex-col">
       <p class="text-center text-3xl ">Themes</p>
-      <div class="flex p-4 m-4 border-green-950 rounded-2xl border-2">
-        <div class=" bg-black p-30  rounded-2xl"><p class="text-white bg-gray-600 p-5 rounded-2xl">Dark theme</p></div>
+      <div class="bg-green-700 flex p-4 m-4 border-green-950 rounded-2xl border-2 justify-around flex-col gap-5">
+        <div class="bg-green-300 p-6 rounded-2xl border-2 "><p id="defult" class=" text-black bg-amber-300 p-5 rounded-2xl cursor-pointer">Green theme</p></div>
+        <div class="bg-black p-6 rounded-2xl"><p id="dark" class="  text-white bg-gray-600 p-5 rounded-2xl cursor-pointer">Dark theme</p></div>
+        <div class="bg-white p-6 rounded-2xl border-2"><p id="light" class= "  text-white bg-gray-800 p-5 rounded-2xl cursor-pointer">Light theme</p></div>
+        <div class="bg-blue-400 p-6 rounded-2xl border-2"><p id="blue" class="text-white bg-blue-950 p-5 rounded-2xl cursor-pointer">Blue theme</p></div> 
+      
       </div>
     </div>
+    <script>
+      const defult = document.getElementById("defult")
+      const dark = document.getElementById("dark");
+    </script>
     <div id="historypage" class="hidden flex-col items-center">
       <div class="flex items-center justify-between w-full px-4 mt-2">
         <h1 class="text-center p-2 rounded-xl bg-amber-200 h-fit">
@@ -418,7 +426,7 @@
 
 
 
-    checkSearch();
+
 
     window.addEventListener("resize", checkSearch);
     async function loadhistory() {
