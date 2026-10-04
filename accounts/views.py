@@ -55,4 +55,4 @@ def handleroot(request):
     
 @login_required(login_url="/login/")
 def dashboard(request):
-    return render(request, "accounts/main.html")
+    return render(request, "index.html")

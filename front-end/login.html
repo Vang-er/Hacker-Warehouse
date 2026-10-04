@@ -3,7 +3,7 @@
 <html>
   <head>
     <link rel="stylesheet" href="../static/css/output.css" />
-    <!--  <link rel="stylesheet" href="{% static 'css/output.css' %}" />-->
+     <!-- <link rel="stylesheet" href="{% static 'css/output.css' %}" /> -->
     <title>log in</title>
   </head>
 
@@ -31,7 +31,8 @@
         welcome back
         <span
           class="absolute left-0 bottom-0 h-[2px] w-0 bg-black transition-all duration-300 group-hover:w-full"
-        ></span>
+        ></span><div class="flex justify-center align-middle">
+        <h3 class="text-amber-400 hidden">Wrong username or password</h3></div>
       </p>
       <div>
         <label>Username : </label>
@@ -69,23 +70,34 @@
       const csrf = document.querySelector("[name=csrfmiddlewaretoken]").value;
       const form = document.getElementById("form");
       async function submit(username, password, csrf) {
-        try {
-          const response = await fetch("/api/auth/login/", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "X-CSRFToken": csrf,
-            },
-            body: JSON.stringify({ username, password }),
-          });
-          const data = await response.json();
-          localStorage.setItem("access_token", data.access);
-          localStorage.setItem("refresh_token", data.refresh);
-        } catch {
-          console.log("an error happend!");
+        if (inputpassword.value == "" || inputusername.value == "") {
+          output1.textContent = "please enter the Password and the Username";
+        } else {
+          try {
+            const response = await fetch("/api/auth/login-api/", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrf,
+              },
+              body: JSON.stringify({ username, password }),
+            });
+            const data = await response.json();
+            if (response.ok) {
+              localStorage.setItem("access_token", data.access);
+              localStorage.setItem("refresh_token", data.refresh);
+            } else if (!response.ok) {
+              errorMsg.textContent = data.detail || "Login failed.";
+              errorMsg.style.display = "block";
+              return;
+            }
+            window.location.href = "/dashboard/";
+          } catch {
+            console.log("an error happend!");
+          }
         }
       }
-      form.addEventListener("submit", () => {
+      form.addEventListener("submit", (event) => {
         event.preventDefault();
         submit(inputusername.value, inputpassword.value, csrf);
       });
