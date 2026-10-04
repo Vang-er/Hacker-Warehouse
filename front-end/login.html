@@ -32,7 +32,7 @@
         <span
           class="absolute left-0 bottom-0 h-[2px] w-0 bg-black transition-all duration-300 group-hover:w-full"
         ></span><div class="flex justify-center align-middle">
-        <h3 class="text-amber-400 hidden">Wrong username or password</h3></div>
+        <h3 class="text-red-600 hidden" id="warnmsg">Wrong username or password</h3></div>
       </p>
       <div>
         <label>Username : </label>
@@ -67,6 +67,7 @@
     <script>
       const inputusername = document.getElementById("username");
       const inputpassword = document.getElementById("password");
+      const warnnmsg = document.getElementById("warnmsg")
       const csrf = document.querySelector("[name=csrfmiddlewaretoken]").value;
       const form = document.getElementById("form");
       async function submit(username, password, csrf) {
@@ -86,12 +87,11 @@
             if (response.ok) {
               localStorage.setItem("access_token", data.access);
               localStorage.setItem("refresh_token", data.refresh);
+              window.location.href = "/dashboard/";
             } else if (!response.ok) {
-              errorMsg.textContent = data.detail || "Login failed.";
-              errorMsg.style.display = "block";
-              return;
+              warnnmsg.classList.remove("hidden");
+              setTimeout(() => {warnnmsg.classList.add("hidden")},2000)
             }
-            window.location.href = "/dashboard/";
           } catch {
             console.log("an error happend!");
           }
