@@ -73,7 +73,7 @@ class StockViewSet(viewsets.ReadOnlyModelViewSet):
                 variant=stock.variant,
                 delta= -body.validated_data["quantity"],
                 movement_type=StockMovement.Type.OUT,
-                reason=StockMovement.Reason.DAMAGE,
+                reason=StockMovement.Reason.MANUAL,
                 user=request.user,
                 note=body.validated_data["note"],
             )

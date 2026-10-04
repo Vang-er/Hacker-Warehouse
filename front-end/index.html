@@ -436,6 +436,18 @@
                 </button>
               </div>
             </div>
+
+                    
+        <div class="mt-3">
+          <input 
+            type="text"
+            id="reason-${variant.id}"
+            oninput="updateWithdrawReason(${variant.id}, this.value)"
+            value="${withdrawCart[variant.id]?.reason || ''}"
+            placeholder="Reason (Sale, Damaged, Demo...)"
+            class="w-full text-xs px-3 py-1.5 border border-gary-300 rounded-lg outline-none bg-gray-50 focus:bg-white focus:border-black transition-colors"
+          />
+        </div>
         `;
 
         browserGrid.appendChild(card);
@@ -445,11 +457,14 @@
 
     function updateWithdrawQty(variantId, stockId, delta, maxStock, variantName) {
       if (!withdrawCart[variantId]) {
+        const reasonInput = document.getElementById(`reason-${variantId}`);
+
         withdrawCart[variantId] = {
           variantId: variantId,
           stockId: stockId,
           quantity:0,
           variantName: variantName,
+          reason: reasonInput ? reasonInput.value.trim(): "",
         };
       }
       let newQty = withdrawCart[variantId].quantity + delta;
@@ -470,6 +485,20 @@
       if (minusBtn) minusBtn.disabled = newQty <= 0;
       if (plusBtn) plusBtn.disabled = newQty >= maxStock;
       updateBottomBar();
+    }
+
+    function updateWithdrawReason(variantId, reasonValue) {
+      if (!withdrawCart[variantId]) {
+        withdrawCart[variantId] = {
+          variantId: variantId,
+          stockId: stockMap[variantId] || variantId,
+          quantity: 0,
+          variantName: "",
+          reason: reasonValue.trim(),
+        };
+      } else {
+        withdrawCart[variantId].reason = reasonValue.trim();
+      }
     }
 
     function updateBottomBar() {
@@ -514,7 +543,7 @@
           },
           body: JSON.stringify({
             quantity: item.quantity,
-            note: `Withdrawen via the warehouse dashboard (${item.variantName})`,
+            note: item.reason || `Withdrawn via warehouse dashboard (${item.variantName})`,
           }),
         }).then(async (res) => {
           const data = await res.json();
@@ -576,7 +605,7 @@
         </p>
 
         <p class="text-sm">
-          Reason: ${item.reason}
+          Reason: <span class="font-semibold">${item.note || item.reason}</span>
         </p>
       </div>
 
