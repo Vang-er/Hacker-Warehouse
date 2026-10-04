@@ -94,13 +94,7 @@
         <form id="cat" class="mx-auto mt-8 flex w-4/5 flex-col gap-2">
           {% csrf_token %}
           <label for="catname">Category name</label>
-          <input
-            name="catname"
-            type="text"
-            class="border"
-            id="catname"
-            required
-          />
+          <input name="catname" type="text" class="border" id="catname" />
           <label for="catdes">Category description</label>
           <input name="catdes" type="text" class="border" id="catdes" />
           <label for="catdrop">Choose parents</label>
@@ -112,7 +106,6 @@
           />
         </form>
         <form id="var" class="hidden flex-col">
-          {% csrf_token %}
           <label for="varname">Variant name</label>
           <input name="varname" type="text" class="border" />
           <label for="productvar">Product</label>
@@ -128,7 +121,6 @@
           />
         </form>
         <form id="stock" class="mx-auto mt-5 hidden w-4/5 flex-col gap-2">
-          {% csrf_token %}
           <label for="prostc">Variant</label>
           <select class="border" id="prostc"></select>
           <label for="stcprice">Stock price</label>
@@ -142,7 +134,6 @@
           />
         </form>
         <form id="pro" class="mx-auto hidden flex-col">
-          {% csrf_token %}
           <label for="proanme">Product name</label>
           <input type="text" name="proname" class="border" />
           <label for="prodes">Product description</label>
@@ -187,15 +178,46 @@
     </div>
     <div id="historypage" class="hidden flex-col items-center">
       <div class="flex items-center justify-between w-full px-4 mt-2">
-        <h1 class="text-center p-2 rounded-xl bg-amber-200 h-fit">
-          Stock history
-        </h1>
+        <button
+          onclick="exportHistoryToCSV()"
+          class="text-center p-2 rounded-xl bg-amber-200 h-fit"
+        >
+          EXPORT
+        </button>
 
         <span id="numlogs" class="bg-amber-400 rounded-2xl p-2"></span>
       </div>
       <div></div>
       <div id="history-list" class="w-full max-w-4xl mt-4 space-y-2"></div>
     </div>
+
+    <div
+      id="withdraw-bar"
+      class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 hidden bg-gray-800 text-white px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-6 border-2 border-green-400"
+    >
+      <div>
+        <span class="text-xs uppercase tracking-wide text-gray-400"
+          >Total:</span
+        >
+        <div id="withdraw-total-count" class="text-lg font-bold text-green-300">
+          0
+        </div>
+      </div>
+      <button
+        id="withdraw-btn"
+        onclick="executeBatchWithdraw()"
+        class="bg-green-500 hover:bg-green-600 active:scale-95 text-black font-extrabold px-5 py-2.5 rounded-x1 cursor-pointer transition-all shadow-md"
+      >
+        Confirm Withdrawal
+      </button>
+      <button
+        onclick="clearWithdrawCart()"
+        class="text-xs text-red-400 hover:underline cursor-pointer"
+      >
+        Clear
+      </button>
+    </div>
+
     <div class="flex items-center justify-between w-full px-4 mt-2"></div>
     <div></div>
   </body>
@@ -208,68 +230,53 @@
         "cursor-pointer rounded-2xl bg-white p-5 shadow transition hover:scale-[1.02]";
 
       card.innerHTML = `
-                <h2 class="text-xl font-bold">
-                    ${title}
-                </h2>
+        <h2 class="text-xl font-bold">
+            ${title}
+        </h2>
 
-                <p class="text-sm text-gray-500">
-                    ${description}
-                </p>
-            `;
+        <p class="text-sm text-gray-500">
+            ${description}
+        </p>
+    `;
 
       return card;
     }
-    async function getAllPages(url) {
-      let results = [];
-      while (url) {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`HTTP error: ${response.status}`);
-        }
-        const data = await response.json();
-        results.push(...data.results);
-        url = data.next;
-      }
-      return results;
-    }
+
+    let stockMap = {};
+    let withdrawCart = {};
+
     async function loadInventory() {
-      try {
-        categories = await getAllPages("/api/categories/");
-        products = await getAllPages("/api/products/");
-        catslect.innerHTML = `
-        <option value="">No Parent</option>
-        `;
-        categories.forEach((category) => {
-          catslect.innerHTML += `
-               <option value="${category.id}">
-          ${category.name}
-        </option>`;
-        });
-        showRootCategories();
-      } catch (error) {
-        console.error("Failed to load inventory", error);
-      }
-      // const [categoriesResponse, productsResponse] = await Promise.all([
-      //   fetch("/api/categories/"),
-      //   fetch("/api/products/"),
-      // ]);
+      const [categoriesResponse, productsResponse, stockResponse] =
+        await Promise.all([
+          fetch("/api/categories/"),
+          fetch("/api/products/"),
+          fetch("/api/stock/"),
+        ]);
 
-      // const categoriesData = await categoriesResponse.json();
-      // const productsData = await productsResponse.json();
+      const categoriesData = await categoriesResponse.json();
+      const productsData = await productsResponse.json();
+      const stockData = await stockResponse.json();
 
-      // categories = categoriesData.results;
-      // products = productsData.results;
-      // catslect.innerHTML = `
-      //     <option value="">No parent</option>
-      //   `;
+      categories = categoriesData.results;
+      products = productsData.results;
+      const stock = stockData.results || stockData;
 
-      // categories.forEach((category) => {
-      //   catslect.innerHTML += `
-      //       <option value="${category.id}">
-      //         ${category.name}
-      //       </option>
-      //     `;
-      // });
+      stockMap = {};
+      stock.forEach((st) => {
+        stockMap[st.variant] = st.id;
+      });
+
+      catslect.innerHTML = `
+  <option value="">No parent</option>
+`;
+
+      categories.forEach((category) => {
+        catslect.innerHTML += `
+    <option value="${category.id}">
+      ${category.name}
+    </option>
+  `;
+      });
 
       showRootCategories();
     }
@@ -340,18 +347,18 @@
         "cursor-pointer rounded-2xl bg-white p-5 shadow transition hover:scale-[1.02]";
 
       card.innerHTML = `
-                <h2 class="text-xl font-bold">
-                    ${product.name}
-                </h2>
+        <h2 class="text-xl font-bold">
+            ${product.name}
+        </h2>
 
-                <p class="text-sm text-gray-500">
-                    ${product.brand || "No brand"}
-                </p>
+        <p class="text-sm text-gray-500">
+            ${product.brand || "No brand"}
+        </p>
 
-                <p class="mt-2 text-sm">
-                    ${product.variants.length} variants
-                </p>
-            `;
+        <p class="mt-2 text-sm">
+            ${product.variants.length} variants
+        </p>
+    `;
 
       card.addEventListener("click", () => {
         openProduct(product.id);
@@ -368,41 +375,237 @@
       product.variants.forEach((variant) => {
         const card = document.createElement("div");
 
-        card.className = "rounded-2xl bg-white p-5 shadow";
+        card.className = "rounded-2xl bg-white p-5 shawdo";
+
+        const stockId = stockMap[variant.id] || variant.id;
+        const currentSelectedQty = withdrawCart[variant.id]?.quantity || 0;
+        const isOutOfStock = variant.quantity <= 0;
 
         card.innerHTML = `
-                    <h2 class="text-lg font-bold">
-                        ${variant.name}
-                    </h2>
+            <div>
+              <h2 class="text-lg font-bold">${variant.name || product.name}</h2>
+              <p class="text-sm text-gray-500">SKU: ${variant.sku}</p>
 
-                    <p class="text-sm text-gray-500">
-                        SKU: ${variant.sku}
-                    </p>
+              <div class="mt-3 flex justify-between text-sm">
+                  <span>Price</span>
+                  <span class="font-bold">$${variant.price}</span>
+              </div>
 
-                    <div class="mt-3 flex justify-between">
-                        <span>
-                            Price
-                        </span>
-                        <span class="font-bold">
-                            ${variant.price}
-                        </span>
-                    </div>
+              <div class="flex justify-between text-sm mt-1">
+                  <span>Stock</span>
+                  <span class="font-bold ${isOutOfStock ? "text-red-500" : "text-green-700"}">
+                    ${variant.quantity} units
+                  </span>
+              </div>
+            </div>
 
-                    <div class="flex justify-between">
-                        <span>
-                            Stock
-                        </span>
+            <!-- 👇 NEW: Counter Section -->
+            <div class="mt-4 pt-3 border-t flex items-center justify-between">
+              <span class="text-xs font-bold uppercase text-gray-600">Withdraw:</span>
 
-                        <span class="font-bold">
-                            ${variant.quantity}
-                        </span>
-                    </div>
-                `;
+              <div class="flex items-center gap-2">
+                <button
+                  type="button"
+                  onclick="updateWithdrawQty(${variant.id}, ${stockId}, -1, ${variant.quantity}, '${variant.name || product.name}')"
+                  class="w-8 h-8 rounded-lg bg-gray-200 hover:bg-gray-300 font-black cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                  ${currentSelectedQty === 0 ? "disabled" : ""}
+                  id="minus-btn-${variant.id}"
+                >
+                  -
+                </button>
+
+                <span id="counter-${variant.id}" class="w-8 text-center font-bold">
+                  ${currentSelectedQty}
+                </span>
+
+                <button
+                  type="button"
+                  onclick="updateWithdrawQty(${variant.id}, ${stockId}, 1, ${variant.quantity}, '${variant.name || product.name}')"
+                  class="w-8 h-8 rounded-lg bg-gray-200 hover:bg-gray-300 font-black cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                  ${isOutOfStock || currentSelectedQty >= variant.quantity ? "disabled" : ""}
+                  id="plus-btn-${variant.id}"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+                    
+        <div class="mt-3">
+          <input 
+            type="text"
+            id="reason-${variant.id}"
+            oninput="updateWithdrawReason(${variant.id}, this.value)"
+            value="${withdrawCart[variant.id]?.reason || ""}"
+            placeholder="Reason (Sale, Damaged, Demo...)"
+            class="w-full text-xs px-3 py-1.5 border border-gary-300 rounded-lg outline-none bg-gray-50 focus:bg-white focus:border-black transition-colors"
+          />
+        </div>
+        `;
 
         browserGrid.appendChild(card);
       });
     }
     const searchform = document.getElementById("searchform");
+
+    searchfeald.addEventListener("input", (e) => {
+      const query = e.target.value.trim().toLowerCase();
+
+      if (!query) {
+        showRootCategories();
+        return;
+      }
+
+      const matches = products.filter((p) => {
+        const matchName = p.name.toLowerCase().includes(query);
+        const matchBrand = (p.name || "").toLowerCase().includes(query);
+        const matchSku = p.variants?.some((v) =>
+          v.sku.toLowerCase().includes(query),
+        );
+        return matchName || matchBrand || matchSku;
+      });
+
+      browserTitle.textContent = `Search results for "${query}" (${matches.length})`;
+      browserBack.classList.remove("hidden");
+      browserBack.onclick = () => {
+        searchfeald.value = "";
+        showRootCategories();
+      };
+
+      browserGrid.innerHTML = "";
+      if (matches.length === 0) {
+        browserGrid.innerHTML = `<p class="p-5 text-gray-700 italic">No Products Found. </p>`;
+        return;
+      }
+
+      matches.forEach((p) => {
+        browserGrid.appendChild(createProductCard(p));
+      });
+    });
+
+    searchform.addEventListener("submit", (e) => e.preventDefault());
+
+    function updateWithdrawQty(
+      variantId,
+      stockId,
+      delta,
+      maxStock,
+      variantName,
+    ) {
+      if (!withdrawCart[variantId]) {
+        const reasonInput = document.getElementById(`reason-${variantId}`);
+
+        withdrawCart[variantId] = {
+          variantId: variantId,
+          stockId: stockId,
+          quantity: 0,
+          variantName: variantName,
+          reason: reasonInput ? reasonInput.value.trim() : "",
+        };
+      }
+      let newQty = withdrawCart[variantId].quantity + delta;
+
+      if (newQty < 0) newQty = 0;
+      if (newQty > maxStock) newQty = maxStock;
+
+      withdrawCart[variantId].quantity = newQty;
+      if (newQty === 0) {
+        delete withdrawCart[variantId];
+      }
+
+      const counterE1 = document.getElementById(`counter-${variantId}`);
+      const minusBtn = document.getElementById(`minus-btn-${variantId}`);
+      const plusBtn = document.getElementById(`plus-btn-${variantId}`);
+
+      if (counterE1) counterE1.textContent = newQty;
+      if (minusBtn) minusBtn.disabled = newQty <= 0;
+      if (plusBtn) plusBtn.disabled = newQty >= maxStock;
+      updateBottomBar();
+    }
+
+    function updateWithdrawReason(variantId, reasonValue) {
+      if (!withdrawCart[variantId]) {
+        withdrawCart[variantId] = {
+          variantId: variantId,
+          stockId: stockMap[variantId] || variantId,
+          quantity: 0,
+          variantName: "",
+          reason: reasonValue.trim(),
+        };
+      } else {
+        withdrawCart[variantId].reason = reasonValue.trim();
+      }
+    }
+
+    function updateBottomBar() {
+      const bar = document.getElementById("withdraw-bar");
+      const totalCountE1 = document.getElementById("withdraw-total-count");
+
+      const totalItems = Object.values(withdrawCart).reduce(
+        (sum, item) => sum + item.quantity,
+        0,
+      );
+      if (totalItems > 0) {
+        bar.classList.remove("hidden");
+        totalCountE1.textContent = `${totalItems} unit${totalItems > 1 ? "s" : ""}`;
+      } else {
+        bar.classList.add("hidden");
+      }
+    }
+
+    function clearWithdrawCart() {
+      withdrawCart = {};
+      updateBottomBar();
+      const productTitle = browserTitle.textContent;
+      const currentProduct = products.find((p) => p.name === productTitle);
+      if (currentProduct) openProduct(currentProduct.id);
+    }
+
+    async function executeBatchWithdraw() {
+      const itemsToWithdraw = Object.values(withdrawCart);
+      if (itemsToWithdraw.length === 0) return;
+
+      const btn = document.getElementById("withdraw-btn");
+      btn.disabled = true;
+      btn.textContent = "Processing...";
+
+      try {
+        const requests = itemsToWithdraw.map((item) =>
+          fetch(`/api/stock/${item.stockId}/issue/`, {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json",
+              "X-CSRFToken": csrfToken,
+            },
+            body: JSON.stringify({
+              quantity: item.quantity,
+              note:
+                item.reason ||
+                `Withdrawn via warehouse dashboard (${item.variantName})`,
+            }),
+          }).then(async (res) => {
+            const data = await res.json();
+            if (!res.ok) {
+              throw new Error(
+                data.detail || `Faild to withdarw ${item.variantName}`,
+              );
+            }
+            return data;
+          }),
+        );
+
+        await Promise.all(requests);
+        alert(`Successfully withdrawn ${itemsToWithdraw.length} Variant!`);
+        withdrawCart = {};
+        updateBottomBar();
+        await loadInventory();
+      } catch (err) {
+        alert("Withdrawal Error: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Confirm Withdrawal";
+      }
+    }
 
     function checkSearch() {
       if (searchform.offsetWidth <= 250) {
@@ -431,38 +634,97 @@
             "bg-green-500 rounded-xl p-4 shadow flex justify-between items-center border-l-green-700 border-l-3 hover:scale-105 duration:300 transition-all";
         }
         card.innerHTML = `
-              <div>
-                <h2 class="font-bold text-lg">
-                  ${item.variant_name}
-                </h2>
+      <div>
+        <h2 class="font-bold text-lg">
+          ${item.variant_name}
+        </h2>
 
-                <p class="text-sm text-gray-600">
-                  SKU: ${item.sku}
-                </p>
+        <p class="text-sm text-gray-600">
+          SKU: ${item.sku}
+        </p>
 
-                <p class="text-sm">
-                  Reason: ${item.reason}
-                </p>
-              </div>
+        <p class="text-sm">
+          Reason: <span class="font-semibold">${item.note || item.reason}</span>
+        </p>
+      </div>
 
-              <div class="text-right">
-                <p class="font-bold">
-                  ${item.movement_type}
-                </p>
+      <div class="text-right">
+        <p class="font-bold">
+          ${item.movement_type}
+        </p>
 
-                <p class="text-lg font-bold">
-                  ${item.quantity > 0 ? "+" : ""}${item.quantity}
-                </p>
+        <p class="text-lg font-bold">
+          ${item.quantity > 0 ? "+" : ""}${item.quantity}
+        </p>
 
-                <p class="text-sm text-gray-600">
-                  Balance: ${item.balance_after}
-                </p>
-              </div>
-            `;
+        <p class="text-sm text-gray-600">
+          Balance: ${item.balance_after}
+        </p>
+      </div>
+    `;
 
         historyList.appendChild(card);
       });
     }
+
+    async function exportHistoryToCSV() {
+      try {
+        const response = await fetch("/api/stock-movements/");
+        const data = await response.json();
+        const logs = data.results || data;
+
+        if (logs.length === 0) {
+          alert("No History to export");
+          return;
+        }
+
+        const headers = [
+          "variantName",
+          "SKU",
+          "Type",
+          "Quantity",
+          "Balance After",
+          "Reason / Note",
+          "Data",
+        ];
+        const rows = logs.map((item) => {
+          const data = new Date(item.created_at)
+            .toLocaleString()
+            .replace(",", " -");
+          const noteOrReason = (item.note || item.reason || "").replace(
+            /"/g,
+            '""',
+          );
+          const variantName = (item.variant_name || "").replace(/"/g, '""');
+
+          return [
+            `"${variantName}"`,
+            `"${item.sku}"`,
+            `"${item.movement_type}"`,
+            item.quantity,
+            item.balance_after,
+            `"${noteOrReason}"`,
+            `"${data}"`,
+          ].join(",");
+        });
+
+        const csvContent = "\uFEFF" + [headers.join(","), ...rows].join("\n");
+        const blob = new Blob([csvContent], {
+          type: "text/csv;charset=utf-8;",
+        });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `warehouse_history_${new Date().toISOString().slice(0, 10)}.csv`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      } catch (err) {
+        alert("Faild to export CSV:" + err.message);
+      }
+    }
+
     function showhistory() {
       homepage.classList.add("hidden");
       historypage.classList.remove("hidden");
@@ -519,3 +781,6 @@
     lucide.createIcons();
   </script>
 </html>
+
+<!-- I don't have any idea why that file alone is 800 lines, I feel very lost now -->
+<!-- written by Timo-->
