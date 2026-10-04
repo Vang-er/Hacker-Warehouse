@@ -1,6 +1,6 @@
 # Create your views here.
 from django.shortcuts import render, redirect
-from django.contrib.auth import login as django_login, logout as django_logout, authenticate
+from django.contrib.auth import login as django_login, logout as django_logout, authenticate , update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 
 from rest_framework import status
@@ -8,6 +8,30 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
+
+
+class ChangeCredentialsView(APIView):
+    permission_classes = [IsAuthenticated]
+    def post(self, request):
+        user = request.user
+        new_username = request.data.gat("username", "").strip()
+        new_password = request.data.get("password", "").strip()
+
+        if not new_username and not new_password:
+            return Response(
+                {"detail": "Please provide a new username or a new password."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        if new_username:
+            user.username = new_username
+        if new_password:
+            user.set_password(new_password)
+            update_session_auth_hash(request, user)
+        user.save()
+        return Response({
+            "detail": "Credentials update successfully.",
+            "username": user.username
+        }, status=status.HTTP_200_OK)
 
 class ApiLoginView(APIView):
     permission_classes = [AllowAny]
