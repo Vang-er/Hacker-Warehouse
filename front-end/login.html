@@ -10,6 +10,7 @@
   <body class="bg-green-300">
     <div class="flex justify-center">
       <h1
+      id="loginwindow"
         class="mt-5 relative inline-block group text-3xl bg-gray-400 rounded-3xl p-3"
       >
         Log in page
@@ -97,75 +98,33 @@
           }
         }
       }
+      
       form.addEventListener("submit", (event) => {
         event.preventDefault();
         submit(inputusername.value, inputpassword.value, csrf);
       });
-      // const enter = document.getElementById("enter");
-      // const output1 = document.getElementById("output1");
-      // function getCookie(name) {
-      //   let cookieValue = null;
-
-      //   if (document.cookie && document.cookie !== "") {
-      //     const cookies = document.cookie.split(";");
-
-      //     for (let cookie of cookies) {
-      //       cookie = cookie.trim();
-
-      //       if (cookie.startsWith(name + "=")) {
-      //         cookieValue = decodeURIComponent(
-      //           cookie.substring(name.length + 1),
-      //         );
-      //         break;
-      //       }
-      //     }
-      //   }
-
-      //   return cookieValue;
-      // }
-      // enter.onclick = async function sub(event) {
-      //   if (inputpassword.value != "" && inputusername.value != "") {
-      //     event.preventDefault();
-      //     try {
-      //       // Call the DRF endpoint
-      //       const response = await fetch("/api/auth/login/", {
-      //         method: "POST",
-      //         headers: {
-      //           "Content-Type": "application/json",
-      //           "X-CSRFToken": getCookie("csrftoken"),
-      //         },
-      //         body: JSON.stringify({
-      //           username: inputusername.value,
-      //           password: inputpassword.value,
-      //         }),
-      //       });
-      //       const data = await response.json();
-
-      //       if (!response.ok) {
-      //         errorMsg.textContent = data.detail || "Login failed.";
-      //         errorMsg.style.display = "block";
-      //         return;
-      //       }
-
-      //       // Store JWT tokens for frontend use
-      //       localStorage.setItem("access_token", data.access);
-      //       localStorage.setItem("refresh_token", data.refresh);
-
-      //       // Redirect to the dashboard
-      //       window.location.href = "/dashboard/";
-      //     } catch (error) {
-      //       console.log(error);
-      //       errorMsg.textContent = "Cannot connect to server.";
-      //       errorMsg.style.display = "block";
-      //     }
-      //   } else if (inputpassword.value == "" && inputusername.value == "") {
-      //     output1.textContent = "please enter the Password and the Username";
-      //   } else if (inputpassword.value == "" && inputusername.value != "") {
-      //     output1.textContent = "please enter the password";
-      //   } else if (inputpassword.value != "" && inputusername.value == "") {
-      //     output1.textContent = "please enter the username";
-      //   }
-      // };
+      
+    </script>
+    <script>
+     const loginwindow = document.getElementById("loginwindow")
+     const enterofloginwindow = document.getElementById("enter")
+     const formofwindow = document.getElementById("form")
+      try{
+        localStorage.getItem("th")
+      }catch(error)
+      {
+         localStorage.setItem("th", 0)
+      }
+      if(localStorage.getItem("th") == 0){
+         document.body.style.backgroundColor = "#7bf1a8"
+         document.body.style.color = "black"
+         loginwindow.style.backgroundColor = "#99a1af"
+         enterofloginwindow.style.backgroundColor = "99a1af"
+         formofwindow.style.backgroundColor = "#d1d5dc"
+         formofwindow.style.border = "black solid"
+      }else if(localStorage.getItem("th") == 1){
+        
+      }
     </script>
   </body>
 </html>
