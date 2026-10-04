@@ -194,35 +194,22 @@
     </div>
     <script>
         let numofthemecount ;
-try{
+/*try{
   numofthemecount = localStorage.getItem(`theme`)
     }catch(error)
     {
     
     }
-
+*/
 
      let themenem = [0 ,1 ,2 ,3]
 
      
 
 
-if(themenem[numofthemecount] == 0){
-          greenfun()
-        }else if(themenem[numofthemecount] == 1){
-          darkfun()
-        }else if(themenem[numofthemecount] == 2){
-          lightfun()
-        }else if(themenem[numofthemecount] == 3){
-          bluefun()
-        }
-      green.onclick = function(){
-        numofthemecount = 0
-                        
-      }
       dark.onclick = function(){
         numofthemecount = 1
-                        if(themenem[numofthemecount] == 0){
+        if(themenem[numofthemecount] == 0){
           greenfun()
         }else if(themenem[numofthemecount] == 1){
           darkfun()
@@ -232,9 +219,22 @@ if(themenem[numofthemecount] == 0){
           bluefun()
         }
       }
+      defult.onclick = function(){
+        numofthemecount = 0
+                if(themenem[numofthemecount] == 0){
+          greenfun()
+        }else if(themenem[numofthemecount] == 1){
+          darkfun()
+        }else if(themenem[numofthemecount] == 2){
+          lightfun()
+        }else if(themenem[numofthemecount] == 3){
+          bluefun()
+        }
+      }
+
       light.onclick = function(){
         numofthemecount = 2
-                        if(themenem[numofthemecount] == 0){
+              if(themenem[numofthemecount] == 0){
           greenfun()
         }else if(themenem[numofthemecount] == 1){
           darkfun()
@@ -246,7 +246,7 @@ if(themenem[numofthemecount] == 0){
       }
       blue.onclick = function(){
         numofthemecount = 3
-                        if(themenem[numofthemecount] == 0){
+                             if(themenem[numofthemecount] == 0){
           greenfun()
         }else if(themenem[numofthemecount] == 1){
           darkfun()
@@ -254,7 +254,7 @@ if(themenem[numofthemecount] == 0){
           lightfun()
         }else if(themenem[numofthemecount] == 3){
           bluefun()
-        }
+        }   
       }
       function greenfun(){
         document.body.style.backgroundColor = "#86EFAC"
