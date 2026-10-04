@@ -102,30 +102,60 @@
         <form id="cat" class="mx-auto mt-8 flex w-4/5 flex-col gap-2">
           {% csrf_token %}
           <label for="catname">Category name</label>
-          <input name="catname" type="text" class="border" id="catname" />
+          <input
+            name="catname"
+            type="text"
+            class="border"
+            id="catname"
+            required
+          />
           <label for="catdes">Category description</label>
           <input name="catdes" type="text" class="border" id="catdes" />
           <label for="catdrop">Choose parents</label>
           <select id="catslect" class="border"></select>
           <input
             type="submit"
-            class="border-none cursor-pointer w-fit mt-2 p-2 rounded-2xl bg-gray-800 text-white shadow-[2px_4px_0_#999] duration-100 hover:scale-105 active:shadow-[0_0_0_#999]"
+            class="border-none cursor-pointer w-fit mt-2 p-2 rounded-2xl bg-gray-800 text-white shadow-[2px_4px_0_#999] duration-100 hover:scale-105 active:shadow-[0_0_0_#999] active:translate-y--1 transition-all"
             onclick=""
           />
         </form>
         <form id="var" class="hidden flex-col">
           <label for="varname">Variant name</label>
-          <input name="varname" type="text" class="border" />
+          <input
+            name="varname"
+            type="text"
+            class="border"
+            required
+            id="varname"
+          />
           <label for="productvar">Product</label>
-          <input name="productvar" type="text" class="border" />
-          <label for="varprice">Product price</label>
-          <input name="varprice" type="number" min="0" class="border" />
-          <label for="facvar">Factory price</label>
-          <input type="number" min="0" name="facvar" class="border" />
+          <select
+            name="productvar"
+            type="text"
+            class="border"
+            id="varslect"
+            required
+          ></select>
+          <label for="varprice">Variant price</label>
+          <input
+            name="varprice"
+            type="number"
+            min="0"
+            class="border"
+            id="varprice"
+          />
+          <label for="facvar">Factory cost</label>
+          <input
+            type="number"
+            min="0"
+            name="facvar"
+            class="border"
+            id="varcost"
+          />
           <input type="checkbox" checked hidden />
           <input
             type="submit"
-            class="border cursor-pointer w-fit mt-2 p-2 rounded-2xl"
+            class="border-none cursor-pointer w-fit mt-2 p-2 rounded-2xl bg-gray-800 text-white shadow-[2px_4px_0_#999] duration-100 hover:scale-105 active:shadow-[0_0_0_#999] active:translate-y--1 transition-all"
           />
         </form>
         <form id="stock" class="mx-auto mt-5 hidden w-4/5 flex-col gap-2">
@@ -159,7 +189,7 @@
           <input type="checkbox" checked hidden />
           <input
             type="submit"
-            class="border cursor-pointer w-fit mt-2 p-2 rounded-2xl"
+            class="border-none cursor-pointer w-fit mt-2 p-2 rounded-2xl bg-gray-800 text-white shadow-[2px_4px_0_#999] duration-100 hover:scale-105 active:shadow-[0_0_0_#999] active:translate-y--1 transition-all"
           />
         </form>
       </div>
@@ -394,7 +424,12 @@
       catslect.innerHTML = `
   <option value="">No parent</option>
 `;
-      proslect.innerHTML = `<option value="">No`;
+      proslect.innerHTML = `<option value="">No parent</option>`;
+      categories.forEach((category) => {
+        proslect.innerHTML += `
+        <option value="${category.id}">${category.name}</option>
+        `;
+      });
       categories.forEach((category) => {
         catslect.innerHTML += `
     <option value="${category.id}">

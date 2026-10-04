@@ -938,10 +938,22 @@
     --tw-translate-y: var(--spacing);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
+  .active\:scale-90:active {
+    --tw-scale-x: 90%;
+    --tw-scale-y: 90%;
+    --tw-scale-z: 90%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
   .active\:scale-95:active {
     --tw-scale-x: 95%;
     --tw-scale-y: 95%;
     --tw-scale-z: 95%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
+  .active\:scale-9023:active {
+    --tw-scale-x: 9023%;
+    --tw-scale-y: 9023%;
+    --tw-scale-z: 9023%;
     scale: var(--tw-scale-x) var(--tw-scale-y);
   }
   .active\:bg-gray-400:active {
