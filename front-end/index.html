@@ -269,7 +269,7 @@
       const stock = stockData.results || stockData;
 
       stockMap = {};
-      stocks.forEach((st) => {
+      stock.forEach((st) => {
         stockMap[st.variant] = st.id;
       });
 
@@ -382,7 +382,11 @@
       product.variants.forEach((variant) => {
         const card = document.createElement("div");
 
-        card.className = "rounded-2xl bg-white p-5 shadow";
+        card.className = "rounded-2xl bg-white p-5 shawdo";
+
+        const stockId = stockMap[variant.id] || variant.id;
+        const currentSelectedQty = withdrawCart[variant.id]?.quantity || 0;
+        const isOutOfStock = variant.quantity <= 0;
 
         card.innerHTML = `
             <div>
@@ -522,7 +526,7 @@
     );
 
     await Promise.all(requests);
-    alert(`Successfully withdrawn ${itemsToWithdraw.length} items!`);
+    alert(`Successfully withdrawn ${itemsToWithdraw.length} Variant!`);
     withdrawCart = {};
     updateBottomBar();
     await loadInventory();
