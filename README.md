@@ -1,22 +1,27 @@
 # Haker Warehouse
 
-### V.02
+### V0.2
 
 ## A web Application that you can control your invintory on it, you can add product or remove product and add categories or remove it you can see your history or your dashboard.
 
-## What is new in that week ?!!
+## What is new in week 2?!!
 
 ### we made a whole new UI made from tailwind-CSS framework and refactor some of the backend logics with putting the foundations to enable uploading Images in the future realses
 
+## what we made in week 3
+
+### we finish the add window and we made 4 imprisseve themes, we also added seittings that inclueds "about" and "contact", we solved hundreds of problems and finally THE SITE NOW IS USEABLE!!!
+# we made it fainally
+
 ## new UI!
 
-<img src="README assets/5.png">
-<img src="README assets/6.png">
-<img src="README assets/7.png">
-<img src="README assets/8.png">
+<img src="README assets/E1.png">
+<img src="README assets/E2.png">
+<img src="README assets/E3.png">
+<img src="README assets/E4.png">
 
 ## Teach Stack
-
+  KOOP
 <bl>
     <li>
         HTML
@@ -96,4 +101,4 @@
   -i ./static/css/input.css \
   -o ./static/css/output.css \
   --watch ```
-````
+```
