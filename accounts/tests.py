@@ -38,7 +38,7 @@ class AuthTests(APITestCase):
         self.assertIn(response.status_code, [status.HTTP_302_FOUND, status.HTTP_200_OK])
 
         self.client.force_login(self.user)
-        response= self.client.get("/web-login/")
+        response= self.client.get("/login/")
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
 
         response = self.client.get("/dashboard/")

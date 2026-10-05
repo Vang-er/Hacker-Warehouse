@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+    <link rel="stylesheet" href="../static/css/output.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>profile</title>
+</head>
+<body class="p-5 bg-green-300" >
+    <div id="theprofile" class="flex flex-col">
+    <button onclick="window.location.href = `index.html`" class="p-2 rounded-2xl m-2 border cursor-pointer w-fit">Back to home page</button>
+    <p class="text-2xl">Profile</p>
+
+    <p class="m-5" id="showenname">username : </p>
+     <p class="text-blue-950 underline cursor-pointer" id="edit" >Edit your profile</p>
+</div>
+     <div id="editpage" class="hidden flex-col">
+        <button onclick="bactoprofile()" class=" w-fit p-2  cursor-pointer border p-1 rounded-2xl">Back</button>
+        <div class="flex flex-col">
+            <div>
+            <label>Enter your name:</label>
+            <input id="inputname" type="text" class="border ">
+            </div>
+            <button  id="sss" class="w-fit border cursor-pointer rounded-2xl p-3 m-4 ">Enter</button>
+        </div>
+     </div>
+     <script>
+        const showenname = document.getElementById("showenname")
+        const editprofile = document.getElementById("edit")
+        const editpage = document.getElementById("editpage")
+        const theprofile = document.getElementById("theprofile")
+        const sup = document.getElementById("sss")
+        const inputname = document.getElementById("inputname")
+        let name;
+        
+        sup.onclick = function(){
+          name = inputname.value 
+          showenname.textContent = `username : ${name}`
+          editpage.classList.add("hidden")
+          editpage.classList.remove("flex")
+          theprofile.classList.add("flex")
+          theprofile.classList.remove("hidden")
+        }
+        editprofile.onclick = function(){
+           editpage.classList.add("flex");
+           editpage.classList.remove("hidden");
+           theprofile.classList.add("hidden");
+           theprofile.classList.remove("flex");
+        }
+        function bactoprofile(){
+         editpage.classList.add("hidden")
+         editpage.classList.remove("flex")
+         theprofile.classList.add("flex")
+         theprofile.classList.remove("hidden")
+        }
+     </script>
+</body>
+</html>

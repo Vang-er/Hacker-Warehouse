@@ -1,58 +1,58 @@
-let welcome_back = document.getElementById("log_in_box");
-let welcome = document.getElementById("sign_up_box");
-let next = document.getElementById("next");
-let mail = document.getElementById("mail");
-let input_mail = document.getElementById("input_mail");
-let create_pass_lab = document.getElementById("create_pass_lab");
-let pass1 = document.getElementById("pass1");
-let submit = document.getElementById("submit");
-
-function newuser() {
-  welcome_back.style.display = "none";
-  welcome.style.display = "block";
-}
-function thenext() {
-  mail.style.display = "none";
-  input_mail.style.display = "none";
-  create_pass_lab.style.display = "none";
-  pass1.style.display = "none";
-  confirm_pass.style.display = "none";
-  confirm_pass_input.style.display = "none";
-  back.style.display = "block";
-  next.style.display = "none";
-  submit.style.display = "block";
-}
-
-function main(event) {
-  event.preventDefault();
-
-  window.location.href = "dashboard/";
-}
-
-function theback() {
-  welcome_back.style.display = "block";
-  welcome.style.display = "none";
-}
-
-const signupForm = document.getElementById("signupForm");
-
-signupForm.addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  const password = document.getElementById("password").value;
-  const confirmPassword = document.getElementById("confirmPassword").value;
-  const passwordError = document.getElementById("passwordError");
-
-  if (password !== confirmPassword) {
-    passwordError.textContent = "Passwords do not match!";
-    passwordError.style.color = "red";
-    return;
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+    for (let cookie of cookies) {
+      cookie = cookie.trim();
+      if (cookie.startsWith(name + "=")) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
   }
+  return cookieValue;
+}
 
-  passwordError.textContent = "Passwords match!";
-  passwordError.style.color = "green";
+const loginForm = document.getElementById("loginForm");
+const errorMsg = document.getElementById("error_msg");
 
-  event.preventDefault();
+loginForm.addEventListener("submit", async function (event) {
+  event.preventDefault(); // Stop normal HTML form reload
 
-  window.location.href = "Dashboard/";
+  errorMsg.style.display = "none";
+
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value;
+
+  try {
+    // Call the DRF endpoint
+    const response = await fetch("/api/auth/login/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCookie("csrftoken"),
+      },
+      body: JSON.stringify({ username, password }),
+    });
+    const text = await response.text();
+    console.log(response.status, response.headers.get("content-type"), text);
+    const data = await response.json();
+
+    if (!response.ok) {
+      errorMsg.textContent = data.detail || "Login failed.";
+      errorMsg.style.display = "block";
+      return;
+    }
+
+    // Store JWT tokens for frontend use
+    localStorage.setItem("access_token", data.access);
+    localStorage.setItem("refresh_token", data.refresh);
+
+    // Redirect to the dashboard
+    window.location.href = "/dashboard/";
+  } catch (error) {
+    console.log(error);
+    errorMsg.textContent = "Cannot connect to server.";
+    errorMsg.style.display = "block";
+  }
 });

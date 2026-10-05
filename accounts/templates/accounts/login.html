@@ -1,84 +1,31 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haker Warehouse</title>
+    <title>Hacker Warehouse - Login</title>
     <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@200..800&family=Bubblegum+Sans&family=Chivo+Mono:ital,wght@0,100..900;1,100..900&family=Mogra&family=Passero+One&family=Sigmar&family=ZCOOL+KuaiLe&display=swap"
-        rel="stylesheet">
-    <link rel="icon" href="{% static 'accounts/media/m5zon.png' %}">
-
 </head>
-
 <body>
-
     <div id="left"></div>
     <div id="log_in_box">
+        <p id="wel_ag">Welcome</p>
+        <p id="error_msg" style="color: #ff6b6b; text-align: center; display: none;"></p>
 
-        <br>
-        <p id="wel_ag">Welcome again</p>
-        <form  method="post">
+        <form id="loginForm">
             {% csrf_token %}
-            {% if form.non_field_errors %} <div class="login-error"> {{ form.non_field_errors }} </div> {% endif %}
             <label class="labels_log">Username</label>
             <br>
-            <input type="text" name="username" placeholder="Orpheus" class="input_log" required>
+            <input type="text" id="username" class="input_log" required autofocus>
             <br>
             <label class="labels_log">Password</label>
             <br>
-            <input type="password" minlength="6" name="password" placeholder="Password" class="input_log" required>
-            <br>
-            <br>
-            <p id="forgit">Forget your password?<a href="#">click Here</a></p>
-            <input type="submit"  id="log_submit">
-            <p id="new">New here? then <span id="sign_up" onclick="newuser()">sign up</span></p>
+            <input type="password" id="password" class="input_log" required>
+            <br><br>
+            <input type="submit" id="log_submit" value="Log In">
         </form>
-
     </div>
 
-
-
-    <div id="sign_up_box">
-
-        <br>
-        <p id="wel_ag">Welcome</p>
-        <form id="signupForm" method="post">
-
-            <label class="labels_log">Username</label>
-            <br>
-            <input type="text" name="username" placeholder="Orpheus" class="input_log" required>
-
-            <br>
-
-            <label class="labels_log">Password</label>
-            <br>
-            <input type="password" id="password" name="password" placeholder="Password" class="input_log" required
-                minlength="6">
-
-            <br>
-
-            <label class="labels_log">Confirm Password</label>
-            <br>
-            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"
-                class="input_log" required minlength="6">
-
-            <p id="passwordError"></p>
-
-            <input type="submit" id="log_submit">
-
-        </form>
-
-
-
-
-
-        <script src="{% static 'accounts/js/index.js' %}"></script>
+    <script src="{% static 'accounts/js/index.js' %}"></script>
 </body>
-
 </html>

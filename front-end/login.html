@@ -3,42 +3,43 @@
 <html>
   <head>
     <link rel="stylesheet" href="../static/css/output.css" />
-
-    <!--  <link rel="stylesheet" href="{% static 'css/output.css' %}" />-->
+     <!-- <link rel="stylesheet" href="{% static 'css/output.css' %}" /> -->
     <title>log in</title>
   </head>
 
-  <!--  <link rel="stylesheet" href="{% static 'css/output.css' %}" />-->
-  <title>log in</title>
-</head>
+  <body class="bg-green-300">
+    <div class="flex justify-center">
+      <h1
+      id="loginwindow"
+        class="mt-5 relative inline-block group text-3xl border-solid bg-gray-400 rounded-3xl p-3"
+      >
+        Log in page
 
-<body class="bg-green-300">
-  <div class="flex justify-center">
-    <h1 class="mt-5 relative inline-block group text-3xl bg-gray-400 rounded-3xl p-3">
-      Log in page
-
-      <span class="absolute left-0 bottom-0 h-[2px] w-0 bg-black
-          transition-all duration-300 group-hover:w-full"></span>
-    </h1>
-  </div>
+        <span
+          class="absolute left-0 bottom-0 h-[2px] w-0 bg-black transition-all duration-300 group-hover:w-full"
+        ></span>
+      </h1>
+    </div>
 
     <form
       class="bg-gray-300 shadow-lg shadow-lime-700 flex-col border-4 rounded-xl flex absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] p-7"
+      id="form"
     >
-    {% csrf_token %}
-            {% if form.non_field_errors %} <div class="login-error"> {{ form.non_field_errors }} </div> {% endif %}
+      {% csrf_token %} {% if form.non_field_errors %}
+      <div class="login-error">{{ form.non_field_errors }}</div>
+      {% endif %}
       <p class="text-2xl text-center mb-6 relative inline-block group">
         welcome back
         <span
           class="absolute left-0 bottom-0 h-[2px] w-0 bg-black transition-all duration-300 group-hover:w-full"
-        ></span>
+        ></span><div class="flex justify-center align-middle">
+        <h3 class="text-red-600 hidden" id="warnmsg">Wrong username or password</h3></div>
       </p>
       <div>
         <label>Username : </label>
         <input
           id="username"
           type="text"
-          name="username"
           required
           placeholder="Enter your username"
           class="border rounded-lg text-sm ml-2 bg-amber-200"
@@ -49,7 +50,6 @@
         <input
           id="password"
           type="password"
-          name="password"
           required
           placeholder="password"
           class="border rounded-lg text-sm ml-2 bg-amber-200"
@@ -68,18 +68,86 @@
     <script>
       const inputusername = document.getElementById("username");
       const inputpassword = document.getElementById("password");
-      const enter = document.getElementById("enter");
-      const output1 = document.getElementById("output1");
-
-      enter.onclick = function sub() {
-        if (inputpassword.value == "" && inputusername.value == "") {
+      const warnnmsg = document.getElementById("warnmsg")
+      const csrf = document.querySelector("[name=csrfmiddlewaretoken]").value;
+      const form = document.getElementById("form");
+      async function submit(username, password, csrf) {
+        if (inputpassword.value == "" || inputusername.value == "") {
           output1.textContent = "please enter the Password and the Username";
-        } else if (inputpassword.value == "" && inputusername.value != "") {
-          output1.textContent = "please enter the password";
-        } else if (inputpassword.value != "" && inputusername.value == "") {
-          output1.textContent = "please enter the username";
+        } else {
+          try {
+            const response = await fetch("/api/auth/login-api/", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrf,
+              },
+              body: JSON.stringify({ username, password }),
+            });
+            const data = await response.json();
+            if (response.ok) {
+              localStorage.setItem("access_token", data.access);
+              localStorage.setItem("refresh_token", data.refresh);
+              window.location.href = "/dashboard/";
+            } else if (!response.ok) {
+              warnnmsg.classList.remove("hidden");
+              setTimeout(() => {warnnmsg.classList.add("hidden")},2000)
+            }
+          } catch {
+            console.log("an error happend!");
+          }
         }
-      };
+      }
+      
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        submit(inputusername.value, inputpassword.value, csrf);
+      });
+      
+    </script>
+    <script>
+     const loginwindow = document.getElementById("loginwindow")
+     const enterofloginwindow = document.getElementById("enter")
+     const formofwindow = document.getElementById("form")
+      try{
+        localStorage.getItem("th")
+      }catch(error)
+      {
+         localStorage.setItem("th", 0)
+      }
+      if(localStorage.getItem("th") == 0){
+ /*site background color*/     document.body.style.backgroundColor = "#7bf1a8"
+ /*site text color*/           document.body.style.color = "black"
+ /*site login h1 color*/       loginwindow.style.backgroundColor = "#99a1af"
+ /*site enter button color*/   enterofloginwindow.style.backgroundColor = "99a1af"
+ /*site form color*/           formofwindow.style.backgroundColor = "#d1d5dc"
+ /*site form border color*/    formofwindow.style.border = "black solid"
+      }else if(localStorage.getItem("th") == 1){
+ /*site background color*/     document.body.style.backgroundColor = "#111823"
+ /*site text color*/           document.body.style.color = "#f9fafb"
+ /*site login h1 color*/       loginwindow.style.backgroundColor = "#1F2937"
+  /*site login border h1*/     loginwindow.style.border = "solid black"
+ /*site enter button color*/   enterofloginwindow.style.backgroundColor = "1F2937"
+ /*site form color*/           formofwindow.style.backgroundColor = "#1f2937"
+ /*site form border color*/    formofwindow.style.border = "#000000 solid"
+      }else if(localStorage.getItem("th") == 2){
+ /*site background color*/     document.body.style.backgroundColor = "#f9fafb"
+ /*site text color*/           document.body.style.color = "#111827"
+ /*site login h1 color*/       loginwindow.style.backgroundColor = "#f0fdf4"
+ /*site login border h1*/      loginwindow.style.border = "solid black"
+ /*site enter button color*/   enterofloginwindow.style.backgroundColor = "f0fdf4"
+ /*site form color*/           formofwindow.style.backgroundColor = "#ffffff"
+ /*site form border color*/    formofwindow.style.border = "#00000 solid"        
+      }else if(localStorage.getItem("th") == 3){
+ /*site background color*/     document.body.style.backgroundColor = "#eef6cf"
+ /*site text color*/           document.body.style.color = "#111827"
+ /*site login h1 color*/       loginwindow.style.backgroundColor = "#eff6ff"
+ /*site login border h1*/      loginwindow.style.border = "solid black"
+ /*site enter button color*/   enterofloginwindow.style.backgroundColor = "eff6ff"
+ /*site form color*/           formofwindow.style.backgroundColor = "#dbeafe"
+ /*site form border color*/    formofwindow.style.border = "#00000 solid"        
+
+      }
     </script>
   </body>
 </html>

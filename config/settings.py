@@ -61,7 +61,7 @@ INSTALLED_APPS = [
     'media_manager',
     'tests',
 ]
-LOGIN_URL = "/web-login"
+LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "/dashboard/"
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

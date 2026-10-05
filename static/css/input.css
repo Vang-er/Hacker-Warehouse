@@ -1,3 +1,4 @@
 @import "tailwindcss";
 
 @source "../../front-end/**/*.{html,js}";
+@source "../../accounts/templates/**/*.html";
