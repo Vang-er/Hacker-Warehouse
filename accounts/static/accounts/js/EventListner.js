@@ -1,4 +1,3 @@
-import 
 addvariants.addEventListener("click", () => {
   catpresser = false;
   stockpressed = false;
@@ -138,10 +137,56 @@ pro.addEventListener("submit", async (event) => {
   window.location.reload();
 });
 variantform.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const name = document.getElementById("varname").value;
-    const product = document.getElementById("varslect").value;
-    const price = document.getElementById("varprice").value;
-    const cost = document.getElementById("varcost").value;
-    const response = await fetch("/api/")
-})
+  event.preventDefault();
+  const name = document.getElementById("varname").value;
+  const product = document.getElementById("varslect").value;
+  const price = document.getElementById("varprice").value;
+  const cost = document.getElementById("varcost").value;
+  const response = await fetch("/api/variants/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrfToken,
+    },
+    body: JSON.stringify({
+      product: product,
+      name: name,
+      price: price,
+      cost_price: cost,
+      is_active: true,
+    }),
+  });
+  const data = await response.json();
+  if (response.ok) {
+    window.alert("added suffufly");
+  } else {
+    window.alert("an errored occured");
+  }
+  document.getElementById("varname").value = "";
+  document.getElementById("varprice").value = "";
+  document.getElementById("procost").value = "";
+  window.location.reload();
+});
+stock.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const variant = document.getElementById("prostc").value;
+  const quantity = document.getElementById("stcqnt").value;
+  const response = await fetch(`/api/stock/${variant}/receive/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrfToken,
+    },
+    body: JSON.stringify({
+      quantity: quantity,
+      note: "Adding from dashboard",
+    }),
+  });
+  const data = await response.json();
+  if (response.ok) {
+    window.alert("Stock qunitiy added succefuly");
+    window.location.reload();
+  } else {
+    window.alert("an error occured");
+  }
+});

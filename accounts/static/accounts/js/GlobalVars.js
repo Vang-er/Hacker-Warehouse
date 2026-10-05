@@ -23,3 +23,8 @@ let propressed = false;
 let categories = [];
 let products = [];
 const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+const varslect = document.getElementById("varslect");
+const varprice = document.getElementById("varprice");
+const varcost = document.getElementById("varcost");
+const prostc = document.getElementById("prostc");
+const stcqnt = document.getElementById("stcqnt");

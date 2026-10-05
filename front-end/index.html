@@ -153,14 +153,18 @@
         <form id="stock" class="mx-auto mt-5 hidden w-4/5 flex-col gap-2">
           <label for="prostc">Variant</label>
           <select class="border" id="prostc"></select>
-          <label for="stcprice">Stock price</label>
-          <input type="number" min="0" name="stcprice" class="border" />
-          <label for="stcfacprc">Factory price</label>
-          <input type="number" min="0" name="stcfacprc" class="border" />
+          <label for="stcprice">Quantity</label>
+          <input
+            type="number"
+            min="0"
+            name="stcprice"
+            class="border"
+            id="stcqnt"
+          />
           <input type="checkbox" checked hidden />
           <input
             type="submit"
-            class="border cursor-pointer w-fit mt-2 p-2 rounded-2xl"
+            class="border-none cursor-pointer w-fit mt-2 p-2 rounded-2xl bg-gray-800 text-white shadow-[2px_4px_0_#999] duration-100 hover:scale-105 active:shadow-[0_0_0_#999] active:translate-y--1 transition-all"
           />
         </form>
         <form id="pro" class="mx-auto hidden flex-col">
@@ -266,14 +270,14 @@
         "cursor-pointer rounded-2xl bg-white p-5 shadow transition hover:scale-[1.02]";
 
       card.innerHTML = `
-        <h2 class="text-xl font-bold">
-            ${title}
-        </h2>
+            <h2 class="text-xl font-bold">
+                ${title}
+            </h2>
 
-        <p class="text-sm text-gray-500">
-            ${description}
-        </p>
-    `;
+            <p class="text-sm text-gray-500">
+                ${description}
+            </p>
+        `;
 
       return card;
     }
@@ -303,22 +307,29 @@
       });
 
       catslect.innerHTML = `
-  <option value="">No parent</option>
-`;
+      <option value="">No parent</option>
+    `;
       proslect.innerHTML = `<option value="">No parent</option>`;
       categories.forEach((category) => {
         proslect.innerHTML += `
-        <option value="${category.id}">${category.name}</option>
-        `;
+            <option value="${category.id}">${category.name}</option>
+            `;
       });
       categories.forEach((category) => {
         catslect.innerHTML += `
-    <option value="${category.id}">
-      ${category.name}
-    </option>
-  `;
+        <option value="${category.id}">
+          ${category.name}
+        </option>
+      `;
       });
-
+      products.forEach((product) => {
+        varslect.innerHTML += `
+            <option value="${product.id}">${product.name}</option>`;
+      });
+      stock.forEach((variant) => {
+        prostc.innerHTML += `
+        <option value="${variant.id}">${variant.variant_name}</option>"`;
+      });
       showRootCategories();
     }
     function showRootCategories() {
@@ -388,18 +399,18 @@
         "cursor-pointer rounded-2xl bg-white p-5 shadow transition hover:scale-[1.02]";
 
       card.innerHTML = `
-        <h2 class="text-xl font-bold">
-            ${product.name}
-        </h2>
+            <h2 class="text-xl font-bold">
+                ${product.name}
+            </h2>
 
-        <p class="text-sm text-gray-500">
-            ${product.brand || "No brand"}
-        </p>
+            <p class="text-sm text-gray-500">
+                ${product.brand || "No brand"}
+            </p>
 
-        <p class="mt-2 text-sm">
-            ${product.variants.length} variants
-        </p>
-    `;
+            <p class="mt-2 text-sm">
+                ${product.variants.length} variants
+            </p>
+        `;
 
       card.addEventListener("click", () => {
         openProduct(product.id);
@@ -423,66 +434,66 @@
         const isOutOfStock = variant.quantity <= 0;
 
         card.innerHTML = `
-            <div>
-              <h2 class="text-lg font-bold">${variant.name || product.name}</h2>
-              <p class="text-sm text-gray-500">SKU: ${variant.sku}</p>
+                <div>
+                  <h2 class="text-lg font-bold">${variant.name || product.name}</h2>
+                  <p class="text-sm text-gray-500">SKU: ${variant.sku}</p>
 
-              <div class="mt-3 flex justify-between text-sm">
-                  <span>Price</span>
-                  <span class="font-bold">$${variant.price}</span>
-              </div>
+                  <div class="mt-3 flex justify-between text-sm">
+                      <span>Price</span>
+                      <span class="font-bold">$${variant.price}</span>
+                  </div>
 
-              <div class="flex justify-between text-sm mt-1">
-                  <span>Stock</span>
-                  <span class="font-bold ${isOutOfStock ? "text-red-500" : "text-green-700"}">
-                    ${variant.quantity} units
-                  </span>
-              </div>
+                  <div class="flex justify-between text-sm mt-1">
+                      <span>Stock</span>
+                      <span class="font-bold ${isOutOfStock ? "text-red-500" : "text-green-700"}">
+                        ${variant.quantity} units
+                      </span>
+                  </div>
+                </div>
+
+                <!-- 👇 NEW: Counter Section -->
+                <div class="mt-4 pt-3 border-t flex items-center justify-between">
+                  <span class="text-xs font-bold uppercase text-gray-600">Withdraw:</span>
+
+                  <div class="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onclick="updateWithdrawQty(${variant.id}, ${stockId}, -1, ${variant.quantity}, '${variant.name || product.name}')"
+                      class="w-8 h-8 rounded-lg bg-gray-200 hover:bg-gray-300 font-black cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                      ${currentSelectedQty === 0 ? "disabled" : ""}
+                      id="minus-btn-${variant.id}"
+                    >
+                      -
+                    </button>
+
+                    <span id="counter-${variant.id}" class="w-8 text-center font-bold">
+                      ${currentSelectedQty}
+                    </span>
+
+                    <button
+                      type="button"
+                      onclick="updateWithdrawQty(${variant.id}, ${stockId}, 1, ${variant.quantity}, '${variant.name || product.name}')"
+                      class="w-8 h-8 rounded-lg bg-gray-200 hover:bg-gray-300 font-black cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                      ${isOutOfStock || currentSelectedQty >= variant.quantity ? "disabled" : ""}
+                      id="plus-btn-${variant.id}"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+
+            <div class="mt-3">
+              <input
+                type="text"
+                id="reason-${variant.id}"
+                oninput="updateWithdrawReason(${variant.id}, this.value)"
+                value="${withdrawCart[variant.id]?.reason || ""}"
+                placeholder="Reason (Sale, Damaged, Demo...)"
+                class="w-full text-xs px-3 py-1.5 border border-gary-300 rounded-lg outline-none bg-gray-50 focus:bg-white focus:border-black transition-colors"
+              />
             </div>
-
-            <!-- 👇 NEW: Counter Section -->
-            <div class="mt-4 pt-3 border-t flex items-center justify-between">
-              <span class="text-xs font-bold uppercase text-gray-600">Withdraw:</span>
-
-              <div class="flex items-center gap-2">
-                <button
-                  type="button"
-                  onclick="updateWithdrawQty(${variant.id}, ${stockId}, -1, ${variant.quantity}, '${variant.name || product.name}')"
-                  class="w-8 h-8 rounded-lg bg-gray-200 hover:bg-gray-300 font-black cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
-                  ${currentSelectedQty === 0 ? "disabled" : ""}
-                  id="minus-btn-${variant.id}"
-                >
-                  -
-                </button>
-
-                <span id="counter-${variant.id}" class="w-8 text-center font-bold">
-                  ${currentSelectedQty}
-                </span>
-
-                <button
-                  type="button"
-                  onclick="updateWithdrawQty(${variant.id}, ${stockId}, 1, ${variant.quantity}, '${variant.name || product.name}')"
-                  class="w-8 h-8 rounded-lg bg-gray-200 hover:bg-gray-300 font-black cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
-                  ${isOutOfStock || currentSelectedQty >= variant.quantity ? "disabled" : ""}
-                  id="plus-btn-${variant.id}"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-
-                    
-        <div class="mt-3">
-          <input 
-            type="text"
-            id="reason-${variant.id}"
-            oninput="updateWithdrawReason(${variant.id}, this.value)"
-            value="${withdrawCart[variant.id]?.reason || ""}"
-            placeholder="Reason (Sale, Damaged, Demo...)"
-            class="w-full text-xs px-3 py-1.5 border border-gary-300 rounded-lg outline-none bg-gray-50 focus:bg-white focus:border-black transition-colors"
-          />
-        </div>
-        `;
+            `;
 
         browserGrid.appendChild(card);
       });
@@ -675,34 +686,34 @@
             "bg-green-500 rounded-xl p-4 shadow flex justify-between items-center border-l-green-700 border-l-3 hover:scale-105 duration:300 transition-all";
         }
         card.innerHTML = `
-      <div>
-        <h2 class="font-bold text-lg">
-          ${item.variant_name}
-        </h2>
+          <div>
+            <h2 class="font-bold text-lg">
+              ${item.variant_name}
+            </h2>
 
-        <p class="text-sm text-gray-600">
-          SKU: ${item.sku}
-        </p>
+            <p class="text-sm text-gray-600">
+              SKU: ${item.sku}
+            </p>
 
-        <p class="text-sm">
-          Reason: <span class="font-semibold">${item.note || item.reason}</span>
-        </p>
-      </div>
+            <p class="text-sm">
+              Reason: <span class="font-semibold">${item.note || item.reason}</span>
+            </p>
+          </div>
 
-      <div class="text-right">
-        <p class="font-bold">
-          ${item.movement_type}
-        </p>
+          <div class="text-right">
+            <p class="font-bold">
+              ${item.movement_type}
+            </p>
 
-        <p class="text-lg font-bold">
-          ${item.quantity > 0 ? "+" : ""}${item.quantity}
-        </p>
+            <p class="text-lg font-bold">
+              ${item.quantity > 0 ? "+" : ""}${item.quantity}
+            </p>
 
-        <p class="text-sm text-gray-600">
-          Balance: ${item.balance_after}
-        </p>
-      </div>
-    `;
+            <p class="text-sm text-gray-600">
+              Balance: ${item.balance_after}
+            </p>
+          </div>
+        `;
 
         historyList.appendChild(card);
       });
