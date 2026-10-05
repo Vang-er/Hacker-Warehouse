@@ -53,6 +53,11 @@
       <option value="settings">settings</option>
       <option value="logout">logout</option>
       <option value="themes">theme</option>
+      <option value="about">about</option>
+      <option value="contact">contact</option>
+      <option value="help">help</option>
+      <option value="suggestion">suggestions</option>
+      <option value="report">report a problem</option>
       </select>
       <!--
       <button
@@ -220,6 +225,33 @@
         ></div>
       </div>
     </div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div id="aboutdiv"
+    class="hidden flex-col p-10"
+    >
+  <p class="text-center text-3xl">About</p>
+<div id="aboutcountainer">
+<p>
+It is a website that makes you manege your stock or inventory. you can add category, product, variant and stock. you can also show your history and change themes. 
+</p>
+<p class="text-2xl">
+  Creators
+</p>
+<p>we are three devalopers on "ctrl+shift+code" team that met in hackclub program called "third space" here are us :
+
+</p>
+<p class="text-2xl m-3">1.Timothy</p>
+<p>timothy is an Egyption devaloper from sohag, he is 15 years old, he built the APIs and backend</p>
+<p class="text-2xl m-3">2.mohamed saber </p>
+<p>mohamed aber is also an Egyption fullstuck devaloper from sueiz, he is 16 years old, he made the some APIs and back end and some frontend</p>
+<p class="text-2xl m-3">3.Baraa mohammed</p>
+<p>Baraa a frontend web devaloper from Egypt, he made the frontend in this website, he made the login page, all kind of add, all seittings, about page that you are reading right now, etc..</p>
+<p> we made it with all love </p>
+</div>
+</div>
     <div id="themesdiv" class="hidden flex-col">
       <p class="text-center text-3xl ">Themes</p>
       <div id="themediv" class="bg-green-700 flex p-4 m-4 border-green-950 rounded-2xl border-2 justify-around flex-col gap-5">
@@ -832,13 +864,28 @@ seitting.addEventListener("change", function () {
   if (this.value === "themes") {
     showthemes();
 
-  }else if(this.value == "settings" || this.value == "logout"){
-    themesdiv.classList.add("hidden");
-    
+  }else if(this.value === "about"){
+    showabout()
+    console.log("about")
+
   }
+
 });
 
+function showabout(){
+    aboutdiv.classList.remove("hidden")
+    aboutdiv.classList.add("flex")
+    
 
+
+      homepage.classList.add("hidden");
+
+  historypage.classList.add("hidden");
+  historypage.classList.remove("flex");
+
+  themesdiv.classList.remove("flex");
+  themesdiv.classList.add("hidden");
+}
 
 
 function showthemes() {
@@ -945,17 +992,12 @@ function showthemes() {
   </script>
   <script>
 
-function showdivsucks(){
-  
-}
+// function showdivsucks(){
 
-
-
-
-
-
+// }
   </script>
-<script>    const themesdiv = document.getElementById("themesdiv")
+<script>   
+ const themesdiv = document.getElementById("themesdiv")
     const catslect = document.getElementById("catslect");
     const browserTitle = document.getElementById("browser-title");
     const browserGrid = document.getElementById("browser-grid");
@@ -981,6 +1023,7 @@ function showdivsucks(){
       const dark = document.getElementById("dark")
       const light = document.getElementById("light")
       const blue = document.getElementById("blue") 
+      const aboutdiv = document.getElementById("aboutdiv")
       </script>
 </html>
 
