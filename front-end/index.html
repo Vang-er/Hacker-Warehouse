@@ -55,9 +55,7 @@
       <option value="themes">theme</option>
       <option value="about">about</option>
       <option value="contact">contact</option>
-      <option value="help">help</option>
-      <option value="suggestion">suggestions</option>
-      <option value="report">report a problem</option>
+
       </select>
       <!--
       <button
@@ -228,7 +226,18 @@
     <div></div>
     <div></div>
     <div></div>
-    <div></div>
+    <div id="contact"
+    class="hidden flex-col p-10">
+   <p class="text-center text-3xl">contact</p>
+   <div id="contactcontainer">
+    <p>
+      if you want to contact with us for any reson just as help, sggestions, help or report something just send us an Email on this Email
+
+    </p>
+    <p class="text-2xl">baraatv2006@Gmail.com</p>
+    <p>we are waiting for you</p>
+   </div>
+    </div>
     <div id="aboutdiv"
     class="hidden flex-col p-10"
     >
@@ -868,6 +877,8 @@ seitting.addEventListener("change", function () {
     showabout()
     console.log("about")
 
+  }else if(this.value === "contact"){
+    showcontact()
   }
 
 });
@@ -875,7 +886,8 @@ seitting.addEventListener("change", function () {
 function showabout(){
     aboutdiv.classList.remove("hidden")
     aboutdiv.classList.add("flex")
-    
+      contact.classList.add("hidden")
+  contact.classList.remove("flex")
 
 
       homepage.classList.add("hidden");
@@ -887,16 +899,30 @@ function showabout(){
   themesdiv.classList.add("hidden");
 }
 
+function showcontact(){
+  contact.classList.add("flex")
+  contact.classList.remove("hidden")
+    homepage.classList.add("hidden");
+    aboutdiv.classList.remove("flex")
+    aboutdiv.classList.add("hidden")
+  historypage.classList.add("hidden");
+  historypage.classList.remove("flex");
 
+  themesdiv.classList.remove("flex");
+  themesdiv.classList.add("hidden");
+
+}
 function showthemes() {
   homepage.classList.add("hidden");
-
+    aboutdiv.classList.remove("flex")
+    aboutdiv.classList.add("hidden")
   historypage.classList.add("hidden");
   historypage.classList.remove("flex");
 
   themesdiv.classList.remove("hidden");
   themesdiv.classList.add("flex");
-
+      contact.classList.add("hidden")
+  contact.classList.remove("flex")
 
 }
 
@@ -965,6 +991,10 @@ function showthemes() {
       loadhistory();
       themesdiv.classList.remove("flex")
       themesdiv.classList.add("hidden")
+          aboutdiv.classList.remove("flex")
+    aboutdiv.classList.add("hidden")
+          contact.classList.add("hidden")
+  contact.classList.remove("flex")
       seitting.value = "settings"
     }
     function showhome2() {
@@ -973,6 +1003,10 @@ function showthemes() {
       homepage.classList.remove("hidden");
       themesdiv.classList.remove("flex")
       themesdiv.classList.add("hidden")
+          aboutdiv.classList.remove("flex")
+    aboutdiv.classList.add("hidden")
+          contact.classList.add("hidden")
+  contact.classList.remove("flex")
       seitting.value = "settings"
     }
     function showwindow() {
@@ -1024,6 +1058,7 @@ function showthemes() {
       const light = document.getElementById("light")
       const blue = document.getElementById("blue") 
       const aboutdiv = document.getElementById("aboutdiv")
+      const contact = document.getElementById("contact")
       </script>
 </html>
 
