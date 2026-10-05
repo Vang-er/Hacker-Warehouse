@@ -11,8 +11,10 @@
     <nav
       class="bg-gray-400 h-fit px-6 py-4 flex justify-around items-center relative"
     >
-      <div class="white text-sm font-bold">Hacker Warehouse</div>
-      <div class="flex items-center justify-between align-middle translate-x-5">
+      <div class="white text-sm font-bold m-0">Hacker Warehouse</div>
+      <div
+        class="flex items-center justify-around align-middle translate-x-5 mr-8"
+      >
         <button
           onclick="showhome2()"
           class="mx-4 cursor-pointer my-auto relative hover:after:w-full after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-black after:transition-all after:duration-300 hover:bg-gray-600 px-1 py-1 rounded-md hover:scale-105 transition-colors duration-300 transition-transform hover:-translate-y-1"
@@ -27,17 +29,13 @@
         </button>
       </div>
       <form id="searchform" class="flex items-center gap-2 w-1/3">
-        <label class="text-sm whitespace-nowrap" id="searchtxt">
-          Search Store
-        </label>
-
         <div class="flex flex-1 items-center min-w-0">
           <input
             id="searchfeald"
             type="search"
             name="q"
             placeholder="Search..."
-            class="min-w-0 flex-1 h-10 ml-4 rounded-2xl bg-amber-200 px-4 outline-none"
+            class="min-w-0 flex-1 h-10 ml-6 rounded-2xl bg-amber-200 px-4 outline-none"
           />
 
           <button
@@ -48,11 +46,24 @@
           </button>
         </div>
       </form>
+
+      <select
+        id="seitting"
+        class="white text-sm font-bold cursor-pointer hover:after:w-full after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-black after:transition-all after:duration-300 hover:bg-gray-600 px-1 py-1 rounded-md hover:scale-105 transition-colors duration-300 transition-transform hover:-translate-y-1"
+      >
+        <option value="settings">settings</option>
+        <option value="logout">logout</option>
+        <option value="themes">theme</option>
+        <option value="about">about</option>
+        <option value="contact">contact</option>
+      </select>
+      <!--
       <button
         class="white text-sm font-bold cursor-pointer hover:after:w-full after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-black after:transition-all after:duration-300 hover:bg-gray-600 px-1 py-1 rounded-md hover:scale-105 transition-colors duration-300 transition-transform hover:-translate-y-1"
       >
         Log out
       </button>
+      -->
     </nav>
     <div class="" id="homepage">
       <div
@@ -216,6 +227,187 @@
         ></div>
       </div>
     </div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div id="contact" class="hidden flex-col p-10">
+      <p class="text-center text-3xl">contact</p>
+      <div id="contactcontainer">
+        <p>
+          if you want to contact with us for any reson just as help, sggestions,
+          help or report something just send us an Email on this Email
+        </p>
+        <p class="text-2xl">baraatv2006@Gmail.com</p>
+        <p>we are waiting for you</p>
+      </div>
+    </div>
+    <div id="aboutdiv" class="hidden flex-col p-10">
+      <p class="text-center text-3xl">About</p>
+      <div id="aboutcountainer">
+        <p>
+          It is a website that makes you manege your stock or inventory. you can
+          add category, product, variant and stock. you can also show your
+          history and change themes.
+        </p>
+        <p class="text-2xl">Creators</p>
+        <p>
+          we are three devalopers on "ctrl+shift+code" team that met in hackclub
+          program called "third space" here are us :
+        </p>
+        <p class="text-2xl m-3">1.Timothy</p>
+        <p>
+          timothy is an Egyption devaloper from sohag, he is 15 years old, he
+          built the APIs and backend
+        </p>
+        <p class="text-2xl m-3">2.mohamed saber</p>
+        <p>
+          mohamed aber is also an Egyption fullstuck devaloper from sueiz, he is
+          16 years old, he made the some APIs and back end and some frontend
+        </p>
+        <p class="text-2xl m-3">3.Baraa mohammed</p>
+        <p>
+          Baraa a frontend web devaloper from Egypt, he made the frontend in
+          this website, he made the login page, all kind of add, all seittings,
+          about page that you are reading right now, etc..
+        </p>
+        <p>we made it with all love</p>
+      </div>
+    </div>
+    <div id="themesdiv" class="hidden flex-col">
+      <p class="text-center text-3xl">Themes</p>
+      <div
+        id="themediv"
+        class="bg-green-700 flex p-4 m-4 border-green-950 rounded-2xl border-2 justify-around flex-col gap-5"
+      >
+        <div class="bg-green-300 p-6 rounded-2xl border-2">
+          <p
+            id="defult"
+            class="text-black bg-amber-300 p-5 rounded-2xl cursor-pointer"
+          >
+            Green theme
+          </p>
+        </div>
+        <div class="bg-black p-6 rounded-2xl">
+          <p
+            id="dark"
+            class="text-white bg-gray-600 p-5 rounded-2xl cursor-pointer"
+          >
+            Dark theme
+          </p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border-2">
+          <p
+            id="light"
+            class="text-white bg-gray-800 p-5 rounded-2xl cursor-pointer"
+          >
+            Light theme
+          </p>
+        </div>
+        <div class="bg-blue-400 p-6 rounded-2xl border-2">
+          <p
+            id="blue"
+            class="text-white bg-blue-950 p-5 rounded-2xl cursor-pointer"
+          >
+            Blue theme
+          </p>
+        </div>
+      </div>
+    </div>
+    <script>
+      let numofthemecount;
+      try {
+        numofthemecount = localStorage.getItem(`th`);
+      } catch (error) {
+        numofthemecount = 0;
+      }
+      if (numofthemecount == 0) {
+        greenfun();
+      } else if (numofthemecount == 1) {
+        darkfun();
+      } else if (numofthemecount == 2) {
+        lightfun();
+      } else if (numofthemecount == 3) {
+        bluefun();
+      }
+
+      dark.onclick = function () {
+        numofthemecount = 1;
+        localStorage.setItem("th", 1);
+        if (numofthemecount == 0) {
+          greenfun();
+        } else if (numofthemecount == 1) {
+          darkfun();
+        } else if (numofthemecount == 2) {
+          lightfun();
+        } else if (numofthemecount == 3) {
+          bluefun();
+        }
+      };
+      defult.onclick = function () {
+        numofthemecount = 0;
+        localStorage.setItem("th", 0);
+        if (numofthemecount == 0) {
+          greenfun();
+        } else if (numofthemecount == 1) {
+          darkfun();
+        } else if (numofthemecount == 2) {
+          lightfun();
+        } else if (numofthemecount == 3) {
+          bluefun();
+        }
+      };
+
+      light.onclick = function () {
+        numofthemecount = 2;
+        localStorage.setItem("th", 2);
+        if (numofthemecount == 0) {
+          greenfun();
+        } else if (numofthemecount == 1) {
+          darkfun();
+        } else if (numofthemecount == 2) {
+          lightfun();
+        } else if (numofthemecount == 3) {
+          bluefun();
+        }
+      };
+      blue.onclick = function () {
+        numofthemecount = 3;
+        localStorage.setItem("th", 3);
+        if (numofthemecount == 0) {
+          greenfun();
+        } else if (numofthemecount == 1) {
+          darkfun();
+        } else if (numofthemecount == 2) {
+          lightfun();
+        } else if (numofthemecount == 3) {
+          bluefun();
+        }
+      };
+      function greenfun() {
+        document.body.style.backgroundColor = "#86EFAC";
+        document.body.style.color = "black";
+        themediv.style.backgroundColor = "#15803D";
+        searchfeald.style.backgroundColor = "#fee685";
+      }
+      function darkfun() {
+        document.body.style.backgroundColor = "#111827";
+        document.body.style.color = "#F9FAFB";
+        themediv.style.backgroundColor = "#1F2937";
+        searchfeald.style.backgroundColor = "#374151";
+      }
+      function lightfun() {
+        document.body.style.backgroundColor = "#F9FAFB";
+        document.body.style.color = "#111827";
+        themediv.style.backgroundColor = "#FFFFFF";
+        searchfeald.style.backgroundColor = "#F0FDF4";
+      }
+      function bluefun() {
+        document.body.style.backgroundColor = "#EFF6FF";
+        document.body.style.color = "#111827";
+        themediv.style.backgroundColor = "#DBEAFE";
+        searchfeald.style.backgroundColor = "#EFF6FF";
+      }
+    </script>
     <div id="historypage" class="hidden flex-col items-center">
       <div class="flex items-center justify-between w-full px-4 mt-2">
         <button
@@ -260,6 +452,7 @@
 
     <div class="flex items-center justify-between w-full px-4 mt-2"></div>
     <div></div>
+    <script src="var.js"></script>
   </body>
   <script src="{% static 'accounts/js/GlobalVars.js' %}"></script>
   <script>
@@ -270,14 +463,14 @@
         "cursor-pointer rounded-2xl bg-white p-5 shadow transition hover:scale-[1.02]";
 
       card.innerHTML = `
-            <h2 class="text-xl font-bold">
-                ${title}
-            </h2>
+        <h2 class="text-xl text-black font-bold">
+            ${title}
+        </h2>
 
-            <p class="text-sm text-gray-500">
-                ${description}
-            </p>
-        `;
+        <p class="text-sm text-gray-500">
+            ${description}
+        </p>
+    `;
 
       return card;
     }
@@ -667,8 +860,6 @@
       }
     }
 
-    checkSearch();
-
     async function loadhistory() {
       const response = await fetch("/api/stock-movements/");
       const history = await response.json();
@@ -717,6 +908,59 @@
 
         historyList.appendChild(card);
       });
+    }
+
+    seitting.addEventListener("change", function () {
+      console.log("selected:", this.value);
+      themeonorof = true;
+      if (this.value === "themes") {
+        showthemes();
+      } else if (this.value === "about") {
+        showabout();
+        console.log("about");
+      } else if (this.value === "contact") {
+        showcontact();
+      }
+    });
+
+    function showabout() {
+      aboutdiv.classList.remove("hidden");
+      aboutdiv.classList.add("flex");
+      contact.classList.add("hidden");
+      contact.classList.remove("flex");
+
+      homepage.classList.add("hidden");
+
+      historypage.classList.add("hidden");
+      historypage.classList.remove("flex");
+
+      themesdiv.classList.remove("flex");
+      themesdiv.classList.add("hidden");
+    }
+
+    function showcontact() {
+      contact.classList.add("flex");
+      contact.classList.remove("hidden");
+      homepage.classList.add("hidden");
+      aboutdiv.classList.remove("flex");
+      aboutdiv.classList.add("hidden");
+      historypage.classList.add("hidden");
+      historypage.classList.remove("flex");
+
+      themesdiv.classList.remove("flex");
+      themesdiv.classList.add("hidden");
+    }
+    function showthemes() {
+      homepage.classList.add("hidden");
+      aboutdiv.classList.remove("flex");
+      aboutdiv.classList.add("hidden");
+      historypage.classList.add("hidden");
+      historypage.classList.remove("flex");
+
+      themesdiv.classList.remove("hidden");
+      themesdiv.classList.add("flex");
+      contact.classList.add("hidden");
+      contact.classList.remove("flex");
     }
 
     async function exportHistoryToCSV() {
@@ -782,14 +1026,26 @@
       historypage.classList.remove("hidden");
       historypage.classList.add("flex");
       loadhistory();
+      themesdiv.classList.remove("flex");
+      themesdiv.classList.add("hidden");
+      aboutdiv.classList.remove("flex");
+      aboutdiv.classList.add("hidden");
+      contact.classList.add("hidden");
+      contact.classList.remove("flex");
+      seitting.value = "settings";
     }
     function showhome2() {
       historypage.classList.remove("flex");
       historypage.classList.add("hidden");
       homepage.classList.remove("hidden");
+      themesdiv.classList.remove("flex");
+      themesdiv.classList.add("hidden");
+      aboutdiv.classList.remove("flex");
+      aboutdiv.classList.add("hidden");
+      contact.classList.add("hidden");
+      contact.classList.remove("flex");
+      seitting.value = "settings";
     }
-    function showhome() {}
-
     function showwindow() {
       swindow.classList.remove("hidden");
       backdrop.classList.remove("hidden");
@@ -804,6 +1060,41 @@
   <script src="{% static 'accounts/js/EventListner.js' %}"></script>
   <script>
     lucide.createIcons();
+  </script>
+  <script>
+    // function showdivsucks(){
+
+    // }
+  </script>
+  <script>
+    const themesdiv = document.getElementById("themesdiv");
+    const catslect = document.getElementById("catslect");
+    const browserTitle = document.getElementById("browser-title");
+    const browserGrid = document.getElementById("browser-grid");
+    const browserBack = document.getElementById("browser-back");
+    const variantform = document.getElementById("var");
+    const productform = document.getElementById("pro");
+    const numlogs = document.getElementById("numlogs");
+    const homepage = document.getElementById("homepage");
+    const swindow = document.getElementById("window");
+    const backdrop = document.getElementById("backdrop");
+    const addstock = document.getElementById("addstock");
+    const seitting = document.getElementById("seitting");
+    const addcat = document.getElementById("addcat");
+    let stockpressed = false;
+    let catpresser = false;
+    const addvariants = document.getElementById("addvariants");
+    const cat = document.getElementById("cat");
+    const addpro = document.getElementById("addpro");
+    const searchfeald = document.getElementById("searchfeald");
+    const stock = document.getElementById("stock");
+    const themediv = document.getElementById("themediv");
+    const defult = document.getElementById("defult");
+    const dark = document.getElementById("dark");
+    const light = document.getElementById("light");
+    const blue = document.getElementById("blue");
+    const aboutdiv = document.getElementById("aboutdiv");
+    const contact = document.getElementById("contact");
   </script>
 </html>
 

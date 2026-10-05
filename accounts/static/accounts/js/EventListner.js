@@ -126,11 +126,13 @@ pro.addEventListener("submit", async (event) => {
     }),
   });
   const data = await response.json();
+
   if (response.ok) {
-    window.alert(`product ${name} added suffeculy to category ${cat}`);
+    showdivsucks();
   } else {
-    window.alert("an error occered");
+    showdivdecli();
   }
+
   document.getElementById("proname").value = "";
   document.getElementById("prodes").value = "";
   document.getElementById("probrand").value = "";
